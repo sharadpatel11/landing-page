@@ -30,8 +30,8 @@ const Navigation = () => {
           <div className="flex items-center space-x-2">
             <Shield className="w-8 h-8 text-cyber-green animate-glow" />
             <span className="text-xl font-bold">
-              <span className="cyber-text">Cyber</span>
-              <span className="text-white">Sec</span>
+              <span className="cyber-text">Sharad </span>
+              <span className="text-white">Patel</span>
             </span>
           </div>
 
@@ -50,7 +50,9 @@ const Navigation = () => {
               size="sm"
               className="bg-cyber-green hover:bg-cyber-green/80 text-black font-semibold glow-effect"
             >
-              Resume
+              <a href="../../public/Sharad_Patel_Resume.pdf" target="_blank">
+                  Resume
+              </a>
             </Button>
           </div>
 
@@ -80,7 +82,9 @@ const Navigation = () => {
                 size="sm"
                 className="bg-cyber-green hover:bg-cyber-green/80 text-black font-semibold glow-effect w-fit"
               >
-                Resume
+                <a href="../../public/Sharad_Patel_Resume.pdf" target="_blank">
+                  Resume
+                </a>
               </Button>
             </div>
           </div>

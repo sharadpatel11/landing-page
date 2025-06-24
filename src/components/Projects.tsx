@@ -11,7 +11,7 @@ const Projects = () => {
       description: "Python-based network scanner that identifies open ports, services, and potential vulnerabilities using advanced fingerprinting techniques.",
       icon: Network,
       tags: ["Python", "Nmap", "Networking", "Security"],
-      status: "Completed",
+      status: "Planned",
       highlights: ["Port scanning", "Service detection", "Vulnerability assessment", "Report generation"]
     },
     {
@@ -19,7 +19,7 @@ const Projects = () => {
       description: "Comprehensive security assessment of a web application, including OWASP Top 10 vulnerabilities and custom exploit development.",
       icon: Bug,
       tags: ["Web Security", "OWASP", "Burp Suite", "SQL Injection"],
-      status: "Completed",
+      status: "Planned",
       highlights: ["XSS detection", "SQL injection testing", "Authentication bypass", "Security reporting"]
     },
     {
@@ -27,7 +27,7 @@ const Projects = () => {
       description: "Virtual environment for safe malware analysis with automated detection and classification using machine learning techniques.",
       icon: Shield,
       tags: ["Malware Analysis", "Machine Learning", "Python", "Virtualization"],
-      status: "In Progress",
+      status: "Planned",
       highlights: ["Static analysis", "Dynamic analysis", "ML classification", "Sandbox environment"]
     },
     {
@@ -139,7 +139,7 @@ const Projects = () => {
             className="bg-cyber-green hover:bg-cyber-green/80 text-black font-semibold px-8 py-3 glow-effect"
           >
             <Github className="w-5 h-5 mr-2" />
-            View All Projects on GitHub
+            <a href="https://github.com/sharadpatel11?tab=repositories" target="_blank">View All Projects on GitHub</a>
           </Button>
         </div>
       </div>

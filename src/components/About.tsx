@@ -35,7 +35,7 @@ const About = () => {
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
             I'm a dedicated cybersecurity student with a passion for understanding and defending 
-            against digital threats. My journey combines technical expertise with hands-on experience 
+            against digital threats. I am currently pursing MS in Cybersecurity at NYU Tandon School of Engineering. My journey combines technical expertise with hands-on experience 
             in security research and ethical hacking.
           </p>
         </div>
@@ -44,14 +44,10 @@ const About = () => {
           <div className="space-y-6">
             <h3 className="text-2xl font-semibold text-cyber-green mb-4">My Journey</h3>
             <p className="text-gray-300 leading-relaxed">
-              Currently pursuing my degree in Cybersecurity, I've developed expertise in 
-              network security, malware analysis, and incident response. My academic foundation 
-              is strengthened by practical experience in penetration testing and vulnerability assessment.
-            </p>
+              My journey into the world of IT and cybersecurity is driven by a fundamental interest in safeguarding the technologies that connect our world. With a Bachelor's in Computer Science from Queens College and hands-on experience in maintaining and securing software systems, I've developed a keen understanding of the critical need for robust digital defenses.
+           </p>
             <p className="text-gray-300 leading-relaxed">
-              I believe in the power of ethical hacking to make the digital world safer. 
-              Through continuous learning and hands-on practice, I stay current with emerging 
-              threats and defense strategies.
+              This passion has led me to the prestigious Cybersecurity Master's program at NYU Tandon School of Engineering. I am particularly drawn to Tandon's practical approach to cybersecurity education and am eager to immerse myself in areas such as vulnerability analysis and threat mitigation. My ongoing pursuit of CompTIA A+ and Security+ certifications is a testament to my commitment to building a comprehensive skill set. Proficient in Linux, Python, Java, C++, and JavaScript, I look forward to connecting with industry leaders and contributing to innovative solutions that address the evolving landscape of cyber threats.
             </p>
           </div>
           

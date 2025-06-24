@@ -3,36 +3,36 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Linkedin, Github, Twitter, Send, MessageCircle } from "lucide-react";
+import { Mail, Linkedin, Github, Twitter, Send, MessageCircle, Target, Instagram } from "lucide-react";
 
 const Contact = () => {
   const socialLinks = [
     {
       icon: Mail,
       label: "Email",
-      value: "cybersec.student@email.com",
-      href: "mailto:cybersec.student@email.com",
+      value: "sharadpatel115222@gmail.com",
+      href: "mailto:sharadpatel115222@gmail.com@gmail.com",
       color: "text-cyber-green"
     },
     {
       icon: Linkedin,
       label: "LinkedIn",
-      value: "/in/cybersecurity-student",
-      href: "https://linkedin.com",
+      value: "in/sharadpatel115222",
+      href: "https://linkedin.com/in/sharadpatel115222",
       color: "text-cyber-blue"
     },
     {
       icon: Github,
       label: "GitHub",
-      value: "/cybersec-student",
-      href: "https://github.com",
+      value: "sharadpatel11",
+      href: "https://github.com/sharadpatel11",
       color: "text-cyber-purple"
     },
     {
-      icon: Twitter,
-      label: "Twitter",
-      value: "@cybersec_student",
-      href: "https://twitter.com",
+      icon: Instagram,
+      label: "Instagram",
+      value: "@sharad_patel11",
+      href: "https://instagram.com/sharad_patel11",
       color: "text-cyber-green"
     }
   ];
@@ -120,6 +120,7 @@ const Contact = () => {
                     <a
                       key={index}
                       href={link.href}
+                      target="_black"
                       className="flex items-center space-x-4 p-3 rounded-lg bg-cyber-darker/50 hover:bg-cyber-darker transition-all duration-300 hover:glow-effect group"
                     >
                       <link.icon className={`w-6 h-6 ${link.color} group-hover:animate-glow`} />

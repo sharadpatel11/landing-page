@@ -1,8 +1,17 @@
 
 import { Button } from "@/components/ui/button";
 import { Shield, Code, Lock } from "lucide-react";
+import { useState } from "react";
 
 const Hero = () => {
+
+  const scrollToSection = (href: string) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="min-h-screen flex items-center justify-center relative matrix-bg">
       <div className="container mx-auto px-4 text-center">
@@ -36,12 +45,13 @@ const Hero = () => {
               className="bg-cyber-green hover:bg-cyber-green/80 text-black font-semibold px-8 py-3 glow-effect"
             >
               <Code className="w-5 h-5 mr-2" />
-              View Projects
+              <a href="../../public/Sharad_Patel_Resume.pdf" target="_blank">View Resume</a>
             </Button>
             <Button 
               variant="outline" 
               size="lg"
               className="border-cyber-blue text-cyber-blue hover:bg-cyber-blue/10 px-8 py-3"
+              onClick={() => scrollToSection("#contact")}
             >
               <Lock className="w-5 h-5 mr-2" />
               Contact Me

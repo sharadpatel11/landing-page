@@ -37,10 +37,10 @@ const Skills = () => {
   ];
 
   const certifications = [
-    "Security+ (In Progress)",
-    "CEH (Planned)",
-    "CISSP (Future Goal)",
-    "OSCP (Future Goal)"
+    "Google IT Support Specialist (Completed)",
+    "Google Cybersecurity Professional (Completed)",
+    "A+ (In Progress)",
+    "Security+ (Planned)",
   ];
 
   return (
