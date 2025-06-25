@@ -50,7 +50,7 @@ const Navigation = () => {
               size="sm"
               className="bg-cyber-green hover:bg-cyber-green/80 text-black font-semibold glow-effect"
             >
-              <a href="../../public/Sharad_Patel_Resume.pdf" target="_blank">
+              <a href="Sharad_Patel_Resume.pdf" target="_blank">
                   Resume
               </a>
             </Button>
@@ -82,7 +82,7 @@ const Navigation = () => {
                 size="sm"
                 className="bg-cyber-green hover:bg-cyber-green/80 text-black font-semibold glow-effect w-fit"
               >
-                <a href="../../public/Sharad_Patel_Resume.pdf" target="_blank">
+                <a href="Sharad_Patel_Resume.pdf" target="_blank">
                   Resume
                 </a>
               </Button>

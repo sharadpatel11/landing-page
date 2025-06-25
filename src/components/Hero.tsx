@@ -1,7 +1,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Shield, Code, Lock } from "lucide-react";
-import { useState } from "react";
 
 const Hero = () => {
 
@@ -45,7 +44,7 @@ const Hero = () => {
               className="bg-cyber-green hover:bg-cyber-green/80 text-black font-semibold px-8 py-3 glow-effect"
             >
               <Code className="w-5 h-5 mr-2" />
-              <a href="../../public/Sharad_Patel_Resume.pdf" target="_blank">View Resume</a>
+              <a href="Sharad_Patel_Resume.pdf" target="_blank">View Resume</a>
             </Button>
             <Button 
               variant="outline" 
