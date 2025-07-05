@@ -4,8 +4,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Linkedin, Github, Twitter, Send, MessageCircle, Target, Instagram } from "lucide-react";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
+
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+
   const socialLinks = [
     {
       icon: Mail,
@@ -37,6 +49,70 @@ const Contact = () => {
     }
   ];
 
+   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.message) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    console.log("Sending form data to webhook:", formData);
+
+    try {
+      const response = await fetch('https://workflow.thecyberadmin.com/webhook/b3fc4f9d-411d-453c-aaec-c37339d2e5f0', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          timestamp: new Date().toISOString(),
+          source: 'portfolio_contact_form'
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Message Sent!",
+          description: "Thank you for your message. I'll get back to you soon.",
+        });
+        
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <section className="py-20 bg-cyber-dark">
       <div className="container mx-auto px-4">
@@ -59,47 +135,62 @@ const Contact = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-4">
+              <form onSubmit={handleSubmit}>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-300">Name</label>
+                    <Input 
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Your Name" 
+                      className="bg-cyber-darker border-cyber-blue/30 text-white placeholder:text-gray-500 focus:border-cyber-green"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-300">Email</label>
+                    <Input 
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange} 
+                      placeholder="your.email@example.com" 
+                      className="bg-cyber-darker border-cyber-blue/30 text-white placeholder:text-gray-500 focus:border-cyber-green"
+                    />
+                  </div>
+                </div>
+                
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-300">Name</label>
-                  <Input 
-                    placeholder="Your Name" 
+                  <label className="text-sm font-medium text-gray-300">Subject</label>
+                  <Input
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange} 
+                    placeholder="Project Collaboration, Job Opportunity, etc." 
                     className="bg-cyber-darker border-cyber-blue/30 text-white placeholder:text-gray-500 focus:border-cyber-green"
                   />
                 </div>
+                
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-300">Email</label>
-                  <Input 
-                    type="email" 
-                    placeholder="your.email@example.com" 
-                    className="bg-cyber-darker border-cyber-blue/30 text-white placeholder:text-gray-500 focus:border-cyber-green"
+                  <label className="text-sm font-medium text-gray-300">Message</label>
+                  <Textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange} 
+                    placeholder="Tell me about your project, opportunity, or question..." 
+                    rows={6}
+                    className="bg-cyber-darker border-cyber-blue/30 text-white placeholder:text-gray-500 focus:border-cyber-green resize-none"
                   />
                 </div>
-              </div>
-              
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Subject</label>
-                <Input 
-                  placeholder="Project Collaboration, Job Opportunity, etc." 
-                  className="bg-cyber-darker border-cyber-blue/30 text-white placeholder:text-gray-500 focus:border-cyber-green"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Message</label>
-                <Textarea 
-                  placeholder="Tell me about your project, opportunity, or question..." 
-                  rows={6}
-                  className="bg-cyber-darker border-cyber-blue/30 text-white placeholder:text-gray-500 focus:border-cyber-green resize-none"
-                />
-              </div>
-              
-              <Button 
-                className="w-full bg-cyber-green hover:bg-cyber-green/80 text-black font-semibold py-3 glow-effect"
-              >
-                <Send className="w-5 h-5 mr-2" />
-                Send Message
-              </Button>
+                
+                <Button 
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-cyber-green hover:bg-cyber-green/80 text-black font-semibold py-3 glow-effect"
+                >
+                  {isLoading ? 'Sending...' : 'Send Message'}
+                </Button>
+              </form>
             </CardContent>
           </Card>
 
