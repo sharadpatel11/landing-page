@@ -134,9 +134,9 @@ const Contact = () => {
                 Send a Message
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <form onSubmit={handleSubmit}>
-                <div className="grid sm:grid-cols-2 gap-4">
+            <CardContent className="p-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-300">Name</label>
                     <Input 
