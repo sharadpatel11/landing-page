@@ -17,7 +17,11 @@ interface GameState {
   terminalHistory: string[];
 }
 
-const RogueFileHunt = () => {
+interface RogueFileHuntProps {
+  showHeader?: boolean;
+}
+
+const RogueFileHunt = ({ showHeader = true }: RogueFileHuntProps) => {
   const [gameState, setGameState] = useState<GameState>({
     currentDirectory: '~',
     gameWon: false,
@@ -362,14 +366,16 @@ const RogueFileHunt = () => {
   return (
     <div className="py-20 bg-cyber-darker">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4 cyber-text">
-            The Rogue File Hunt
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Test your cybersecurity skills! Find and remove the malicious file before time runs out.
-          </p>
-        </div>
+        {showHeader && (
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4 cyber-text">
+              The Rogue File Hunt
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Test your cybersecurity skills! Find and remove the malicious file before time runs out.
+            </p>
+          </div>
+        )}
 
         <Card className="max-w-4xl mx-auto bg-black border-cyber-green/30 shadow-lg glow-effect">
           <CardHeader className="bg-cyber-dark border-b border-cyber-green/30">
