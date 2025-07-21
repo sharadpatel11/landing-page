@@ -304,7 +304,7 @@ const FirewallRuleChallenge = () => {
   };
 
   const getDropZoneClass = (zone: string, hasContent: boolean) => {
-    const baseClass = "min-h-[50px] border-2 border-dashed rounded-lg p-3 text-center transition-all duration-200 ";
+    const baseClass = "min-h-[60px] border-2 border-dashed rounded-lg p-3 text-center transition-all duration-200 flex items-center justify-center ";
     if (hasContent) {
       return baseClass + "border-cyber-green/50 bg-cyber-green/10 text-cyber-green";
     }
@@ -313,39 +313,39 @@ const FirewallRuleChallenge = () => {
 
   if (gameState.gameComplete) {
     return (
-      <div className="min-h-screen bg-cyber-darker py-8">
-        <div className="container mx-auto px-4 max-w-4xl">
+      <div className="min-h-screen bg-cyber-darker py-4 sm:py-8">
+        <div className="container mx-auto px-2 sm:px-4 max-w-4xl">
           <Card className="bg-black border-cyber-green/30 shadow-lg glow-effect">
-            <CardHeader className="bg-cyber-dark border-b border-cyber-green/30 text-center">
-              <CardTitle className="text-cyber-green font-mono text-2xl">
+            <CardHeader className="bg-cyber-dark border-b border-cyber-green/30 text-center p-4 sm:p-6">
+              <CardTitle className="text-cyber-green font-mono text-lg sm:text-2xl">
                 🛡️ Configuration Complete!
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-8 text-center">
+            <CardContent className="p-4 sm:p-8 text-center">
               <div className="mb-6">
-                <div className="text-4xl font-bold text-cyber-green mb-2">
+                <div className="text-2xl sm:text-4xl font-bold text-cyber-green mb-2">
                   {gameState.score} / {gameState.totalChallenges}
                 </div>
-                <p className="text-xl text-gray-300">
+                <p className="text-sm sm:text-xl text-gray-300 break-words">
                   You resolved {gameState.score} out of {gameState.totalChallenges} tickets successfully.
                 </p>
               </div>
 
-              <div className="mb-8">
+              <div className="mb-6 sm:mb-8">
                 {gameState.score === gameState.totalChallenges ? (
                   <div className="text-cyber-green">
-                    <div className="text-lg mb-2">🎉 Perfect Score!</div>
-                    <p>Excellent work! You have a strong understanding of firewall rule configuration.</p>
+                    <div className="text-base sm:text-lg mb-2">🎉 Perfect Score!</div>
+                    <p className="text-sm sm:text-base break-words">Excellent work! You have a strong understanding of firewall rule configuration.</p>
                   </div>
                 ) : gameState.score >= gameState.totalChallenges * 0.7 ? (
                   <div className="text-blue-400">
-                    <div className="text-lg mb-2">👍 Well Done!</div>
-                    <p>Good job! You have a solid grasp of network security principles.</p>
+                    <div className="text-base sm:text-lg mb-2">👍 Well Done!</div>
+                    <p className="text-sm sm:text-base break-words">Good job! You have a solid grasp of network security principles.</p>
                   </div>
                 ) : (
                   <div className="text-yellow-400">
-                    <div className="text-lg mb-2">📚 Keep Learning!</div>
-                    <p>Practice makes perfect! Review firewall concepts and try again.</p>
+                    <div className="text-base sm:text-lg mb-2">📚 Keep Learning!</div>
+                    <p className="text-sm sm:text-base break-words">Practice makes perfect! Review firewall concepts and try again.</p>
                   </div>
                 )}
               </div>
@@ -353,13 +353,13 @@ const FirewallRuleChallenge = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   onClick={resetGame}
-                  className="px-6 py-3 bg-cyber-green text-black font-semibold rounded-lg hover:bg-cyber-green/80 transition-colors"
+                  className="px-4 sm:px-6 py-2 sm:py-3 bg-cyber-green text-black font-semibold rounded-lg hover:bg-cyber-green/80 transition-colors text-sm sm:text-base"
                 >
                   Play Again
                 </button>
                 <button
                   onClick={() => navigate('/')}
-                  className="px-6 py-3 bg-cyber-dark border border-cyber-green/30 text-cyber-green font-semibold rounded-lg hover:bg-cyber-green/10 transition-colors"
+                  className="px-4 sm:px-6 py-2 sm:py-3 bg-cyber-dark border border-cyber-green/30 text-cyber-green font-semibold rounded-lg hover:bg-cyber-green/10 transition-colors text-sm sm:text-base"
                 >
                   See More Projects
                 </button>
@@ -372,14 +372,14 @@ const FirewallRuleChallenge = () => {
   }
 
   return (
-    <div className="min-h-screen bg-cyber-darker py-8">
-      <div className="container mx-auto px-4 max-w-7xl">
+    <div className="min-h-screen bg-cyber-darker py-4 sm:py-8">
+      <div className="container mx-auto px-2 sm:px-4 max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold cyber-text mb-4">
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-4xl font-bold cyber-text mb-4">
             🛡️ Firewall Rule Challenge
           </h1>
-          <div className="flex justify-center items-center space-x-6 text-sm font-mono">
+          <div className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-6 text-sm font-mono">
             <span className="text-cyber-green">
               Challenge {gameState.currentChallengeIndex + 1} of {gameState.totalChallenges}
             </span>
@@ -387,27 +387,27 @@ const FirewallRuleChallenge = () => {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Left Panel - Ticket */}
-          <Card className="bg-black border-cyber-green/30 shadow-lg">
-            <CardHeader className="bg-cyber-dark border-b border-cyber-green/30">
-              <CardTitle className="text-cyber-green font-mono flex items-center">
+          <Card className="bg-black border-cyber-green/30 shadow-lg order-1">
+            <CardHeader className="bg-cyber-dark border-b border-cyber-green/30 p-4">
+              <CardTitle className="text-cyber-green font-mono flex items-center text-sm sm:text-base">
                 🎫 Change Request
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
-              <div className="space-y-4">
+            <CardContent className="p-4 sm:p-6">
+              <div className="space-y-3 sm:space-y-4">
                 <div>
-                  <div className="text-sm text-gray-400 font-mono">Ticket ID:</div>
-                  <div className="text-cyber-green font-mono text-lg">{currentChallenge.ticket.id}</div>
+                  <div className="text-xs sm:text-sm text-gray-400 font-mono">Ticket ID:</div>
+                  <div className="text-cyber-green font-mono text-sm sm:text-lg break-all">{currentChallenge.ticket.id}</div>
                 </div>
                 <div>
-                  <div className="text-sm text-gray-400 font-mono">Requester:</div>
-                  <div className="text-white">{currentChallenge.ticket.requester}</div>
+                  <div className="text-xs sm:text-sm text-gray-400 font-mono">Requester:</div>
+                  <div className="text-white text-sm sm:text-base break-words">{currentChallenge.ticket.requester}</div>
                 </div>
                 <div>
-                  <div className="text-sm text-gray-400 font-mono">Description:</div>
-                  <div className="text-gray-300 leading-relaxed bg-gray-900 p-3 rounded border border-gray-700">
+                  <div className="text-xs sm:text-sm text-gray-400 font-mono">Description:</div>
+                  <div className="text-gray-300 leading-relaxed bg-gray-900 p-3 rounded border border-gray-700 text-xs sm:text-sm break-words">
                     {currentChallenge.ticket.description}
                   </div>
                 </div>
@@ -416,22 +416,141 @@ const FirewallRuleChallenge = () => {
           </Card>
 
           {/* Middle Panel - Firewall Rule Table */}
-          <Card className="bg-black border-cyber-green/30 shadow-lg">
-            <CardHeader className="bg-cyber-dark border-b border-cyber-green/30">
-              <CardTitle className="text-cyber-green font-mono flex items-center">
+          <Card className="bg-black border-cyber-green/30 shadow-lg order-3 lg:order-2">
+            <CardHeader className="bg-cyber-dark border-b border-cyber-green/30 p-4">
+              <CardTitle className="text-cyber-green font-mono flex items-center text-sm sm:text-base">
                 ⚙️ Firewall Rule Configuration
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <div className="space-y-4">
-                <div className="grid grid-cols-4 gap-2 text-xs font-mono text-gray-400 mb-2">
+                {/* Responsive table headers */}
+                <div className="hidden sm:grid grid-cols-4 gap-2 text-xs font-mono text-gray-400 mb-2">
                   <div>Source</div>
                   <div>Destination</div>
                   <div>Service/Port</div>
                   <div>Action</div>
                 </div>
                 
-                <div className="grid grid-cols-4 gap-2">
+                {/* Mobile-friendly stacked layout for small screens */}
+                <div className="sm:hidden space-y-3">
+                  {/* Source Drop Zone - Mobile */}
+                  <div>
+                    <div className="text-xs font-mono text-gray-400 mb-1">Source:</div>
+                    <div
+                      onDragOver={handleDragOver}
+                      onDrop={(e) => handleDrop(e, 'source')}
+                      className={`min-h-[60px] border-2 border-dashed rounded-lg p-3 text-center transition-all duration-200 ${
+                        gameState.userRule.source 
+                          ? "border-cyber-green/50 bg-cyber-green/10 text-cyber-green" 
+                          : "border-gray-600 bg-gray-800/50 text-gray-400 hover:border-cyber-green/30 hover:bg-cyber-green/5"
+                      }`}
+                    >
+                      {gameState.userRule.source ? (
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-mono break-all flex-1 mr-2">{gameState.userRule.source}</span>
+                          <button
+                            onClick={() => clearDropZone('source')}
+                            className="text-red-400 hover:text-red-300 text-xs flex-shrink-0"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="text-xs">Drop source here</div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Destination Drop Zone - Mobile */}
+                  <div>
+                    <div className="text-xs font-mono text-gray-400 mb-1">Destination:</div>
+                    <div
+                      onDragOver={handleDragOver}
+                      onDrop={(e) => handleDrop(e, 'destination')}
+                      className={`min-h-[60px] border-2 border-dashed rounded-lg p-3 text-center transition-all duration-200 ${
+                        gameState.userRule.destination 
+                          ? "border-cyber-green/50 bg-cyber-green/10 text-cyber-green" 
+                          : "border-gray-600 bg-gray-800/50 text-gray-400 hover:border-cyber-green/30 hover:bg-cyber-green/5"
+                      }`}
+                    >
+                      {gameState.userRule.destination ? (
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-mono break-all flex-1 mr-2">{gameState.userRule.destination}</span>
+                          <button
+                            onClick={() => clearDropZone('destination')}
+                            className="text-red-400 hover:text-red-300 text-xs flex-shrink-0"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="text-xs">Drop destination here</div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Service Drop Zone - Mobile */}
+                  <div>
+                    <div className="text-xs font-mono text-gray-400 mb-1">Service/Port:</div>
+                    <div
+                      onDragOver={handleDragOver}
+                      onDrop={(e) => handleDrop(e, 'service')}
+                      className={`min-h-[60px] border-2 border-dashed rounded-lg p-3 text-center transition-all duration-200 ${
+                        gameState.userRule.service 
+                          ? "border-cyber-green/50 bg-cyber-green/10 text-cyber-green" 
+                          : "border-gray-600 bg-gray-800/50 text-gray-400 hover:border-cyber-green/30 hover:bg-cyber-green/5"
+                      }`}
+                    >
+                      {gameState.userRule.service ? (
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-mono break-all flex-1 mr-2">{gameState.userRule.service}</span>
+                          <button
+                            onClick={() => clearDropZone('service')}
+                            className="text-red-400 hover:text-red-300 text-xs flex-shrink-0"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="text-xs">Drop service here</div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Action Drop Zone - Mobile */}
+                  <div>
+                    <div className="text-xs font-mono text-gray-400 mb-1">Action:</div>
+                    <div
+                      onDragOver={handleDragOver}
+                      onDrop={(e) => handleDrop(e, 'action')}
+                      className={`min-h-[60px] border-2 border-dashed rounded-lg p-3 text-center transition-all duration-200 ${
+                        gameState.userRule.action 
+                          ? "border-cyber-green/50 bg-cyber-green/10 text-cyber-green" 
+                          : "border-gray-600 bg-gray-800/50 text-gray-400 hover:border-cyber-green/30 hover:bg-cyber-green/5"
+                      }`}
+                    >
+                      {gameState.userRule.action ? (
+                        <div className="flex items-center justify-between">
+                          <span className={`text-xs font-mono flex-1 mr-2 ${gameState.userRule.action === 'Allow' ? 'text-green-400' : 'text-red-400'}`}>
+                            {gameState.userRule.action}
+                          </span>
+                          <button
+                            onClick={() => clearDropZone('action')}
+                            className="text-red-400 hover:text-red-300 text-xs flex-shrink-0"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="text-xs">Drop action here</div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Desktop grid layout */}
+                <div className="hidden sm:grid grid-cols-4 gap-2">
                   {/* Source Drop Zone */}
                   <div
                     onDragOver={handleDragOver}
@@ -439,11 +558,11 @@ const FirewallRuleChallenge = () => {
                     className={getDropZoneClass('source', !!gameState.userRule.source)}
                   >
                     {gameState.userRule.source ? (
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-mono">{gameState.userRule.source}</span>
+                      <div className="flex flex-col items-center justify-center h-full">
+                        <span className="text-xs font-mono text-center break-all leading-tight">{gameState.userRule.source}</span>
                         <button
                           onClick={() => clearDropZone('source')}
-                          className="text-red-400 hover:text-red-300 text-xs"
+                          className="text-red-400 hover:text-red-300 text-xs mt-1"
                         >
                           ✕
                         </button>
@@ -460,11 +579,11 @@ const FirewallRuleChallenge = () => {
                     className={getDropZoneClass('destination', !!gameState.userRule.destination)}
                   >
                     {gameState.userRule.destination ? (
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-mono">{gameState.userRule.destination}</span>
+                      <div className="flex flex-col items-center justify-center h-full">
+                        <span className="text-xs font-mono text-center break-all leading-tight">{gameState.userRule.destination}</span>
                         <button
                           onClick={() => clearDropZone('destination')}
-                          className="text-red-400 hover:text-red-300 text-xs"
+                          className="text-red-400 hover:text-red-300 text-xs mt-1"
                         >
                           ✕
                         </button>
@@ -481,11 +600,11 @@ const FirewallRuleChallenge = () => {
                     className={getDropZoneClass('service', !!gameState.userRule.service)}
                   >
                     {gameState.userRule.service ? (
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-mono">{gameState.userRule.service}</span>
+                      <div className="flex flex-col items-center justify-center h-full">
+                        <span className="text-xs font-mono text-center break-all leading-tight">{gameState.userRule.service}</span>
                         <button
                           onClick={() => clearDropZone('service')}
-                          className="text-red-400 hover:text-red-300 text-xs"
+                          className="text-red-400 hover:text-red-300 text-xs mt-1"
                         >
                           ✕
                         </button>
@@ -502,13 +621,13 @@ const FirewallRuleChallenge = () => {
                     className={getDropZoneClass('action', !!gameState.userRule.action)}
                   >
                     {gameState.userRule.action ? (
-                      <div className="flex items-center justify-between">
-                        <span className={`text-xs font-mono ${gameState.userRule.action === 'Allow' ? 'text-green-400' : 'text-red-400'}`}>
+                      <div className="flex flex-col items-center justify-center h-full">
+                        <span className={`text-xs font-mono text-center ${gameState.userRule.action === 'Allow' ? 'text-green-400' : 'text-red-400'}`}>
                           {gameState.userRule.action}
                         </span>
                         <button
                           onClick={() => clearDropZone('action')}
-                          className="text-red-400 hover:text-red-300 text-xs"
+                          className="text-red-400 hover:text-red-300 text-xs mt-1"
                         >
                           ✕
                         </button>
@@ -524,7 +643,7 @@ const FirewallRuleChallenge = () => {
                   <button
                     onClick={applyRule}
                     disabled={!isRuleComplete() || gameState.showFeedback}
-                    className="w-full px-4 py-3 bg-cyber-green text-black font-semibold rounded-lg disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed hover:bg-cyber-green/80 transition-colors"
+                    className="w-full px-4 py-3 bg-cyber-green text-black font-semibold rounded-lg disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed hover:bg-cyber-green/80 transition-colors text-sm sm:text-base"
                   >
                     ✔️ Apply Rule
                   </button>
@@ -535,29 +654,29 @@ const FirewallRuleChallenge = () => {
                   <div className={`mt-4 p-4 rounded-lg border ${gameState.isCorrect ? 'bg-green-900/30 border-green-500/50 text-green-300' : 'bg-red-900/30 border-red-500/50 text-red-300'}`}>
                     <div className="flex items-center mb-2">
                       <span className="text-lg mr-2">{gameState.isCorrect ? '✅' : '❌'}</span>
-                      <span className="font-semibold">
+                      <span className="font-semibold text-sm sm:text-base">
                         {gameState.isCorrect ? 'Rule Accepted!' : 'Rule Rejected!'}
                       </span>
                     </div>
-                    <p className="text-sm mb-3">
+                    <p className="text-xs sm:text-sm mb-3 break-words">
                       {gameState.isCorrect 
                         ? 'Perfect! Your firewall rule correctly implements the security policy.' 
                         : 'This configuration is incorrect. Review the ticket requirements and network assets.'}
                     </p>
                     {!gameState.isCorrect && (
                       <div className="text-xs bg-black/50 p-3 rounded border border-gray-600">
-                        <div className="font-semibold mb-1">Expected Solution:</div>
-                        <div className="grid grid-cols-4 gap-2 text-xs font-mono">
-                          <div>Source: <span className="text-cyber-green">{currentChallenge.solution.source}</span></div>
-                          <div>Dest: <span className="text-cyber-green">{currentChallenge.solution.destination}</span></div>
-                          <div>Service: <span className="text-cyber-green">{currentChallenge.solution.service}</span></div>
+                        <div className="font-semibold mb-2">Expected Solution:</div>
+                        <div className="space-y-1 sm:space-y-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-2 text-xs font-mono">
+                          <div className="break-all">Source: <span className="text-cyber-green">{currentChallenge.solution.source}</span></div>
+                          <div className="break-all">Dest: <span className="text-cyber-green">{currentChallenge.solution.destination}</span></div>
+                          <div className="break-all">Service: <span className="text-cyber-green">{currentChallenge.solution.service}</span></div>
                           <div>Action: <span className={currentChallenge.solution.action === 'Allow' ? 'text-green-400' : 'text-red-400'}>{currentChallenge.solution.action}</span></div>
                         </div>
                       </div>
                     )}
                     <button
                       onClick={nextChallenge}
-                      className="mt-3 px-4 py-2 bg-cyber-green text-black font-semibold rounded hover:bg-cyber-green/80 transition-colors"
+                      className="mt-3 px-4 py-2 bg-cyber-green text-black font-semibold rounded hover:bg-cyber-green/80 transition-colors text-sm sm:text-base"
                     >
                       {gameState.currentChallengeIndex < challenges.length - 1 ? 'Next Ticket' : 'Complete Challenge'}
                     </button>
@@ -568,19 +687,19 @@ const FirewallRuleChallenge = () => {
           </Card>
 
           {/* Right Panel - Toolbox & Network Map */}
-          <Card className="bg-black border-cyber-green/30 shadow-lg">
-            <CardHeader className="bg-cyber-dark border-b border-cyber-green/30">
-              <CardTitle className="text-cyber-green font-mono flex items-center">
+          <Card className="bg-black border-cyber-green/30 shadow-lg order-2 lg:order-3">
+            <CardHeader className="bg-cyber-dark border-b border-cyber-green/30 p-4">
+              <CardTitle className="text-cyber-green font-mono flex items-center text-sm sm:text-base">
                 🔧 Toolbox & Network Assets
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               {/* Network Map */}
               <div className="mb-6">
-                <h4 className="text-sm font-semibold text-cyber-green mb-2">Network Assets:</h4>
+                <h4 className="text-xs sm:text-sm font-semibold text-cyber-green mb-2">Network Assets:</h4>
                 <div className="space-y-1">
                   {currentChallenge.assets.map((asset, index) => (
-                    <div key={index} className="text-xs font-mono text-gray-300 bg-gray-900 p-2 rounded border border-gray-700">
+                    <div key={index} className="text-xs font-mono text-gray-300 bg-gray-900 p-2 rounded border border-gray-700 break-all">
                       {asset}
                     </div>
                   ))}
@@ -589,8 +708,8 @@ const FirewallRuleChallenge = () => {
 
               {/* Toolbox */}
               <div>
-                <h4 className="text-sm font-semibold text-cyber-green mb-3">Drag & Drop Components:</h4>
-                <div className="space-y-3">
+                <h4 className="text-xs sm:text-sm font-semibold text-cyber-green mb-3">Drag & Drop Components:</h4>
+                <div className="space-y-3 max-h-96 overflow-y-auto terminal-scrollbar">
                   {/* Sources */}
                   <div>
                     <div className="text-xs text-gray-400 mb-2">Sources:</div>
@@ -600,7 +719,8 @@ const FirewallRuleChallenge = () => {
                           key={item.id}
                           draggable
                           onDragStart={(e) => handleDragStart(e, item)}
-                          className="px-2 py-1 bg-blue-900/30 text-blue-300 text-xs rounded border border-blue-500/30 cursor-grab hover:bg-blue-900/50 transition-colors font-mono"
+                          className="px-2 py-1 bg-blue-900/30 text-blue-300 text-xs rounded border border-blue-500/30 cursor-grab hover:bg-blue-900/50 transition-colors font-mono break-all max-w-full"
+                          style={{ wordBreak: 'break-word' }}
                         >
                           {item.label}
                         </div>
@@ -617,7 +737,8 @@ const FirewallRuleChallenge = () => {
                           key={item.id}
                           draggable
                           onDragStart={(e) => handleDragStart(e, item)}
-                          className="px-2 py-1 bg-purple-900/30 text-purple-300 text-xs rounded border border-purple-500/30 cursor-grab hover:bg-purple-900/50 transition-colors font-mono"
+                          className="px-2 py-1 bg-purple-900/30 text-purple-300 text-xs rounded border border-purple-500/30 cursor-grab hover:bg-purple-900/50 transition-colors font-mono break-all max-w-full"
+                          style={{ wordBreak: 'break-word' }}
                         >
                           {item.label}
                         </div>
@@ -634,7 +755,8 @@ const FirewallRuleChallenge = () => {
                           key={item.id}
                           draggable
                           onDragStart={(e) => handleDragStart(e, item)}
-                          className="px-2 py-1 bg-yellow-900/30 text-yellow-300 text-xs rounded border border-yellow-500/30 cursor-grab hover:bg-yellow-900/50 transition-colors font-mono"
+                          className="px-2 py-1 bg-yellow-900/30 text-yellow-300 text-xs rounded border border-yellow-500/30 cursor-grab hover:bg-yellow-900/50 transition-colors font-mono break-all max-w-full"
+                          style={{ wordBreak: 'break-word' }}
                         >
                           {item.label}
                         </div>
@@ -669,10 +791,10 @@ const FirewallRuleChallenge = () => {
         </div>
 
         {/* Back Button */}
-        <div className="text-center mt-8">
+        <div className="text-center mt-6 sm:mt-8">
           <button
             onClick={() => navigate('/')}
-            className="px-6 py-3 bg-cyber-dark border border-cyber-green/30 text-cyber-green font-semibold rounded-lg hover:bg-cyber-green/10 transition-colors"
+            className="px-4 sm:px-6 py-2 sm:py-3 bg-cyber-dark border border-cyber-green/30 text-cyber-green font-semibold rounded-lg hover:bg-cyber-green/10 transition-colors text-sm sm:text-base"
           >
             ← Back to Portfolio
           </button>
