@@ -134,6 +134,35 @@ const RogueFileHunt = ({ showHeader = true }: RogueFileHuntProps) => {
     }
   }, [gameState.gameWon, gameState.gameLost]);
 
+  // Reset game on page reload/refresh
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      // Store a flag to indicate the page was refreshed
+      sessionStorage.setItem('gameRefreshed', 'true');
+    };
+
+    const handleLoad = () => {
+      // Check if page was refreshed and reset game if needed
+      if (sessionStorage.getItem('gameRefreshed') === 'true') {
+        sessionStorage.removeItem('gameRefreshed');
+        resetGame();
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('load', handleLoad);
+
+    // Check on component mount if this is a refresh
+    if (performance.navigation.type === 1) { // TYPE_RELOAD
+      resetGame();
+    }
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('load', handleLoad);
+    };
+  }, []);
+
   const getCurrentDirectoryContents = () => {
     const node = fileSystem[gameState.currentDirectory];
     return node?.children || {};
@@ -435,15 +464,49 @@ const RogueFileHunt = ({ showHeader = true }: RogueFileHuntProps) => {
 
         {gameState.gameWon && (
           <div className="text-center mt-8">
-            <p className="text-cyber-green text-lg font-mono mb-4">
-              🛡️ Mission Accomplished! You've demonstrated excellent cybersecurity skills.
-            </p>
-            <a 
-              href="#skills"
-              className="inline-block px-6 py-3 bg-cyber-green text-black font-semibold rounded-lg hover:bg-cyber-green/80 transition-colors"
-            >
-              See the Skills I Used to Build This →
-            </a>
+            <div className="max-w-2xl mx-auto">
+              <Card className="bg-black border-cyber-green/30 glow-effect">
+                <CardHeader className="bg-cyber-dark border-b border-cyber-green/30">
+                  <CardTitle className="text-cyber-green font-mono text-2xl">Mission Accomplished!</CardTitle>
+                </CardHeader>
+                
+                <CardContent className="p-8">
+                  <div className="text-6xl mb-6">🛡️</div>
+                  <h2 className="text-3xl font-bold cyber-text mb-4">
+                    System Secured!
+                  </h2>
+                  <p className="text-xl text-gray-300 mb-6">
+                    You've demonstrated excellent cybersecurity skills by identifying and removing the malicious file before it could execute.
+                  </p>
+
+                  <div className="bg-cyber-dark p-6 rounded-lg border border-cyber-green/30 mb-6">
+                    <h3 className="text-cyber-green font-semibold mb-4">🎯 Skills Demonstrated:</h3>
+                    <ul className="text-left space-y-2 text-gray-300">
+                      <li>• File system navigation and exploration</li>
+                      <li>• Log analysis and threat detection</li>
+                      <li>• Command line proficiency</li>
+                      <li>• Security incident response</li>
+                      <li>• Critical thinking under pressure</li>
+                    </ul>
+                  </div>
+
+                  <div className="flex justify-center space-x-4">
+                    <button
+                      onClick={resetGame}
+                      className="px-6 py-3 bg-cyber-green text-black font-semibold rounded-lg hover:bg-cyber-green/80 transition-colors"
+                    >
+                      Play Again
+                    </button>
+                    <button
+                      onClick={() => window.location.href = '/'}
+                      className="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors"
+                    >
+                      Back to Portfolio
+                    </button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         )}
 
