@@ -27,7 +27,7 @@ const TerminalInterface = () => {
         '  contact   - Get contact information',
         '  resume    - Download resume',
         '  clear     - Clear terminal',
-        '  flag      - Find the hidden flag (CTF challenge)',
+  
         '  whoami    - Display current user info',
         '  ls        - List available sections',
       ]
@@ -115,21 +115,10 @@ const TerminalInterface = () => {
         'drwxr-xr-x  2 sharad sharad 4096 Jan 15 2025 games/',
         'drwxr-xr-x  2 sharad sharad 4096 Jan 15 2025 contact/',
         '-rw-r--r--  1 sharad sharad 2048 Jan 15 2025 resume.pdf',
-        '-rw-------  1 sharad sharad   42 Jan 15 2025 .flag',
+
       ]
     },
-    flag: {
-      description: 'CTF Challenge',
-      output: [
-        'CTF{welcome_to_the_matrix_h4ck3r}',
-        '',
-        'Congratulations! You found the hidden flag!',
-        'This demonstrates basic reconnaissance skills.',
-        '',
-        'Pro tip: Check the HTML source code and robots.txt',
-        'for more hidden challenges throughout the site.',
-      ]
-    },
+
     resume: {
       description: 'Download resume',
       output: [
@@ -348,8 +337,7 @@ const TerminalInterface = () => {
             </Button>
           </div>
 
-          {/* Hidden CTF Flag */}
-          <div className="ctf-flag">CTF{welcome_to_the_matrix_h4ck3r}</div>
+
         </div>
       </div>
     </section>

@@ -74,17 +74,6 @@ const Index = () => {
             </div>
             <div className="fingerprint-scanner"></div>
           </div>
-          
-          {/* Hidden CTF elements */}
-          <div className="ctf-flag">CTF{'{'}footer_reconnaissance_success{'}'}</div>
-          <div style={{display: 'none'}}>
-            {/* CTF Challenge: Inspect element to find this flag */}
-            {/* CTF{html_source_code_detective} */}
-          </div>
-          
-          <p className="text-xs text-gray-500 mt-4">
-            This site contains hidden challenges. Can you find all the flags? 🔍
-          </p>
         </div>
       </footer>
     </div>

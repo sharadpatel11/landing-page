@@ -364,14 +364,7 @@
     display: none;
   }
 
-  /* CTF Flag Hidden Element */
-  .ctf-flag {
-    position: absolute;
-    left: -9999px;
-    opacity: 0;
-    font-size: 0;
-    pointer-events: none;
-  }
+
 }
 
 /* Keyframe Animations */
