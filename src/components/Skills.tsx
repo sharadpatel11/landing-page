@@ -47,17 +47,17 @@ const Skills = () => {
     <section className="py-20 bg-cyber-dark">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 glitch" data-text="Technical Skills">
             Technical <span className="cyber-text">Skills</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            A comprehensive toolkit for cybersecurity analysis and defense
+            A comprehensive toolkit for <span className="redacted">cybersecurity analysis and defense</span>
           </p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8 mb-12">
           {skillCategories.map((category, index) => (
-            <Card key={index} className="bg-card/30 border-cyber-blue/30 hover:border-cyber-green/50 transition-all duration-300">
+            <Card key={index} className="bg-card/30 border-cyber-blue/30 hover:border-cyber-green/50 transition-all duration-300 scan-line">
               <CardHeader>
                 <CardTitle className="text-cyber-green text-xl">{category.title}</CardTitle>
               </CardHeader>

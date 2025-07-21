@@ -57,6 +57,7 @@
     @apply bg-cyber-dark text-foreground;
     background-image: var(--cyber-grid);
     background-size: var(--grid);
+    overflow-x: hidden;
   }
 
   .cyber-text {
@@ -70,6 +71,7 @@
     box-shadow: 0 0 20px rgba(0, 255, 65, 0.3), 0 0 40px rgba(0, 255, 65, 0.1);
   }
 
+  /* Enhanced Matrix Background Effect */
   .matrix-bg {
     position: relative;
     overflow: hidden;
@@ -85,6 +87,207 @@
     background: linear-gradient(180deg, transparent 0%, rgba(0, 255, 65, 0.05) 50%, transparent 100%);
     animation: matrix 10s linear infinite;
     pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Matrix Rain Canvas */
+  .matrix-rain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* Terminal Interface Styles */
+  .terminal {
+    background: #000;
+    border: 2px solid #00ff41;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.3), inset 0 0 30px rgba(0, 255, 65, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .terminal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(90deg, #ff5f56, #ffbd2e, #27ca3f);
+    border-radius: 6px 6px 0 0;
+  }
+
+  .terminal-header {
+    background: #1a1a1a;
+    padding: 8px 16px;
+    border-bottom: 1px solid #00ff41;
+    font-size: 14px;
+    color: #00ff41;
+    margin-top: 30px;
+  }
+
+  .terminal-body {
+    padding: 20px;
+    min-height: 300px;
+    background: #000;
+    color: #00ff41;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .terminal-prompt {
+    color: #00ff41;
+    margin-right: 8px;
+  }
+
+  .terminal-cursor {
+    background: #00ff41;
+    animation: blink 1s infinite;
+    width: 10px;
+    height: 20px;
+    display: inline-block;
+    margin-left: 2px;
+  }
+
+  /* Glitch Effect for Text */
+  .glitch {
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  .glitch:hover::before,
+  .glitch:hover::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+  }
+
+  .glitch:hover::before {
+    animation: glitch-1 0.3s infinite;
+    color: #ff0040;
+    z-index: -1;
+  }
+
+  .glitch:hover::after {
+    animation: glitch-2 0.3s infinite;
+    color: #00ffff;
+    z-index: -2;
+  }
+
+  /* Redaction Effect */
+  .redacted {
+    position: relative;
+    background: #000;
+    color: transparent;
+    animation: reveal 2s ease-in-out forwards;
+    animation-delay: 1s;
+  }
+
+  .redacted::before {
+    content: '[CLASSIFIED]';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    color: #ff0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    animation: redact 2s ease-in-out forwards;
+    animation-delay: 1s;
+  }
+
+  /* Scanning Line Effect */
+  .scan-line {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scan-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.4), transparent);
+    animation: scan 3s infinite;
+  }
+
+  /* Loading Animation for Custom Theme */
+  .cyber-loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(0, 255, 65, 0.1);
+    border-top: 3px solid #00ff41;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    position: relative;
+  }
+
+  .cyber-loader::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgba(0, 102, 255, 0.1);
+    border-top: 2px solid #0066ff;
+    border-radius: 50%;
+    animation: spin 0.5s linear infinite reverse;
+  }
+
+  /* Fingerprint Scanner Effect */
+  .fingerprint-scanner {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #00ff41;
+    border-radius: 50%;
+    position: relative;
+    animation: pulse 2s infinite;
+  }
+
+  .fingerprint-scanner::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 1px solid #00ff41;
+    border-radius: 50%;
+    animation: pulse 2s infinite 0.5s;
+  }
+
+  .fingerprint-scanner::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: #00ff41;
+    border-radius: 50%;
+    animation: pulse 2s infinite 1s;
   }
 
   /* Terminal scrollbar styling */
@@ -154,5 +357,93 @@
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  /* CTF Flag Hidden Element */
+  .ctf-flag {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    font-size: 0;
+    pointer-events: none;
+  }
+}
+
+/* Keyframe Animations */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes glitch-1 {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitch-2 {
+  0% { transform: translate(0); }
+  20% { transform: translate(2px, 2px); }
+  40% { transform: translate(2px, -2px); }
+  60% { transform: translate(-2px, 2px); }
+  80% { transform: translate(-2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes reveal {
+  0% { 
+    background: #000; 
+    color: transparent; 
+  }
+  50% { 
+    background: #000; 
+    color: transparent; 
+  }
+  100% { 
+    background: transparent; 
+    color: inherit; 
+  }
+}
+
+@keyframes redact {
+  0% { 
+    opacity: 1; 
+    transform: scaleX(1); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scaleX(1.1); 
+  }
+  100% { 
+    opacity: 0; 
+    transform: scaleX(0); 
+  }
+}
+
+@keyframes scan {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0% { 
+    transform: scale(1); 
+    opacity: 1; 
+  }
+  50% { 
+    transform: scale(1.1); 
+    opacity: 0.7; 
+  }
+  100% { 
+    transform: scale(1); 
+    opacity: 1; 
   }
 }

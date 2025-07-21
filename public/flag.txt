@@ -1,0 +1,33 @@
+<!--
+CONGRATULATIONS! You found the hidden flag file!
+
+   ██████╗████████╗███████╗
+  ██╔════╝╚══██╔══╝██╔════╝
+  ██║        ██║   █████╗  
+  ██║        ██║   ██╔══╝  
+  ╚██████╗   ██║   ██║     
+   ╚═════╝   ╚═╝   ╚═╝     
+
+CTF{advanced_web_reconnaissance_master}
+
+This demonstrates your skills in:
+- Web reconnaissance
+- File discovery
+- Following clues
+
+Pro Tips for Real Pentesting:
+1. Always check robots.txt for hidden directories
+2. Look for backup files (.bak, .old, .backup)
+3. Check for source code comments
+4. Use tools like dirb, gobuster, or dirbuster
+5. Examine HTML source for hidden comments
+
+Keep exploring! There might be more flags hidden around...
+
+Security through obscurity is not real security!
+-->
+
+<!-- Additional Base64 encoded message for advanced users -->
+<!-- 
+WW91IGFyZSBhIHRydWUgaGFja2VyISBUaGlzIGlzIGFub3RoZXIgZmxhZzogQ1RGe2Jhc2U2NF9kZWNvZGluZ19wcm99
+-->

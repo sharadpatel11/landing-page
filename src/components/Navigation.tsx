@@ -42,7 +42,8 @@ const Navigation = () => {
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="text-gray-300 hover:text-cyber-green transition-colors duration-300 font-medium"
+                className="text-gray-300 hover:text-cyber-green transition-colors duration-300 font-medium glitch"
+                data-text={item.name}
               >
                 {item.name}
               </button>

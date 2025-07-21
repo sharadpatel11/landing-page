@@ -30,12 +30,12 @@ const About = () => {
     <section className="py-20 bg-gradient-to-b from-cyber-dark to-cyber-darker">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 glitch" data-text="About Me">
             About <span className="cyber-text">Me</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
             I'm a dedicated cybersecurity student with a passion for understanding and defending 
-            against digital threats. I am currently pursing MS in Cybersecurity at NYU Tandon School of Engineering. My journey combines technical expertise with hands-on experience 
+            against digital threats. I am currently pursuing <span className="redacted">MS in Cybersecurity at NYU Tandon School of Engineering</span>. My journey combines technical expertise with hands-on experience 
             in security research and ethical hacking.
           </p>
         </div>
