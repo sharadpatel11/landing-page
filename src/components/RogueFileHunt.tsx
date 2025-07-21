@@ -27,7 +27,7 @@ const RogueFileHunt = () => {
     terminalHistory: [
       'System Alert! A suspicious process was detected on this server.',
       'We believe a rogue script was uploaded. You have 60 seconds to find and remove it.',
-      'Type "help" to see available commands.',
+      'Type "help" to see available commands. Use Tab for autocomplete.',
       ''
     ]
   });
@@ -142,6 +142,78 @@ const RogueFileHunt = () => {
     }));
   };
 
+  const getAutocompleteSuggestions = (command: string): string[] => {
+  const parts = command.trim().split(' ');
+  const cmd = parts[0].toLowerCase();
+  
+  // Only provide autocomplete for commands that work with files/directories
+  if (!['ls', 'cd', 'cat', 'rm'].includes(cmd)) {
+    return [];
+  }
+  
+  const currentArg = parts[parts.length - 1] || '';
+  const contents = getCurrentDirectoryContents();
+  const items = Object.keys(contents);
+  
+  // Filter items that start with the current argument
+  return items.filter(item => 
+      item.toLowerCase().startsWith(currentArg.toLowerCase())
+    );
+  };
+
+  const handleTabCompletion = () => {
+    const suggestions = getAutocompleteSuggestions(currentCommand);
+    
+    if (suggestions.length === 1) {
+      // Single match - complete it
+      const parts = currentCommand.trim().split(' ');
+      if (parts.length === 1) {
+        // Just the command, add a space
+        setCurrentCommand(currentCommand);
+      } else {
+        // Replace the last argument
+        parts[parts.length - 1] = suggestions[0];
+        setCurrentCommand(parts.join(' '));
+      }
+    } else if (suggestions.length > 1) {
+      // Multiple matches - show them
+      addToHistory(`admin@server:${gameState.currentDirectory}$ ${currentCommand}`);
+      addToHistory(suggestions.join('  '));
+      addToHistory('');
+      
+      // Find common prefix
+      const commonPrefix = suggestions.reduce((prefix, current) => {
+        let i = 0;
+        while (i < prefix.length && i < current.length && 
+              prefix[i].toLowerCase() === current[i].toLowerCase()) {
+          i++;
+        }
+        return prefix.substring(0, i);
+      });
+      
+      // Update command with common prefix if it's longer than current
+      const parts = currentCommand.trim().split(' ');
+      const currentArg = parts[parts.length - 1] || '';
+      if (commonPrefix.length > currentArg.length) {
+        parts[parts.length - 1] = commonPrefix;
+        setCurrentCommand(parts.join(' '));
+      }
+    } else if (currentCommand.trim().split(' ').length === 1) {
+      // No matches, but maybe they're trying to autocomplete a command
+      const cmd = currentCommand.toLowerCase();
+      const commands = ['help', 'ls', 'cd', 'cat', 'rm'];
+      const commandSuggestions = commands.filter(c => c.startsWith(cmd));
+      
+      if (commandSuggestions.length === 1) {
+        setCurrentCommand(commandSuggestions[0] + ' ');
+      } else if (commandSuggestions.length > 1) {
+        addToHistory(`admin@server:${gameState.currentDirectory}$ ${currentCommand}`);
+        addToHistory(commandSuggestions.join('  '));
+        addToHistory('');
+      }
+    }
+  };
+
   const executeCommand = (command: string) => {
     const trimmedCommand = command.trim();
     const parts = trimmedCommand.split(' ');
@@ -162,6 +234,8 @@ const RogueFileHunt = () => {
         addToHistory('  cat [file]  - Display file contents');
         addToHistory('  rm [file]   - Remove file');
         addToHistory('  help        - Show this help message');
+        addToHistory('');
+        addToHistory('Tip: Use Tab for autocomplete!');
         break;
 
       case 'ls':
@@ -253,11 +327,14 @@ const RogueFileHunt = () => {
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && currentCommand.trim()) {
-      executeCommand(currentCommand);
-      setCurrentCommand('');
-    }
-  };
+  if (e.key === 'Enter' && currentCommand.trim()) {
+    executeCommand(currentCommand);
+    setCurrentCommand('');
+  } else if (e.key === 'Tab') {
+    e.preventDefault(); // Prevent default tab behavior
+    handleTabCompletion();
+  }
+};
 
   const resetGame = () => {
     setGameState({
@@ -338,7 +415,7 @@ const RogueFileHunt = () => {
                     type="text"
                     value={currentCommand}
                     onChange={(e) => setCurrentCommand(e.target.value)}
-                    onKeyPress={handleKeyPress}
+                    onKeyDown={handleKeyPress}  // Changed from onKeyPress
                     className="flex-1 bg-transparent border-none outline-none text-cyber-green font-mono ml-1"
                     autoFocus
                     disabled={gameState.gameWon || gameState.gameLost}
@@ -366,7 +443,7 @@ const RogueFileHunt = () => {
 
         <div className="mt-8 text-center">
           <p className="text-gray-400 text-sm">
-            <strong>Hint:</strong> Check the system logs first, then follow the clues to find the suspicious file.
+            <strong>Tip:</strong> Use Tab for autocomplete! Start by typing "help" or check the logs first.
           </p>
         </div>
       </div>

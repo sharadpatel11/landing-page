@@ -6,8 +6,25 @@ import RogueFileHunt from "@/components/RogueFileHunt";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
+import { useEffect } from 'react';
 
 const Index = () => {
+  useEffect(() => {
+    // Immediately scroll to top without smooth behavior
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'auto' // No smooth scrolling on page load
+    });
+    
+    // Re-enable smooth scrolling after a brief delay
+    const timer = setTimeout(() => {
+      document.documentElement.style.scrollBehavior = 'smooth';
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-cyber-dark">
       <Navigation />
