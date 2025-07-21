@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import RogueFileHuntPage from "./pages/RogueFileHuntPage";
 import SpotThePhishPage from "./pages/SpotThePhishPage";
 import FirewallRuleChallengePage from "./pages/FirewallRuleChallengePage";
+import CodeVulnerabilityAuditPage from "./pages/CodeVulnerabilityAuditPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/rogue-file-hunt" element={<RogueFileHuntPage />} />
           <Route path="/spot-the-phish" element={<SpotThePhishPage />} />
           <Route path="/firewall-rule-challenge" element={<FirewallRuleChallengePage />} />
+          <Route path="/code-vulnerability-audit" element={<CodeVulnerabilityAuditPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

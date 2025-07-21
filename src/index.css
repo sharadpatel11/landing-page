@@ -104,4 +104,45 @@
   .terminal-scrollbar::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 255, 65, 0.5);
   }
+
+  /* Code Vulnerability Audit Game Styles */
+  .line-numbers .line-numbers-rows {
+    border-right: 1px solid rgba(0, 255, 65, 0.3) !important;
+    background-color: #2d2d2d !important;
+  }
+
+  .line-numbers .line-numbers-rows > span {
+    color: #666 !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s !important;
+    padding: 0 8px !important;
+  }
+
+  .line-numbers .line-numbers-rows > span:hover {
+    background-color: rgba(0, 255, 65, 0.1) !important;
+  }
+
+  /* Custom scrollbar for code blocks */
+  pre[class*="language-"] {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 255, 65, 0.3) rgba(0, 0, 0, 0.1);
+  }
+
+  pre[class*="language-"]::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  pre[class*="language-"]::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  pre[class*="language-"]::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 65, 0.3);
+    border-radius: 4px;
+  }
+
+  pre[class*="language-"]::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 65, 0.5);
+  }
 }
