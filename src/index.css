@@ -145,4 +145,14 @@
   pre[class*="language-"]::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 255, 65, 0.5);
   }
+
+  /* Hide scrollbar for mini games carousel */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
