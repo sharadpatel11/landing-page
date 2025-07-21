@@ -76,7 +76,7 @@ const Index = () => {
           </div>
           
           {/* Hidden CTF elements */}
-          <div className="ctf-flag">CTF{footer_reconnaissance_success}</div>
+          <div className="ctf-flag">CTF{'{'}footer_reconnaissance_success{'}'}</div>
           <div style={{display: 'none'}}>
             {/* CTF Challenge: Inspect element to find this flag */}
             {/* CTF{html_source_code_detective} */}
