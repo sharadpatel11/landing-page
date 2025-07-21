@@ -23,6 +23,15 @@ const MiniGames = () => {
       path: '/spot-the-phish',
       difficulty: 'Beginner',
       skills: ['Email Security', 'Social Engineering', 'Threat Recognition']
+    },
+    {
+      id: 'firewall-rule-challenge',
+      title: 'Firewall Rule Challenge',
+      description: 'Act as a network security analyst and build correct firewall rules using drag-and-drop. Translate change requests into technical configurations.',
+      icon: '🛡️',
+      path: '/firewall-rule-challenge',
+      difficulty: 'Advanced',
+      skills: ['Network Security', 'Firewall Configuration', 'Policy Analysis']
     }
   ];
 
@@ -39,7 +48,7 @@ const MiniGames = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {games.map((game) => (
             <Card 
               key={game.id}
