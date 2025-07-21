@@ -2,6 +2,7 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import RogueFileHunt from "@/components/RogueFileHunt";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
@@ -18,6 +19,10 @@ const Index = () => {
         
         <section id="about">
           <About />
+        </section>
+        
+        <section id="game">
+          <RogueFileHunt />
         </section>
         
         <section id="skills">
