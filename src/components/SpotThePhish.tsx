@@ -160,6 +160,35 @@ const SpotThePhish = () => {
 
   const currentEmail = emails[gameState.currentEmailIndex];
 
+  // Reset game on page reload/refresh
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      // Store a flag to indicate the page was refreshed
+      sessionStorage.setItem('phishGameRefreshed', 'true');
+    };
+
+    const handleLoad = () => {
+      // Check if page was refreshed and reset game if needed
+      if (sessionStorage.getItem('phishGameRefreshed') === 'true') {
+        sessionStorage.removeItem('phishGameRefreshed');
+        resetGame();
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('load', handleLoad);
+
+    // Check on component mount if this is a refresh
+    if (performance.navigation.type === 1) { // TYPE_RELOAD
+      resetGame();
+    }
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('load', handleLoad);
+    };
+  }, []);
+
   const handleAnswer = (isPhish: boolean) => {
     const correct = isPhish === currentEmail.isPhish;
     setGameState(prev => ({
