@@ -32,6 +32,15 @@ const MiniGames = () => {
       path: '/firewall-rule-challenge',
       difficulty: 'Advanced',
       skills: ['Network Security', 'Firewall Configuration', 'Policy Analysis']
+    },
+    {
+      id: 'code-vulnerability-audit',
+      title: 'Code Vulnerability Audit',
+      description: 'Act as a security code reviewer and identify vulnerabilities in code snippets from multiple programming languages. Test your knowledge of common security flaws.',
+      icon: '🕵️‍♀️',
+      path: '/code-vulnerability-audit',
+      difficulty: 'Expert',
+      skills: ['Code Review', 'Vulnerability Assessment', 'Secure Coding']
     }
   ];
 
@@ -48,7 +57,7 @@ const MiniGames = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {games.map((game) => (
             <Card 
               key={game.id}
