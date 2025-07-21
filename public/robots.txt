@@ -12,8 +12,3 @@ Allow: /
 
 User-agent: *
 Allow: /
-
-# Hidden CTF Challenge - You found the secret!
-# CTF{r0b0ts_txt_h1dd3n_s3cr3ts}
-# For more challenges, try: /flag.txt
-# Decode this: Q1RGe2JhczY0X2VuYzBkZWRfZmxhZ30=
