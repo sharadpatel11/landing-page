@@ -1,0 +1,377 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+interface FileSystemNode {
+  type: 'file' | 'directory';
+  content?: string;
+  children?: { [key: string]: FileSystemNode };
+  isMalicious?: boolean;
+}
+
+interface GameState {
+  currentDirectory: string;
+  gameWon: boolean;
+  gameLost: boolean;
+  timeLeft: number;
+  gameStarted: boolean;
+  terminalHistory: string[];
+}
+
+const RogueFileHunt = () => {
+  const [gameState, setGameState] = useState<GameState>({
+    currentDirectory: '~',
+    gameWon: false,
+    gameLost: false,
+    timeLeft: 60,
+    gameStarted: false,
+    terminalHistory: [
+      'System Alert! A suspicious process was detected on this server.',
+      'We believe a rogue script was uploaded. You have 60 seconds to find and remove it.',
+      'Type "help" to see available commands.',
+      ''
+    ]
+  });
+  
+  const [currentCommand, setCurrentCommand] = useState('');
+  const terminalRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const fileSystem: { [key: string]: FileSystemNode } = {
+    '~': {
+      type: 'directory',
+      children: {
+        'documents': { type: 'directory', children: {} },
+        'logs': { type: 'directory', children: {} },
+        'readme.txt': { 
+          type: 'file', 
+          content: 'Welcome, admin. Your mission is to find the malicious file. Start by checking the system logs for unusual activity.' 
+        }
+      }
+    },
+    '~/logs': {
+      type: 'directory',
+      children: {
+        'auth.log': { 
+          type: 'file', 
+          content: '...SUCCESS: User admin login from 192.168.1.5...\n...FAILED: User root login attempt from 10.20.30.40...\n...SUCCESS: User admin file upload temp_data.zip...' 
+        },
+        'system.log': { 
+          type: 'file', 
+          content: 'System startup successful. All services running.' 
+        }
+      }
+    },
+    '~/documents': {
+      type: 'directory',
+      children: {
+        'project_notes.txt': { 
+          type: 'file', 
+          content: 'Project Phoenix is on schedule.' 
+        },
+        'temp_data.zip': {
+          type: 'directory',
+          children: {
+            'note.txt': { 
+              type: 'file', 
+              content: 'Almost done. Just need to rename and execute the script.' 
+            },
+            'run_me.sh': { 
+              type: 'file', 
+              content: '#!/bin/bash\n# This is a suspicious script!\n# It seems to be connecting to an external server.\n# To win, type: rm run_me.sh',
+              isMalicious: true 
+            }
+          }
+        }
+      }
+    },
+    '~/documents/temp_data.zip': {
+      type: 'directory',
+      children: {
+        'note.txt': { 
+          type: 'file', 
+          content: 'Almost done. Just need to rename and execute the script.' 
+        },
+        'run_me.sh': { 
+          type: 'file', 
+          content: '#!/bin/bash\n# This is a suspicious script!\n# It seems to be connecting to an external server.\n# To win, type: rm run_me.sh',
+          isMalicious: true 
+        }
+      }
+    }
+  };
+
+  // Timer effect
+  useEffect(() => {
+    if (gameState.gameStarted && !gameState.gameWon && !gameState.gameLost && gameState.timeLeft > 0) {
+      const timer = setTimeout(() => {
+        setGameState(prev => ({ ...prev, timeLeft: prev.timeLeft - 1 }));
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else if (gameState.timeLeft === 0 && !gameState.gameWon) {
+      setGameState(prev => ({ 
+        ...prev, 
+        gameLost: true,
+        terminalHistory: [...prev.terminalHistory, '', 'SYSTEM ALERT: Time\'s up! The script has executed. System compromised!']
+      }));
+    }
+  }, [gameState.timeLeft, gameState.gameStarted, gameState.gameWon, gameState.gameLost]);
+
+  // Auto-scroll terminal
+  useEffect(() => {
+    if (terminalRef.current) {
+      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+    }
+  }, [gameState.terminalHistory]);
+
+  // Focus input when game starts or resets
+  useEffect(() => {
+    if (inputRef.current && !gameState.gameWon && !gameState.gameLost) {
+      inputRef.current.focus();
+    }
+  }, [gameState.gameWon, gameState.gameLost]);
+
+  const getCurrentDirectoryContents = () => {
+    const node = fileSystem[gameState.currentDirectory];
+    return node?.children || {};
+  };
+
+  const addToHistory = (text: string) => {
+    setGameState(prev => ({
+      ...prev,
+      terminalHistory: [...prev.terminalHistory, text]
+    }));
+  };
+
+  const executeCommand = (command: string) => {
+    const trimmedCommand = command.trim();
+    const parts = trimmedCommand.split(' ');
+    const cmd = parts[0].toLowerCase();
+    const args = parts.slice(1);
+
+    addToHistory(`admin@server:${gameState.currentDirectory}$ ${command}`);
+
+    if (!gameState.gameStarted) {
+      setGameState(prev => ({ ...prev, gameStarted: true }));
+    }
+
+    switch (cmd) {
+      case 'help':
+        addToHistory('Available commands:');
+        addToHistory('  ls          - List files and directories');
+        addToHistory('  cd [dir]    - Change directory');
+        addToHistory('  cat [file]  - Display file contents');
+        addToHistory('  rm [file]   - Remove file');
+        addToHistory('  help        - Show this help message');
+        break;
+
+      case 'ls':
+        const contents = getCurrentDirectoryContents();
+        const items = Object.keys(contents);
+        if (items.length === 0) {
+          addToHistory('Directory is empty');
+        } else {
+          items.forEach(item => {
+            const node = contents[item];
+            const prefix = node.type === 'directory' ? 'd' : '-';
+            const color = node.type === 'directory' ? 'text-cyber-blue' : 'text-gray-300';
+            addToHistory(`${prefix}rwxr-xr-x 1 admin admin 4096 Dec 20 10:30 ${item}`);
+          });
+        }
+        break;
+
+      case 'cd':
+        if (args.length === 0) {
+          addToHistory('cd: missing argument');
+          break;
+        }
+        
+        let newDir = args[0];
+        if (newDir === '..') {
+          const pathParts = gameState.currentDirectory.split('/');
+          if (pathParts.length > 1) {
+            pathParts.pop();
+            newDir = pathParts.join('/') || '~';
+          } else {
+            newDir = '~';
+          }
+        } else if (newDir === '~') {
+          newDir = '~';
+        } else if (!newDir.startsWith('~/')) {
+          newDir = gameState.currentDirectory === '~' ? `~/${newDir}` : `${gameState.currentDirectory}/${newDir}`;
+        }
+
+        if (fileSystem[newDir]) {
+          setGameState(prev => ({ ...prev, currentDirectory: newDir }));
+        } else {
+          addToHistory(`cd: ${args[0]}: No such file or directory`);
+        }
+        break;
+
+      case 'cat':
+        if (args.length === 0) {
+          addToHistory('cat: missing argument');
+          break;
+        }
+        
+        const contents2 = getCurrentDirectoryContents();
+        const file = contents2[args[0]];
+        if (file && file.type === 'file') {
+          addToHistory(file.content || '');
+        } else {
+          addToHistory(`cat: ${args[0]}: No such file or directory`);
+        }
+        break;
+
+      case 'rm':
+        if (args.length === 0) {
+          addToHistory('rm: missing argument');
+          break;
+        }
+        
+        const contents3 = getCurrentDirectoryContents();
+        const fileToRemove = contents3[args[0]];
+        if (fileToRemove && fileToRemove.type === 'file') {
+          if (fileToRemove.isMalicious) {
+            setGameState(prev => ({
+              ...prev,
+              gameWon: true,
+              terminalHistory: [...prev.terminalHistory, '', `SYSTEM: Malicious file ${args[0]} removed. System secure. Well done!`, '🎉 Congratulations! You successfully identified and removed the threat!']
+            }));
+          } else {
+            addToHistory(`File ${args[0]} removed`);
+          }
+        } else {
+          addToHistory(`rm: ${args[0]}: No such file or directory`);
+        }
+        break;
+
+      default:
+        addToHistory(`${cmd}: command not found`);
+    }
+    
+    addToHistory('');
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && currentCommand.trim()) {
+      executeCommand(currentCommand);
+      setCurrentCommand('');
+    }
+  };
+
+  const resetGame = () => {
+    setGameState({
+      currentDirectory: '~',
+      gameWon: false,
+      gameLost: false,
+      timeLeft: 60,
+      gameStarted: false,
+      terminalHistory: [
+        'System Alert! A suspicious process was detected on this server.',
+        'We believe a rogue script was uploaded. You have 60 seconds to find and remove it.',
+        'Type "help" to see available commands.',
+        ''
+      ]
+    });
+    setCurrentCommand('');
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  return (
+    <div className="py-20 bg-cyber-darker">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold mb-4 cyber-text">
+            The Rogue File Hunt
+          </h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Test your cybersecurity skills! Find and remove the malicious file before time runs out.
+          </p>
+        </div>
+
+        <Card className="max-w-4xl mx-auto bg-black border-cyber-green/30 shadow-lg glow-effect">
+          <CardHeader className="bg-cyber-dark border-b border-cyber-green/30">
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-cyber-green font-mono text-lg">
+                Terminal Simulator - Security Challenge
+              </CardTitle>
+              <div className="flex items-center space-x-4">
+                {gameState.gameStarted && !gameState.gameWon && !gameState.gameLost && (
+                  <div className="text-cyber-green font-mono">
+                    Time: {formatTime(gameState.timeLeft)}
+                  </div>
+                )}
+                {(gameState.gameWon || gameState.gameLost) && (
+                  <button
+                    onClick={resetGame}
+                    className="px-4 py-2 bg-cyber-green text-black font-mono rounded hover:bg-cyber-green/80 transition-colors"
+                  >
+                    Try Again
+                  </button>
+                )}
+              </div>
+            </div>
+          </CardHeader>
+          
+          <CardContent className="p-0">
+            <div 
+              ref={terminalRef}
+              className="bg-black text-cyber-green font-mono text-sm h-96 overflow-y-auto p-4 terminal-scrollbar cursor-text"
+              onClick={() => inputRef.current?.focus()}
+            >
+              {gameState.terminalHistory.map((line, index) => (
+                <div key={index} className="whitespace-pre-wrap">
+                  {line}
+                </div>
+              ))}
+              
+              {!gameState.gameWon && !gameState.gameLost && (
+                <div className="flex items-center">
+                  <span className="text-cyber-green">admin@server:{gameState.currentDirectory}$ </span>
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={currentCommand}
+                    onChange={(e) => setCurrentCommand(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    className="flex-1 bg-transparent border-none outline-none text-cyber-green font-mono ml-1"
+                    autoFocus
+                    disabled={gameState.gameWon || gameState.gameLost}
+                  />
+                  <span className="text-cyber-green animate-pulse">█</span>
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
+        {gameState.gameWon && (
+          <div className="text-center mt-8">
+            <p className="text-cyber-green text-lg font-mono mb-4">
+              🛡️ Mission Accomplished! You've demonstrated excellent cybersecurity skills.
+            </p>
+            <a 
+              href="#skills"
+              className="inline-block px-6 py-3 bg-cyber-green text-black font-semibold rounded-lg hover:bg-cyber-green/80 transition-colors"
+            >
+              See the Skills I Used to Build This →
+            </a>
+          </div>
+        )}
+
+        <div className="mt-8 text-center">
+          <p className="text-gray-400 text-sm">
+            <strong>Hint:</strong> Check the system logs first, then follow the clues to find the suspicious file.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default RogueFileHunt;
