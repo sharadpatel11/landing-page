@@ -177,7 +177,13 @@ const MiniGames = () => {
                 >
                   <Card 
                     className="bg-black border-cyber-green/30 shadow-lg glow-effect hover:border-cyber-green/50 transition-all duration-300 cursor-pointer group mx-auto max-w-2xl"
-                    onClick={() => navigate(game.path)}
+                    onClick={() => {
+                      if (game.id === 'crypto-tool') {
+                        window.open(game.path, '_blank');
+                      } else {
+                        navigate(game.path);
+                      }
+                    }}
                   >
                     <CardHeader className="bg-cyber-dark border-b border-cyber-green/30">
                       <div className="flex items-center space-x-4">
@@ -216,7 +222,7 @@ const MiniGames = () => {
 
                       <div className="flex justify-between items-center">
                         <div className="text-sm text-gray-400 font-mono">
-                          Click to play →
+                          {game.id === 'crypto-tool' ? 'Click to open in new tab →' : 'Click to play →'}
                         </div>
                         <div className="w-2 h-2 bg-cyber-green rounded-full animate-pulse group-hover:animate-none group-hover:bg-white transition-colors"></div>
                       </div>

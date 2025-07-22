@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Lock, Unlock, Copy, Eye, EyeOff } from "lucide-react";
+import { Lock, Unlock, Copy, Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const CryptoTool = () => {
@@ -144,9 +144,32 @@ const CryptoTool = () => {
     setOutput(temp);
   };
 
+  const returnToPortfolio = () => {
+    // Check if this window was opened from another tab
+    if (window.opener && !window.opener.closed) {
+      // Close this tab and focus on the opener
+      window.close();
+    } else {
+      // Fallback: navigate to the main portfolio page
+      window.location.href = '/';
+    }
+  };
+
   return (
     <section className="py-20 bg-gradient-to-b from-cyber-darker to-cyber-dark min-h-screen">
       <div className="container mx-auto px-4">
+        {/* Return to Portfolio Button */}
+        <div className="mb-8">
+          <Button
+            onClick={returnToPortfolio}
+            variant="outline"
+            className="border-cyber-blue text-cyber-blue hover:bg-cyber-blue/10"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Return to Portfolio
+          </Button>
+        </div>
+
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 glitch" data-text="Crypto Tool">
             <span className="cyber-text">Crypto</span> Tool
