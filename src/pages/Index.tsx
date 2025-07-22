@@ -67,7 +67,6 @@ const Index = () => {
               <span className="text-cyber-green text-sm font-mono">System Secure</span>
               <div className="w-2 h-2 bg-cyber-green rounded-full"></div>
             </div>
-            <div className="fingerprint-scanner-static"></div>
           </div>
         </div>
       </footer>
