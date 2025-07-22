@@ -19,8 +19,8 @@ const Navigation = () => {
   const navItems = [
     { name: "Home", command: "~/", href: "#home", tooltip: "Home" },
     { name: "About", command: "whoami", href: "#about", tooltip: "About Me" },
-    { name: "Games", command: "ls /games", href: "#games", tooltip: "Security Games" },
     { name: "Skills", command: "man skills", href: "#skills", tooltip: "Skills & Expertise" },
+    { name: "Games", command: "ls /games", href: "#games", tooltip: "Security Games" },
     { name: "Projects", command: "ls /projects", href: "#projects", tooltip: "Projects Portfolio" },
     { name: "Contact", command: "ping", href: "#contact", tooltip: "Contact Information" }
   ];
