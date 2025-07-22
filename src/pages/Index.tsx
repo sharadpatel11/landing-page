@@ -68,11 +68,11 @@ const Index = () => {
           </p>
           <div className="flex justify-center items-center mt-4 space-x-4">
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-cyber-green rounded-full animate-pulse"></div>
+              <div className="w-2 h-2 bg-cyber-green rounded-full"></div>
               <span className="text-cyber-green text-sm font-mono">System Secure</span>
-              <div className="w-2 h-2 bg-cyber-green rounded-full animate-pulse"></div>
+              <div className="w-2 h-2 bg-cyber-green rounded-full"></div>
             </div>
-            <div className="fingerprint-scanner"></div>
+            <div className="fingerprint-scanner-static"></div>
           </div>
         </div>
       </footer>
