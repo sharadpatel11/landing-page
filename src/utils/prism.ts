@@ -24,16 +24,39 @@ if (typeof window !== 'undefined') {
   if (Prism.manual === undefined) {
     Prism.manual = true;
   }
+  
+  // Log available languages for debugging
+  console.log('Prism languages loaded:', Object.keys(Prism.languages || {}));
 }
 
 export const highlightCode = (element: HTMLElement): boolean => {
   try {
-    if (!Prism || !Prism.highlightElement) {
-      console.warn('Prism is not properly loaded');
+    if (!element) {
+      console.warn('No element provided for highlighting');
       return false;
     }
+
+    if (!Prism) {
+      console.error('Prism is not available');
+      return false;
+    }
+
+    if (!Prism.highlightElement) {
+      console.error('Prism.highlightElement is not available');
+      return false;
+    }
+
+    // Get the language from the element's class
+    const languageMatch = element.className.match(/language-(\w+)/);
+    const language = languageMatch ? languageMatch[1] : null;
     
+    if (language && !Prism.languages[language]) {
+      console.warn(`Language '${language}' is not loaded in Prism`);
+      // Still try to highlight, Prism might handle it gracefully
+    }
+
     Prism.highlightElement(element);
+    console.log(`Successfully highlighted code with language: ${language}`);
     return true;
   } catch (error) {
     console.error('Error highlighting code:', error);
