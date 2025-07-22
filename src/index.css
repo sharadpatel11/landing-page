@@ -913,3 +913,33 @@
     opacity: 0;
   }
 }
+
+/* Enhanced dark theme contact form styling */
+.contact-section {
+  background: radial-gradient(ellipse at center, rgba(0, 255, 65, 0.05) 0%, transparent 70%),
+              linear-gradient(135deg, #050505 0%, #0a0a0a 50%, #000000 100%);
+}
+
+/* Improved glassmorphism for dark theme */
+.dark-glass {
+  background: linear-gradient(135deg, 
+    rgba(0, 0, 0, 0.8) 0%, 
+    rgba(20, 20, 20, 0.6) 30%, 
+    rgba(10, 10, 10, 0.8) 70%, 
+    rgba(0, 0, 0, 0.9) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 20px rgba(0, 255, 65, 0.1);
+}
+
+/* Enhanced cyber grid background */
+.cyber-grid-enhanced {
+  background-image: 
+    linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, rgba(0, 102, 255, 0.05) 0%, transparent 50%);
+  background-size: 20px 20px, 20px 20px, 100px 100px;
+}
