@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>�� Blinking Cursor</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" type="image/svg+xml" href="favicon_static.svg">
+    <style>
+        body {
+            background: #0a0a0a;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .demo {
+            border: 1px solid #00ff41;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            background: rgba(0, 255, 65, 0.1);
+        }
+        .cursor-demo {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: #00ff41;
+            animation: blink 1.2s infinite;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1>🔥 Animated Blinking Cursor Favicon</h1>
+    
+    <div class="demo">
+        <h2>What you should see:</h2>
+        <p>✅ The browser tab should show a blinking green cursor icon</p>
+        <p>✅ The cursor blinks on and off every 1.2 seconds</p>
+        <p>✅ It uses the cyber green color (#00ff41) from your theme</p>
+    </div>
+    
+    <div class="demo">
+        <h2>Preview of the cursor effect:</h2>
+        <p>This is what the cursor looks like: <span class="cursor-demo"></span></p>
+        <p>(The favicon in the tab should blink similarly)</p>
+    </div>
+    
+    <div class="demo">
+        <h2>Technical Details:</h2>
+        <ul>
+            <li><strong>Format:</strong> Animated SVG with CSS animation</li>
+            <li><strong>Size:</strong> 32x32 pixels (16x16 cursor rectangle)</li>
+            <li><strong>Color:</strong> #00ff41 (cyber green)</li>
+            <li><strong>Animation:</strong> 1.2 second cycle (visible → visible → hidden → hidden)</li>
+            <li><strong>Fallback:</strong> Static SVG for browsers that don't support animation</li>
+        </ul>
+    </div>
+    
+    <div class="demo">
+        <h2>Browser Compatibility:</h2>
+        <ul>
+            <li>✅ Chrome/Edge: Full animated SVG support</li>
+            <li>✅ Firefox: Full animated SVG support</li>
+            <li>✅ Safari: Full animated SVG support</li>
+            <li>⚠️ Older browsers: Falls back to static version</li>
+        </ul>
+    </div>
+    
+    <p><a href="../index.html" style="color: #00ff41;">← Back to main site</a></p>
+</body>
+</html>
