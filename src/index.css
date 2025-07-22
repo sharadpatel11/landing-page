@@ -429,6 +429,106 @@
     display: none;
   }
 
+  /* Live User Profile Terminal Session Styles */
+  .profile-card {
+    position: relative;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .profile-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(0, 255, 65, 0.3), rgba(0, 102, 255, 0.3), rgba(139, 92, 246, 0.3));
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+    animation: glow-border 3s ease-in-out infinite alternate;
+  }
+
+  /* Enhanced scanline animation */
+  @keyframes scanline {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+
+  .animate-scan {
+    animation: scanline 4s linear infinite;
+  }
+
+  /* Glowing border animation */
+  @keyframes glow-border {
+    0% {
+      opacity: 0.5;
+      filter: hue-rotate(0deg);
+    }
+    100% {
+      opacity: 1;
+      filter: hue-rotate(90deg);
+    }
+  }
+
+  /* Terminal typing cursor */
+  .terminal-cursor-blink {
+    animation: blink 1s infinite;
+  }
+
+  /* Matrix digital rain effect for background particles */
+  .matrix-particle {
+    position: absolute;
+    color: #00ff41;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    opacity: 0.3;
+    animation: matrix-fall 8s linear infinite;
+  }
+
+  @keyframes matrix-fall {
+    0% {
+      transform: translateY(-100vh);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.3;
+    }
+    90% {
+      opacity: 0.3;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+  }
+
+  /* Progress bar glow effect */
+  .progress-bar-glow {
+    box-shadow: 0 0 10px currentColor;
+  }
+
+  /* Window controls hover effects */
+  .window-control:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 8px currentColor;
+  }
+
+  /* Enhanced terminal prompt */
+  .terminal-prompt-enhanced {
+    text-shadow: 0 0 5px currentColor;
+  }
+
 
 }
 
