@@ -145,7 +145,7 @@ const CryptoTool = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-cyber-darker to-cyber-dark">
+    <section className="py-20 bg-gradient-to-b from-cyber-darker to-cyber-dark min-h-screen">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 glitch" data-text="Crypto Tool">
@@ -157,7 +157,7 @@ const CryptoTool = () => {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <Card className="bg-card/30 border-cyber-green/30 scan-line">
+          <Card className="bg-card/40 border-cyber-green/40 shadow-xl glow-effect">
             <CardHeader>
               <CardTitle className="text-cyber-green flex items-center gap-2">
                 <Lock className="w-6 h-6" />

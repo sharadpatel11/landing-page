@@ -6,7 +6,6 @@ import MiniGames from "@/components/MiniGames";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
-import CryptoTool from "@/components/CryptoTool";
 import { useEffect } from 'react';
 
 const Index = () => {
@@ -45,10 +44,6 @@ const Index = () => {
         
         <section id="games">
           <MiniGames />
-        </section>
-        
-        <section id="crypto">
-          <CryptoTool />
         </section>
         
         <section id="projects">

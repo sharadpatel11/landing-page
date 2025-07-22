@@ -30,6 +30,15 @@ const MiniGames = () => {
       skills: ['Email Security', 'Social Engineering', 'Threat Recognition']
     },
     {
+      id: 'crypto-tool',
+      title: 'Crypto Tool Playground',
+      description: 'Interactive encryption and decryption tool. Learn about Caesar cipher, ROT13, Base64, and more cryptographic techniques.',
+      icon: '🔐',
+      path: '/crypto-tool',
+      difficulty: 'Beginner',
+      skills: ['Cryptography', 'Encryption', 'Decryption', 'Text Manipulation']
+    },
+    {
       id: 'firewall-rule-challenge',
       title: 'Firewall Rule Challenge',
       description: 'Act as a network security analyst and build correct firewall rules using drag-and-drop. Translate change requests into technical configurations.',
