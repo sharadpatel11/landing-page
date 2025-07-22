@@ -161,6 +161,38 @@
     margin-left: 2px;
   }
 
+  /* Blinking cursor for navigation logo */
+  .blinking-cursor {
+    animation: blink 1s step-end infinite;
+  }
+
+  /* System status bar styling */
+  .system-status-bar {
+    font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+  }
+
+  /* Command prompt styling */
+  .command-prompt {
+    color: #00ff41;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+  }
+
+  /* Status indicator animations */
+  .status-pulse {
+    animation: pulse 2s infinite;
+  }
+
+  /* Terminal-style hover effects */
+  .terminal-hover:hover {
+    background: rgba(0, 255, 65, 0.1);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+  }
+
   /* Glitch Effect for Text */
   .glitch {
     position: relative;
