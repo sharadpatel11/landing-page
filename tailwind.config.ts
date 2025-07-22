@@ -99,8 +99,8 @@ export default {
 						transform: 'scale(1)'
 					},
 					'50%': {
-						opacity: '0.8',
-						transform: 'scale(1.05)'
+						opacity: '1',
+						transform: 'scale(1)'
 					}
 				},
 				'matrix': {

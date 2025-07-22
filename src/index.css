@@ -73,7 +73,7 @@
   }
 
   .glow-effect {
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.3), 0 0 40px rgba(0, 255, 65, 0.1);
+    box-shadow: 0 0 5px rgba(0, 255, 65, 0.1), 0 0 10px rgba(0, 255, 65, 0.05);
   }
 
   /* Enhanced Matrix Background Effect */
@@ -845,6 +845,7 @@
   overflow: hidden;
 }
 
+/* Disabled glow effect - keeping class for compatibility */
 .transmission-glow::before {
   content: '';
   position: absolute;
@@ -852,13 +853,10 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(45deg, #00ff41, #0066ff, #8b5cf6, #00ff41);
-  background-size: 400% 400%;
-  animation: gradientShift 3s ease infinite;
+  background: none;
   border-radius: inherit;
   z-index: -1;
-  filter: blur(8px);
-  opacity: 0.8;
+  opacity: 0;
 }
 
 @keyframes gradientShift {
