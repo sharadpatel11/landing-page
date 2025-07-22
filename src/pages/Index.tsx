@@ -39,12 +39,12 @@ const Index = () => {
           <About />
         </section>
         
-        <section id="games">
-          <MiniGames />
-        </section>
-        
         <section id="skills">
           <Skills />
+        </section>
+        
+        <section id="games">
+          <MiniGames />
         </section>
         
         <section id="crypto">
