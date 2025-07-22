@@ -185,8 +185,12 @@ const Contact = () => {
   };
 
   return (
-    <section className="py-20 bg-cyber-dark">
-      <div className="container mx-auto px-4">
+    <section className="py-20 bg-gradient-to-br from-cyber-darker via-black to-cyber-dark relative overflow-hidden">
+      {/* Enhanced background pattern */}
+      <div className="absolute inset-0 bg-cyber-grid bg-grid opacity-30"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30"></div>
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Secure <span className="cyber-text">Transmission</span>
@@ -200,14 +204,15 @@ const Contact = () => {
           {/* Secure Transmission Panel */}
           <div className="lg:col-span-2">
             <div className="relative transmission-panel transmission-glow rounded-lg p-8 shadow-2xl">
-              {/* Glassmorphism glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-cyber-green/10 via-transparent to-cyber-blue/10 rounded-lg blur-xl"></div>
+              {/* Enhanced glassmorphism glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-cyber-green/15 via-cyber-blue/10 to-cyber-purple/15 rounded-lg blur-xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-gray-900/20 to-black/60 rounded-lg"></div>
               
               <div className="relative z-10">
                 {!isComplete ? (
                   <>
                     {/* Status Panel */}
-                    <div className="bg-black/60 border border-cyber-green/20 rounded-lg p-4 mb-8 font-mono text-sm">
+                    <div className="bg-gradient-to-r from-black/80 via-gray-900/60 to-black/80 border border-cyber-green/30 rounded-lg p-4 mb-8 font-mono text-sm backdrop-blur-sm">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <div className="flex items-center">
@@ -237,7 +242,7 @@ const Contact = () => {
                     </div>
 
                     {/* Terminal Interface */}
-                    <div className="bg-black/80 border border-cyber-green/20 rounded-lg p-6 font-mono">
+                    <div className="bg-gradient-to-br from-black/90 via-gray-900/70 to-black/90 border border-cyber-green/30 rounded-lg p-6 font-mono backdrop-blur-sm shadow-inner">
                       <div className="text-cyber-green mb-2">// SECURE MESSAGE TERMINAL</div>
                       
                       <form onSubmit={handleSubmit} className="space-y-6">
@@ -311,7 +316,7 @@ const Contact = () => {
                   </>
                 ) : (
                   /* Success Message */
-                  <div className="bg-black/80 border border-cyber-green rounded-lg p-8 text-center font-mono">
+                  <div className="bg-gradient-to-br from-black/90 via-gray-900/70 to-black/90 border border-cyber-green rounded-lg p-8 text-center font-mono backdrop-blur-sm shadow-inner">
                     <CheckCircle className="w-16 h-16 text-cyber-green mx-auto mb-4 animate-glow" />
                     <div className="text-cyber-green text-xl mb-4">// TRANSMISSION COMPLETE</div>
                     <div className="text-gray-300 space-y-2">
@@ -327,7 +332,7 @@ const Contact = () => {
 
           {/* Alternative Channels */}
           <div className="space-y-6">
-            <div className="bg-gradient-to-br from-black/40 via-gray-900/30 to-black/40 backdrop-blur-lg border border-cyber-blue/30 rounded-lg p-6">
+            <div className="bg-gradient-to-br from-black/60 via-gray-900/50 to-black/60 backdrop-blur-lg border border-cyber-blue/40 rounded-lg p-6 shadow-lg">
               <div className="text-cyber-blue text-lg font-mono mb-4">// Alternative Channels</div>
               <div className="space-y-4">
                 {socialLinks.map((link, index) => (
@@ -336,7 +341,7 @@ const Contact = () => {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-4 p-3 rounded-lg bg-black/40 hover:bg-cyber-darker/50 transition-all duration-300 hover:glow-effect group border border-transparent hover:border-cyber-green/20"
+                    className="flex items-center space-x-4 p-3 rounded-lg bg-gradient-to-r from-black/60 to-gray-900/40 hover:from-cyber-darker/70 hover:to-black/60 transition-all duration-300 hover:glow-effect group border border-transparent hover:border-cyber-green/30 backdrop-blur-sm"
                   >
                     <link.icon className={`w-5 h-5 ${link.color} group-hover:animate-glow`} />
                     <div className="font-mono">
@@ -348,7 +353,7 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-black/40 via-gray-900/30 to-black/40 backdrop-blur-lg border border-cyber-purple/30 rounded-lg p-6">
+            <div className="bg-gradient-to-br from-black/60 via-gray-900/50 to-black/60 backdrop-blur-lg border border-cyber-purple/40 rounded-lg p-6 shadow-lg">
               <div className="text-cyber-purple text-lg font-mono mb-4">// Security Status</div>
               <div className="space-y-3 font-mono text-sm">
                 <div className="flex items-center">
