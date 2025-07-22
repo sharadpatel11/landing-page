@@ -251,7 +251,7 @@ const TerminalInterface = () => {
   }, [currentInput]);
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative matrix-bg py-20">
+    <section className="min-h-screen flex items-center justify-center relative matrix-bg py-20 pt-24 md:pt-20">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           {/* Terminal Window */}

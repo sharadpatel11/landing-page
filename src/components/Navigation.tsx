@@ -99,8 +99,8 @@ const Navigation = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden absolute top-16 left-0 right-0 bg-cyber-dark/98 backdrop-blur-md border-b border-cyber-green/20">
+        <div className={`md:hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+          <div className="bg-cyber-dark/98 backdrop-blur-md border-b border-cyber-green/20">
             <div className="flex flex-col space-y-1 p-4">
               {/* Mobile Status */}
               <div className="flex items-center justify-between text-xs font-mono mb-4 pb-2 border-b border-cyber-green/20">
@@ -137,7 +137,7 @@ const Navigation = () => {
               </Button>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );
