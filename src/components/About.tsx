@@ -44,7 +44,7 @@ const About = () => {
 
     const options1 = {
       strings: [
-        'My mission is to build and defend resilient systems against emerging threats, turning complex vulnerabilities into strategic strengths.'
+        'I am a cybersecurity professional dedicated to anticipating and neutralizing threats before they disrupt the organizations I serve. My mission is to translate complex risk into clear, actionable defenses that protect digital assets and earn the trust of stakeholders.'
       ],
       typeSpeed: 30,
       startDelay: 1000,
@@ -54,7 +54,7 @@ const About = () => {
         if (terminalRef2.current) {
           const typed2 = new Typed(terminalRef2.current, {
             strings: [
-              'My journey into cybersecurity began not in a classroom, but in a dusty basement taking apart old hardware. This curiosity led me to pursue formal training and countless hours in home labs and CTF challenges.'
+              'I am currently pursuing my Master of Science in Cybersecurity at NYU Tandon School of Engineering, where advanced coursework and research labs sharpen my expertise in threat intelligence, secure infrastructure, and incident response. This program accelerates my ability to apply cutting-edge security strategies in real-world contexts.'
             ],
             typeSpeed: 25,
             startDelay: 500,
@@ -64,7 +64,7 @@ const About = () => {
               if (terminalRef3.current) {
                 const typed3 = new Typed(terminalRef3.current, {
                   strings: [
-                    'Outside of the terminal, I\'m passionate about vintage sci-fi novels and competitive rock climbing. I believe the best security professionals are those who understand both the technical and human elements of the field.'
+                    'I thrive at the intersection of academic rigor and hands-on execution, leading blue-team assessments, guiding cross-functional teams, and never losing sight of the people behind the systems. I am energized by complex challenges and focused on building resilient, forward-looking security programs.'
                   ],
                   typeSpeed: 25,
                   startDelay: 500,
