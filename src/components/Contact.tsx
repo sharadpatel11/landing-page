@@ -137,7 +137,7 @@ const Contact = () => {
     // Transmission phase
     setTimeout(async () => {
       try {
-        const response = await fetch('https://workflow.thecyberadmin.com/webhook/b3fc4f9d-411d-453c-aaec-c37339d2e5f0', {
+        const response = await fetch('https://n8n.thecyberadmin.com/webhook/b3fc4f9d-411d-453c-aaec-c37339d2e5f0', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
