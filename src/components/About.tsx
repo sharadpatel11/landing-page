@@ -44,7 +44,7 @@ const About = () => {
 
     const options1 = {
       strings: [
-        'My mission is to build and defend resilient systems against emerging threats, turning complex vulnerabilities into strategic strengths.'
+        'I am a cybersecurity professional dedicated to anticipating and neutralizing threats before they disrupt the organizations I serve. My mission is to translate complex risk into clear, actionable defenses that protect digital assets and earn the trust of stakeholders.'
       ],
       typeSpeed: 30,
       startDelay: 1000,
@@ -54,7 +54,7 @@ const About = () => {
         if (terminalRef2.current) {
           const typed2 = new Typed(terminalRef2.current, {
             strings: [
-              'My journey into cybersecurity began not in a classroom, but in a dusty basement taking apart old hardware. This curiosity led me to pursue formal training and countless hours in home labs and CTF challenges.'
+              'I am currently pursuing my Master of Science in Cybersecurity at NYU Tandon School of Engineering, where advanced coursework and research labs sharpen my expertise in threat intelligence, secure infrastructure, and incident response. This program accelerates my ability to apply cutting-edge security strategies in real-world contexts.'
             ],
             typeSpeed: 25,
             startDelay: 500,
@@ -64,7 +64,7 @@ const About = () => {
               if (terminalRef3.current) {
                 const typed3 = new Typed(terminalRef3.current, {
                   strings: [
-                    'Outside of the terminal, I\'m passionate about vintage sci-fi novels and competitive rock climbing. I believe the best security professionals are those who understand both the technical and human elements of the field.'
+                    'I thrive at the intersection of academic rigor and hands-on execution, leading blue-team assessments, guiding cross-functional teams, and never losing sight of the people behind the systems. I am energized by complex challenges and focused on building resilient, forward-looking security programs.'
                   ],
                   typeSpeed: 25,
                   startDelay: 500,
@@ -147,25 +147,31 @@ const About = () => {
 
           {/* Main Content */}
           <div className="relative z-10 flex flex-col lg:flex-row min-h-[600px]">
-            {/* Left Column - Stats Panel */}
-            <div className="lg:w-1/3 p-6 border-r border-cyber-green/20 bg-gradient-to-b from-gray-900/50 to-black/50">
-              {/* Profile Photo */}
-              <div className="mb-6">
-                <div className="w-32 h-40 mx-auto bg-gradient-to-br from-cyber-green/20 to-cyber-blue/20 border border-cyber-green/30 rounded-lg flex items-center justify-center relative overflow-hidden">
-                  {/* Scanline effect */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-green/10 to-transparent animate-scan"></div>
-                  <div className="text-center z-10">
-                    <div className="w-20 h-20 bg-gradient-to-br from-cyber-green/30 to-cyber-blue/30 rounded-full mx-auto mb-2 flex items-center justify-center border border-cyber-green/50">
-                      <span className="text-cyber-green text-xs font-mono">PHOTO</span>
-                    </div>
-                    <div className="text-xs font-mono text-cyber-green/80">OPERATIVE ID</div>
-                    <div className="text-xs font-mono text-cyber-green">CSO-2025</div>
+              {/* Left Column - Snapshot & Stats */}
+              <div className="lg:w-1/3 p-6 border-r border-cyber-green/20 bg-gradient-to-b from-gray-900/50 to-black/50 space-y-8">
+                {/* Professional Snapshot */}
+                <div className="p-4 bg-black/60 border border-cyber-green/20 rounded">
+                  <div className="text-xs font-mono text-cyber-green/80 uppercase tracking-[0.3em] mb-3">
+                    Professional Snapshot
                   </div>
+                  <ul className="space-y-3 text-sm text-gray-300">
+                    <li className="flex items-start">
+                      <span className="text-cyber-green mr-2 mt-[3px]">▸</span>
+                      <span>Cybersecurity strategist focused on anticipatory defense and resilience.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-cyber-green mr-2 mt-[3px]">▸</span>
+                      <span>Based in New York City, partnering with teams to harden high-value systems.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-cyber-green mr-2 mt-[3px]">▸</span>
+                      <span>Currently advancing expertise through the NYU Tandon MS in Cybersecurity.</span>
+                    </li>
+                  </ul>
                 </div>
-              </div>
 
               {/* Live Stats */}
-              <div className="space-y-4 font-mono text-sm">
+                <div className="space-y-4 font-mono text-sm">
                 <div className="flex justify-between items-center py-2 border-b border-cyber-green/20">
                   <span className="text-gray-400">STATUS:</span>
                   <span className="text-cyber-green font-bold flex items-center">
@@ -202,8 +208,8 @@ const About = () => {
                 </div>
               </div>
 
-              {/* System Resources */}
-              <div className="mt-8 p-4 bg-black/50 border border-cyber-green/20 rounded">
+                {/* System Resources */}
+                <div className="p-4 bg-black/60 border border-cyber-green/20 rounded">
                 <div className="text-xs font-mono text-cyber-green mb-2">SYSTEM RESOURCES</div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs">
