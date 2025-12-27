@@ -60,6 +60,7 @@
   body {
     @apply text-foreground;
     overflow-x: hidden;
+    font-size: 17px;
   }
 
   html.theme-classic body {

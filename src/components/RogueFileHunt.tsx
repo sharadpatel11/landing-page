@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useUiMode } from "@/theme/ui-mode";
+import { cn } from "@/lib/utils";
 
 interface FileSystemNode {
   type: 'file' | 'directory';
@@ -19,9 +21,13 @@ interface GameState {
 
 interface RogueFileHuntProps {
   showHeader?: boolean;
+  embedded?: boolean;
 }
 
-const RogueFileHunt = ({ showHeader = true }: RogueFileHuntProps) => {
+const RogueFileHunt = ({ showHeader = true, embedded = false }: RogueFileHuntProps) => {
+  const { mode } = useUiMode();
+  const isModern = mode === "modern";
+
   const [gameState, setGameState] = useState<GameState>({
     currentDirectory: '~',
     gameWon: false,
@@ -401,35 +407,47 @@ const RogueFileHunt = ({ showHeader = true }: RogueFileHuntProps) => {
   };
 
   return (
-    <div className="py-20 bg-cyber-darker">
-      <div className="container mx-auto px-4">
-        {showHeader && (
+    <div className={cn(!embedded && "py-16", !embedded && !isModern && "bg-cyber-darker")}>
+      <div className={cn(isModern ? "mx-auto max-w-4xl px-0" : "container mx-auto px-4")}>
+        {showHeader && !embedded && (
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 cyber-text">
+            <h2 className={cn("text-4xl font-bold mb-4", isModern ? "text-foreground" : "cyber-text")}>
               The Rogue File Hunt
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className={cn("max-w-3xl mx-auto", isModern ? "text-muted-foreground text-lg" : "text-xl text-gray-300")}>
               Test your cybersecurity skills! Find and remove the malicious file before time runs out.
             </p>
           </div>
         )}
 
-        <Card className="max-w-4xl mx-auto bg-black border-cyber-green/30 shadow-lg glow-effect">
-          <CardHeader className="bg-cyber-dark border-b border-cyber-green/30">
+        <Card
+          className={cn(
+            "mx-auto shadow-lg",
+            isModern
+              ? "max-w-4xl rounded-2xl border border-white/10 bg-white/[0.03]"
+              : "max-w-4xl bg-black border-cyber-green/30 glow-effect"
+          )}
+        >
+          <CardHeader className={cn(isModern ? "border-b border-white/10 bg-white/[0.03]" : "bg-cyber-dark border-b border-cyber-green/30")}>
             <div className="flex justify-between items-center">
-              <CardTitle className="text-cyber-green font-mono text-lg">
+              <CardTitle className={cn("font-mono", isModern ? "text-foreground text-base sm:text-lg" : "text-cyber-green text-lg")}>
                 Terminal Simulator - Security Challenge
               </CardTitle>
               <div className="flex items-center space-x-4">
                 {gameState.gameStarted && !gameState.gameWon && !gameState.gameLost && (
-                  <div className="text-cyber-green font-mono">
+                  <div className={cn("font-mono", isModern ? "text-muted-foreground" : "text-cyber-green")}>
                     Time: {formatTime(gameState.timeLeft)}
                   </div>
                 )}
                 {(gameState.gameWon || gameState.gameLost) && (
                   <button
                     onClick={resetGame}
-                    className="px-4 py-2 bg-cyber-green text-black font-mono rounded hover:bg-cyber-green/80 transition-colors"
+                    className={cn(
+                      "px-4 py-2 font-mono rounded transition-colors",
+                      isModern
+                        ? "bg-white text-black hover:bg-white/90"
+                        : "bg-cyber-green text-black hover:bg-cyber-green/80"
+                    )}
                   >
                     Try Again
                   </button>
@@ -441,7 +459,10 @@ const RogueFileHunt = ({ showHeader = true }: RogueFileHuntProps) => {
           <CardContent className="p-0">
             <div 
               ref={terminalRef}
-              className="bg-black text-cyber-green font-mono text-sm h-96 overflow-y-auto p-4 terminal-scrollbar cursor-text"
+              className={cn(
+                "font-mono h-[28rem] overflow-y-auto p-4 terminal-scrollbar cursor-text",
+                isModern ? "bg-black/60 text-foreground" : "bg-black text-cyber-green text-sm"
+              )}
               onClick={() => inputRef.current?.focus()}
             >
               {gameState.terminalHistory.map((line, index) => (
@@ -452,44 +473,51 @@ const RogueFileHunt = ({ showHeader = true }: RogueFileHuntProps) => {
               
               {!gameState.gameWon && !gameState.gameLost && (
                 <div className="flex items-center">
-                  <span className="text-cyber-green">admin@server:{gameState.currentDirectory}$ </span>
+                  <span className={cn(isModern ? "text-muted-foreground" : "text-cyber-green")}>
+                    admin@server:{gameState.currentDirectory}${" "}
+                  </span>
                   <input
                     ref={inputRef}
                     type="text"
                     value={currentCommand}
                     onChange={(e) => setCurrentCommand(e.target.value)}
                     onKeyDown={handleKeyPress}  // Changed from onKeyPress
-                    className="flex-1 bg-transparent border-none outline-none text-cyber-green font-mono ml-1"
+                    className={cn(
+                      "flex-1 bg-transparent border-none outline-none font-mono ml-1 text-base",
+                      isModern ? "text-foreground" : "text-cyber-green"
+                    )}
                     autoFocus
                     disabled={gameState.gameWon || gameState.gameLost}
                   />
-                  <span className="text-cyber-green animate-pulse">█</span>
+                  <span className={cn("animate-pulse", isModern ? "text-muted-foreground" : "text-cyber-green")}>█</span>
                 </div>
               )}
             </div>
           </CardContent>
         </Card>
 
-        {gameState.gameWon && (
+        {gameState.gameWon && !embedded && (
           <div className="text-center mt-8">
             <div className="max-w-2xl mx-auto">
-              <Card className="bg-black border-cyber-green/30 glow-effect">
-                <CardHeader className="bg-cyber-dark border-b border-cyber-green/30">
-                  <CardTitle className="text-cyber-green font-mono text-2xl">Mission Accomplished!</CardTitle>
+              <Card className={cn(isModern ? "rounded-2xl border border-white/10 bg-white/[0.03]" : "bg-black border-cyber-green/30 glow-effect")}>
+                <CardHeader className={cn(isModern ? "border-b border-white/10 bg-white/[0.03]" : "bg-cyber-dark border-b border-cyber-green/30")}>
+                  <CardTitle className={cn("font-mono text-2xl", isModern ? "text-foreground" : "text-cyber-green")}>
+                    Mission Accomplished!
+                  </CardTitle>
                 </CardHeader>
                 
                 <CardContent className="p-8">
                   <div className="text-6xl mb-6">🛡️</div>
-                  <h2 className="text-3xl font-bold cyber-text mb-4">
+                  <h2 className={cn("text-3xl font-bold mb-4", isModern ? "text-foreground" : "cyber-text")}>
                     System Secured!
                   </h2>
-                  <p className="text-xl text-gray-300 mb-6">
+                  <p className={cn("text-lg mb-6", isModern ? "text-muted-foreground" : "text-xl text-gray-300")}>
                     You've demonstrated excellent cybersecurity skills by identifying and removing the malicious file before it could execute.
                   </p>
 
-                  <div className="bg-cyber-dark p-6 rounded-lg border border-cyber-green/30 mb-6">
-                    <h3 className="text-cyber-green font-semibold mb-4">🎯 Skills Demonstrated:</h3>
-                    <ul className="text-left space-y-2 text-gray-300">
+                  <div className={cn("p-6 rounded-lg border mb-6", isModern ? "border-white/10 bg-white/[0.03]" : "bg-cyber-dark border-cyber-green/30")}>
+                    <h3 className={cn("font-semibold mb-4", isModern ? "text-foreground" : "text-cyber-green")}>🎯 Skills Demonstrated:</h3>
+                    <ul className={cn("text-left space-y-2", isModern ? "text-muted-foreground" : "text-gray-300")}>
                       <li>• File system navigation and exploration</li>
                       <li>• Log analysis and threat detection</li>
                       <li>• Command line proficiency</li>
@@ -501,13 +529,19 @@ const RogueFileHunt = ({ showHeader = true }: RogueFileHuntProps) => {
                   <div className="flex justify-center space-x-4">
                     <button
                       onClick={resetGame}
-                      className="px-6 py-3 bg-cyber-green text-black font-semibold rounded-lg hover:bg-cyber-green/80 transition-colors"
+                      className={cn(
+                        "px-6 py-3 font-semibold rounded-lg transition-colors",
+                        isModern ? "bg-white text-black hover:bg-white/90" : "bg-cyber-green text-black hover:bg-cyber-green/80"
+                      )}
                     >
                       Play Again
                     </button>
                     <button
                       onClick={() => window.location.href = '/'}
-                      className="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors"
+                      className={cn(
+                        "px-6 py-3 font-semibold rounded-lg transition-colors",
+                        isModern ? "border border-white/10 bg-white/[0.03] text-foreground hover:bg-white/[0.06]" : "bg-gray-600 text-white hover:bg-gray-700"
+                      )}
                     >
                       Back to Portfolio
                     </button>
@@ -518,11 +552,13 @@ const RogueFileHunt = ({ showHeader = true }: RogueFileHuntProps) => {
           </div>
         )}
 
-        <div className="mt-8 text-center">
-          <p className="text-gray-400 text-sm">
+        {!embedded && (
+          <div className="mt-8 text-center">
+            <p className={cn("text-sm", isModern ? "text-muted-foreground" : "text-gray-400")}>
             <strong>Tip:</strong> Use Tab for autocomplete! Start by typing "help" or check the logs first.
-          </p>
-        </div>
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from 'react-router-dom';
+import { useUiMode } from "@/theme/ui-mode";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 interface Email {
   id: number;
@@ -22,8 +25,14 @@ interface GameState {
   correctAnswer: boolean;
 }
 
-const SpotThePhish = () => {
+type SpotThePhishProps = {
+  embedded?: boolean;
+};
+
+const SpotThePhish = ({ embedded = false }: SpotThePhishProps) => {
   const navigate = useNavigate();
+  const { mode } = useUiMode();
+  const isModern = mode === "modern";
 
   const emails: Email[] = [
     {
@@ -240,39 +249,45 @@ const SpotThePhish = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cyber-dark">
-      {/* Header */}
-      <div className="bg-cyber-darker border-b border-cyber-green/30 py-4">
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <button
-            onClick={() => navigate('/')}
-            className="text-cyber-green hover:text-white transition-colors font-mono"
-          >
-            ← Back to Portfolio
-          </button>
-          <h1 className="text-2xl font-bold cyber-text font-mono">Spot the Phish Challenge</h1>
-          <div className="text-cyber-green font-mono">
-            Score: {gameState.score} / {gameState.totalEmails}
+    <div className={cn(!embedded && "min-h-screen", !embedded && !isModern && "bg-cyber-dark")}>
+      {!embedded && (
+        <div className={cn("py-4 border-b", isModern ? "border-white/10 bg-background/40" : "bg-cyber-darker border-cyber-green/30")}>
+          <div className={cn(isModern ? "mx-auto max-w-6xl px-4" : "container mx-auto px-4", "flex justify-between items-center")}>
+            <button
+              onClick={() => navigate('/')}
+              className={cn(
+                "transition-colors",
+                isModern ? "text-muted-foreground hover:text-foreground" : "text-cyber-green hover:text-white font-mono"
+              )}
+            >
+              ← Back to Portfolio
+            </button>
+            <h1 className={cn("text-xl sm:text-2xl font-semibold", isModern ? "text-foreground" : "font-bold cyber-text font-mono")}>
+              Spot the Phish Challenge
+            </h1>
+            <div className={cn(isModern ? "text-muted-foreground text-sm" : "text-cyber-green font-mono")}>
+              Score: {gameState.score} / {gameState.totalEmails}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
-      <div className="container mx-auto px-4 py-8">
+      <div className={cn(isModern ? "mx-auto max-w-6xl px-4 py-6" : "container mx-auto px-4 py-8")}>
         {!gameState.gameComplete ? (
           <div className="max-w-6xl mx-auto">
             {/* Progress Bar */}
             <div className="mb-6">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-mono text-gray-400">
+                <span className={cn("text-sm font-mono", isModern ? "text-muted-foreground" : "text-gray-400")}>
                   Email {gameState.currentEmailIndex + 1} of {gameState.totalEmails}
                 </span>
-                <span className="text-sm font-mono text-gray-400">
+                <span className={cn("text-sm font-mono", isModern ? "text-muted-foreground" : "text-gray-400")}>
                   Progress: {Math.round(((gameState.currentEmailIndex) / gameState.totalEmails) * 100)}%
                 </span>
               </div>
-              <div className="w-full bg-gray-700 rounded-full h-2">
+              <div className={cn("w-full rounded-full h-2", isModern ? "bg-white/10" : "bg-gray-700")}>
                 <div 
-                  className="bg-cyber-green h-2 rounded-full transition-all duration-300"
+                  className={cn("h-2 rounded-full transition-all duration-300", isModern ? "bg-emerald-400" : "bg-cyber-green")}
                   style={{ width: `${(gameState.currentEmailIndex / gameState.totalEmails) * 100}%` }}
                 ></div>
               </div>
@@ -281,22 +296,24 @@ const SpotThePhish = () => {
             <div className="grid lg:grid-cols-3 gap-6">
               {/* Email List */}
               <div className="lg:col-span-1">
-                <Card className="bg-black border-cyber-green/30 h-fit">
-                  <CardHeader className="bg-cyber-dark border-b border-cyber-green/30">
-                    <CardTitle className="text-cyber-green font-mono text-lg">Inbox</CardTitle>
+                <Card className={cn(isModern ? "rounded-2xl border border-white/10 bg-white/[0.03] h-fit" : "bg-black border-cyber-green/30 h-fit")}>
+                  <CardHeader className={cn(isModern ? "border-b border-white/10 bg-white/[0.03]" : "bg-cyber-dark border-b border-cyber-green/30")}>
+                    <CardTitle className={cn("font-mono text-lg", isModern ? "text-foreground" : "text-cyber-green")}>Inbox</CardTitle>
                   </CardHeader>
                   <CardContent className="p-0">
                     {emails.map((email, index) => (
                       <div
                         key={email.id}
-                        className={`p-4 border-b border-gray-700 cursor-pointer transition-colors ${
+                        className={cn(
+                          "p-4 border-b cursor-pointer transition-colors",
+                          isModern ? "border-white/10" : "border-gray-700",
                           index === gameState.currentEmailIndex 
-                            ? 'bg-cyber-green/20 border-cyber-green/50' 
-                            : 'hover:bg-gray-800'
-                        }`}
+                            ? (isModern ? "bg-white/[0.06]" : "bg-cyber-green/20 border-cyber-green/50")
+                            : (isModern ? "hover:bg-white/[0.04]" : "hover:bg-gray-800")
+                        )}
                       >
-                        <div className="text-sm text-gray-300 truncate">{email.senderName}</div>
-                        <div className="text-xs text-gray-400 truncate">{email.subject}</div>
+                        <div className={cn("text-sm truncate", isModern ? "text-foreground/90" : "text-gray-300")}>{email.senderName}</div>
+                        <div className={cn("text-xs truncate", isModern ? "text-muted-foreground" : "text-gray-400")}>{email.subject}</div>
                       </div>
                     ))}
                   </CardContent>
@@ -305,65 +322,73 @@ const SpotThePhish = () => {
 
               {/* Email Content */}
               <div className="lg:col-span-2">
-                <Card className="bg-black border-cyber-green/30">
-                  <CardHeader className="bg-cyber-dark border-b border-cyber-green/30">
+                <Card className={cn(isModern ? "rounded-2xl border border-white/10 bg-white/[0.03]" : "bg-black border-cyber-green/30")}>
+                  <CardHeader className={cn(isModern ? "border-b border-white/10 bg-white/[0.03]" : "bg-cyber-dark border-b border-cyber-green/30")}>
                     <div className="space-y-2">
                       <div className="flex justify-between items-start">
                         <div>
-                          <div className="text-sm text-gray-400">From:</div>
-                          <div className="text-cyber-green font-mono">
+                          <div className={cn("text-sm", isModern ? "text-muted-foreground" : "text-gray-400")}>From:</div>
+                          <div className={cn("font-mono", isModern ? "text-foreground" : "text-cyber-green")}>
                             {currentEmail.senderName} &lt;{currentEmail.senderEmail}&gt;
                           </div>
                         </div>
                       </div>
                       <div>
-                        <div className="text-sm text-gray-400">Subject:</div>
-                        <div className="text-white font-semibold">{currentEmail.subject}</div>
+                        <div className={cn("text-sm", isModern ? "text-muted-foreground" : "text-gray-400")}>Subject:</div>
+                        <div className={cn("font-semibold", isModern ? "text-foreground" : "text-white")}>{currentEmail.subject}</div>
                       </div>
                     </div>
                   </CardHeader>
                   
                   <CardContent className="p-6">
                     <div 
-                      className="text-gray-300 mb-6 email-content"
+                      className={cn("mb-6 email-content", isModern ? "text-foreground/90" : "text-gray-300")}
                       dangerouslySetInnerHTML={{ __html: currentEmail.bodyHTML }}
                     />
 
                     {!gameState.showFeedback ? (
                       <div className="flex justify-center space-x-4">
-                        <button
+                        <Button
                           onClick={() => handleAnswer(false)}
-                          className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors"
+                          className={cn(isModern ? "rounded-xl" : "")}
                         >
                           ✅ This is Legitimate
-                        </button>
-                        <button
+                        </Button>
+                        <Button
                           onClick={() => handleAnswer(true)}
-                          className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors"
+                          variant="destructive"
+                          className={cn(isModern ? "rounded-xl" : "")}
                         >
                           🚩 This is a Phish
-                        </button>
+                        </Button>
                       </div>
                     ) : (
                       <div className="space-y-4">
-                        <div className={`p-4 rounded-lg ${gameState.correctAnswer ? 'bg-green-900/50 border border-green-500' : 'bg-red-900/50 border border-red-500'}`}>
+                        <div
+                          className={cn(
+                            "p-4 rounded-lg border",
+                            gameState.correctAnswer
+                              ? (isModern ? "bg-emerald-500/10 border-emerald-500/30" : "bg-green-900/50 border-green-500")
+                              : (isModern ? "bg-red-500/10 border-red-500/30" : "bg-red-900/50 border-red-500")
+                          )}
+                        >
                           <h3 className={`font-bold mb-2 ${gameState.correctAnswer ? 'text-green-400' : 'text-red-400'}`}>
                             {gameState.correctAnswer ? '✅ Correct!' : '❌ Incorrect'}
                           </h3>
-                          <p className="text-gray-300">
+                          <p className={cn(isModern ? "text-muted-foreground" : "text-gray-300")}>
                             This email was {currentEmail.isPhish ? 'a phishing attempt' : 'legitimate'}. 
                             {gameState.correctAnswer ? ' Great job spotting it!' : ' Here\'s what you should look for:'}
                           </p>
                         </div>
 
-                        <div className="p-4 bg-cyber-dark rounded-lg border border-cyber-green/30">
-                          <h4 className="text-cyber-green font-semibold mb-3">
+                        <div className={cn("p-4 rounded-lg border", isModern ? "border-white/10 bg-white/[0.03]" : "bg-cyber-dark border-cyber-green/30")}>
+                          <h4 className={cn("font-semibold mb-3", isModern ? "text-foreground" : "text-cyber-green")}>
                             {currentEmail.isPhish ? '🚨 Red Flags:' : '✅ Why it\'s safe:'}
                           </h4>
                           <ul className="space-y-2">
                             {currentEmail.clues.map((clue, index) => (
-                              <li key={index} className="text-gray-300 text-sm flex items-start">
-                                <span className="text-cyber-green mr-2">•</span>
+                              <li key={index} className={cn("text-sm flex items-start", isModern ? "text-muted-foreground" : "text-gray-300")}>
+                                <span className={cn("mr-2", isModern ? "text-emerald-400" : "text-cyber-green")}>•</span>
                                 {clue}
                               </li>
                             ))}
@@ -371,12 +396,12 @@ const SpotThePhish = () => {
                         </div>
 
                         <div className="text-center">
-                          <button
+                          <Button
                             onClick={nextEmail}
-                            className="px-6 py-3 bg-cyber-green text-black font-semibold rounded-lg hover:bg-cyber-green/80 transition-colors"
+                            className={cn(isModern ? "rounded-xl bg-white text-black hover:bg-white/90" : "bg-cyber-green text-black hover:bg-cyber-green/80")}
                           >
                             {gameState.currentEmailIndex === emails.length - 1 ? 'See Results' : 'Next Email →'}
-                          </button>
+                          </Button>
                         </div>
                       </div>
                     )}
@@ -388,23 +413,23 @@ const SpotThePhish = () => {
         ) : (
           /* Game Complete Screen */
           <div className="max-w-2xl mx-auto text-center">
-            <Card className="bg-black border-cyber-green/30 glow-effect">
-              <CardHeader className="bg-cyber-dark border-b border-cyber-green/30">
-                <CardTitle className="text-cyber-green font-mono text-2xl">Challenge Complete!</CardTitle>
+            <Card className={cn(isModern ? "rounded-2xl border border-white/10 bg-white/[0.03]" : "bg-black border-cyber-green/30 glow-effect")}>
+              <CardHeader className={cn(isModern ? "border-b border-white/10 bg-white/[0.03]" : "bg-cyber-dark border-b border-cyber-green/30")}>
+                <CardTitle className={cn("font-mono text-2xl", isModern ? "text-foreground" : "text-cyber-green")}>Challenge Complete!</CardTitle>
               </CardHeader>
               
               <CardContent className="p-8">
                 <div className="text-6xl mb-6">🎉</div>
-                <h2 className="text-3xl font-bold cyber-text mb-4">
+                <h2 className={cn("text-3xl font-bold mb-4", isModern ? "text-foreground" : "cyber-text")}>
                   You scored {gameState.score} out of {gameState.totalEmails}
                 </h2>
-                <p className="text-xl text-gray-300 mb-6">
+                <p className={cn("text-lg mb-6", isModern ? "text-muted-foreground" : "text-xl text-gray-300")}>
                   {getScoreMessage()}
                 </p>
 
-                <div className="bg-cyber-dark p-6 rounded-lg border border-cyber-green/30 mb-6">
-                  <h3 className="text-cyber-green font-semibold mb-4">📚 Key Takeaways:</h3>
-                  <ul className="text-left space-y-2 text-gray-300">
+                <div className={cn("p-6 rounded-lg border mb-6", isModern ? "border-white/10 bg-white/[0.03]" : "bg-cyber-dark border-cyber-green/30")}>
+                  <h3 className={cn("font-semibold mb-4", isModern ? "text-foreground" : "text-cyber-green")}>📚 Key Takeaways:</h3>
+                  <ul className={cn("text-left space-y-2", isModern ? "text-muted-foreground" : "text-gray-300")}>
                     <li>• Always verify sender domains carefully</li>
                     <li>• Hover over links to see their true destination</li>
                     <li>• Be suspicious of urgent language and threats</li>
@@ -414,18 +439,19 @@ const SpotThePhish = () => {
                 </div>
 
                 <div className="flex justify-center space-x-4">
-                  <button
+                  <Button
                     onClick={resetGame}
-                    className="px-6 py-3 bg-cyber-green text-black font-semibold rounded-lg hover:bg-cyber-green/80 transition-colors"
+                    className={cn(isModern ? "rounded-xl bg-white text-black hover:bg-white/90" : "bg-cyber-green text-black hover:bg-cyber-green/80")}
                   >
                     Play Again
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => navigate('/')}
-                    className="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors"
+                    variant="outline"
+                    className={cn(isModern ? "rounded-xl border-white/10 bg-white/[0.03] hover:bg-white/[0.06]" : "bg-gray-600 text-white hover:bg-gray-700")}
                   >
                     Back to Portfolio
-                  </button>
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -433,13 +459,13 @@ const SpotThePhish = () => {
         )}
       </div>
 
-      <style jsx>{`
+      <style>{`
         .email-content a {
-          color: #0066ff;
+          color: ${isModern ? "rgba(165, 180, 252, 0.95)" : "#0066ff"};
           text-decoration: underline;
         }
         .email-content a:hover {
-          color: #00ff41;
+          color: ${isModern ? "rgba(110, 231, 183, 0.95)" : "#00ff41"};
         }
       `}</style>
     </div>

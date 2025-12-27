@@ -1,7 +1,16 @@
-<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background (transparent) -->
-  <rect width="32" height="32" fill="transparent"/>
-  
-  <!-- Command prompt ">" symbol -->
-  <path d="M10 8 L22 16 L10 24 L10 20 L16 16 L10 12 Z" fill="#00ff41" stroke="none"/>
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="accent" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#818CF8" />
+      <stop offset="1" stop-color="#34D399" />
+    </linearGradient>
+  </defs>
+
+  <rect x="6" y="6" width="52" height="52" rx="14" fill="#0b0d12" stroke="url(#accent)" stroke-width="3" />
+
+  <!-- Prompt ">" -->
+  <path d="M22 20 L38 32 L22 44 L22 38 L31 32 L22 26 Z" fill="url(#accent)" />
+
+  <!-- Cursor "_" -->
+  <rect x="34" y="40" width="16" height="4" rx="2" fill="rgba(255,255,255,0.85)" />
 </svg>
