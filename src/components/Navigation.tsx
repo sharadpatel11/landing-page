@@ -1,21 +1,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import UiModeToggle from "@/components/UiModeToggle";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date());
-
-  // Update time every second
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
 
   const navItems = [
     { name: "Home", command: "~/", href: "#home", tooltip: "Home" },
@@ -83,9 +73,6 @@ const Navigation = () => {
               <span className="w-2 h-2 bg-cyber-green rounded-full mr-2 animate-pulse"></span>
               SECURE
             </span>
-            <span className="text-gray-300">
-              {currentTime.toLocaleTimeString()}
-            </span>
             <span className="text-gray-400">
               THREAT: NONE
             </span>
@@ -109,9 +96,6 @@ const Navigation = () => {
                 <span className="flex items-center text-cyber-green">
                   <span className="w-2 h-2 bg-cyber-green rounded-full mr-2 animate-pulse"></span>
                   SECURE
-                </span>
-                <span className="text-gray-300">
-                  {currentTime.toLocaleTimeString()}
                 </span>
                 <span className="text-gray-400">
                   THREAT: NONE
