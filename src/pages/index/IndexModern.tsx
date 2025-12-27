@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ModernNavigation from "@/components/modern/ModernNavigation";
 import UiModeToggle from "@/components/UiModeToggle";
@@ -26,6 +26,12 @@ type Project = {
 export default function IndexModern() {
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const t = window.setInterval(() => setNow(new Date()), 1000);
+    return () => window.clearInterval(t);
+  }, []);
 
   const games = useMemo<Game[]>(
     () => [
@@ -102,6 +108,17 @@ export default function IndexModern() {
 
   const [form, setForm] = useState({ email: "", subject: "", message: "" });
   const [sending, setSending] = useState(false);
+  const [gameQuery, setGameQuery] = useState("");
+  const [difficulty, setDifficulty] = useState<"All" | Game["difficulty"]>("All");
+
+  const filteredGames = useMemo(() => {
+    const q = gameQuery.trim().toLowerCase();
+    return games.filter((g) => {
+      const matchesQuery = !q || `${g.title} ${g.description}`.toLowerCase().includes(q);
+      const matchesDifficulty = difficulty === "All" || g.difficulty === difficulty;
+      return matchesQuery && matchesDifficulty;
+    });
+  }, [difficulty, gameQuery, games]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -164,10 +181,10 @@ export default function IndexModern() {
                   <p className="text-xs font-medium tracking-[0.25em] text-muted-foreground">
                     CYBERSECURITY · DEFENSE · SYSTEMS
                   </p>
-                  <h1 className="mt-5 text-4xl font-semibold tracking-tight sm:text-6xl">
+                  <h1 className="mt-5 text-5xl font-semibold tracking-tight sm:text-7xl">
                     Security work that’s calm, clear, and built to last.
                   </h1>
-                  <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
+                  <p className="mt-5 text-lg leading-relaxed text-muted-foreground sm:text-xl">
                     I’m Sharad Patel — focused on threat intelligence, secure infrastructure, and incident-ready
                     programs. A portfolio that prioritizes clarity over noise.
                   </p>
@@ -206,6 +223,51 @@ export default function IndexModern() {
                     <Badge variant="outline" className="border-white/10 bg-white/5 text-muted-foreground">
                       Incident Response
                     </Badge>
+                  </div>
+
+                  {/* Widgets */}
+                  <div className="mt-10 grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4 text-left">
+                      <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground">STATUS</p>
+                      <div className="mt-2 flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-2">
+                          <span className="h-2 w-2 rounded-full bg-emerald-400/80 shadow-[0_0_0_3px_rgba(16,185,129,0.15)]" />
+                          <p className="text-sm font-medium">Online</p>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          {now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+                        </p>
+                      </div>
+                      <p className="mt-2 text-sm text-muted-foreground">Typical response time: &lt; 24 hours</p>
+                    </div>
+
+                    <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4 text-left">
+                      <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground">QUICK LINKS</p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <a
+                          href="Sharad_Patel_Resume.pdf"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-white/10 transition-colors"
+                        >
+                          Resume
+                        </a>
+                        <a
+                          href="mailto:sharadpatel115222@gmail.com"
+                          className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-white/10 transition-colors"
+                        >
+                          Email
+                        </a>
+                        <a
+                          href="https://github.com/sharadpatel11"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-white/10 transition-colors"
+                        >
+                          GitHub
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -313,8 +375,34 @@ export default function IndexModern() {
               </div>
             </div>
 
-            <div className="mt-10 grid gap-4 md:grid-cols-2">
-              {games.map((g) => (
+            <div className="mt-8 grid gap-3 md:grid-cols-[1fr,220px]">
+              <div className="space-y-2">
+                <label className="text-sm text-muted-foreground">Search</label>
+                <Input
+                  value={gameQuery}
+                  onChange={(e) => setGameQuery(e.target.value)}
+                  placeholder="Find a challenge…"
+                  className="h-11 rounded-xl border-white/10 bg-white/5 text-base focus-visible:ring-white/20"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm text-muted-foreground">Difficulty</label>
+                <select
+                  value={difficulty}
+                  onChange={(e) => setDifficulty(e.target.value as typeof difficulty)}
+                  className="h-11 w-full rounded-xl border border-white/10 bg-white/5 px-3 text-base text-foreground/90 outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-white/20"
+                >
+                  <option>All</option>
+                  <option>Beginner</option>
+                  <option>Intermediate</option>
+                  <option>Advanced</option>
+                  <option>Expert</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="mt-8 grid gap-4 md:grid-cols-2">
+              {filteredGames.map((g) => (
                 <button
                   key={g.id}
                   type="button"
@@ -322,12 +410,12 @@ export default function IndexModern() {
                     if (g.id === "crypto-tool") window.open(g.path, "_blank");
                     else navigate(g.path);
                   }}
-                  className="group text-left rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-all hover:bg-white/[0.05] hover:border-white/15"
+                  className="group text-left rounded-2xl border border-white/10 bg-white/[0.03] p-7 transition-all hover:bg-white/[0.05] hover:border-white/15"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="text-base font-medium tracking-tight">{g.title}</p>
-                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{g.description}</p>
+                      <p className="text-lg font-medium tracking-tight">{g.title}</p>
+                      <p className="mt-2 text-base leading-relaxed text-muted-foreground">{g.description}</p>
                     </div>
                     <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted-foreground">
                       {g.difficulty}

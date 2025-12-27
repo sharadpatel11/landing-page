@@ -23,6 +23,13 @@ function applyModeToDocument(mode: UiMode) {
   root.classList.toggle("theme-classic", mode === "classic");
   root.classList.toggle("theme-modern", mode === "modern");
   root.dataset.uiMode = mode;
+
+  const favicon = document.querySelector<HTMLLinkElement>('link[data-ui-favicon=""] , link[data-ui-favicon]');
+  if (favicon) {
+    favicon.href = mode === "classic" ? "/favicon.svg" : "/favicon_modern.svg";
+  }
+
+  window.dispatchEvent(new CustomEvent("ui-mode-change", { detail: { mode } }));
 }
 
 export function UiModeProvider({ children }: { children: React.ReactNode }) {
