@@ -1,5 +1,4 @@
 import UiModeToggle from "@/components/UiModeToggle";
-import LiveClock from "@/components/widgets/LiveClock";
 import QuickActions from "@/components/widgets/QuickActions";
 
 const nav = [
@@ -19,9 +18,9 @@ function scrollToSection(href: string) {
 export default function ModernNavigation() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
-      <div className="mx-auto max-w-6xl px-4">
+      <div className="mx-auto max-w-7xl px-4">
         <div className="mt-3 rounded-2xl border border-white/10 bg-background/70 backdrop-blur-xl shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset]">
-          <div className="flex h-14 items-center justify-between px-3">
+          <div className="flex h-14 items-center justify-between px-3 lg:h-16 lg:px-4">
             <button
               type="button"
               onClick={() => scrollToSection("#home")}
@@ -44,7 +43,6 @@ export default function ModernNavigation() {
             </div>
 
             <div className="flex items-center gap-2">
-              <LiveClock className="hidden lg:flex" />
               <QuickActions className="hidden sm:flex" />
               <UiModeToggle />
               <a

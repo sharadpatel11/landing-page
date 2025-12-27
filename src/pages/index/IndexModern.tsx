@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ModernNavigation from "@/components/modern/ModernNavigation";
+import CyberOpsPanel from "@/components/modern/CyberOpsPanel";
 import UiModeToggle from "@/components/UiModeToggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -151,61 +152,68 @@ export default function IndexModern() {
       <main className="pt-20">
         {/* HERO */}
         <section id="home" className="relative">
-          <div className="mx-auto max-w-6xl px-4">
+          <div className="mx-auto max-w-7xl px-4">
             <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
               <div className="pointer-events-none absolute inset-0">
                 <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl" />
                 <div className="absolute -bottom-28 right-0 h-72 w-72 rounded-full bg-emerald-500/20 blur-3xl" />
                 <div className="absolute inset-0 bg-gradient-to-b from-white/[0.04] to-transparent" />
+                <div className="absolute inset-0 bg-cyber-grid bg-grid opacity-[0.06] animate-grid-pan" />
               </div>
 
-              <div className="relative px-6 py-16 sm:px-10 sm:py-20">
-                <div className="mx-auto max-w-3xl text-center">
-                  <p className="text-xs font-medium tracking-[0.25em] text-muted-foreground">
+              <div className="relative px-6 py-14 sm:px-10 sm:py-18 lg:px-12 lg:py-20">
+                <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
+                  <div className="text-center lg:text-left">
+                    <p className="text-xs font-medium tracking-[0.28em] text-muted-foreground">
                     CYBERSECURITY · DEFENSE · SYSTEMS
-                  </p>
-                  <h1 className="mt-5 text-4xl font-semibold tracking-tight sm:text-6xl">
-                    Security work that’s calm, clear, and built to last.
-                  </h1>
-                  <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
-                    I’m Sharad Patel — focused on threat intelligence, secure infrastructure, and incident-ready
-                    programs. A portfolio that prioritizes clarity over noise.
-                  </p>
+                    </p>
+                    <h1 className="mt-5 text-4xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
+                      Security work that’s calm, clear, and built to last.
+                    </h1>
+                    <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg lg:text-xl">
+                      I’m Sharad Patel — focused on threat intelligence, secure infrastructure, and incident-ready
+                      programs. A portfolio that prioritizes clarity over noise.
+                    </p>
 
-                  <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                    <Button
-                      size="lg"
-                      className="rounded-xl bg-white text-black hover:bg-white/90"
-                      onClick={() => {
-                        const el = document.querySelector("#projects");
-                        el?.scrollIntoView({ behavior: "smooth" });
-                      }}
-                    >
-                      Explore projects
-                    </Button>
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      className="rounded-xl border-white/15 bg-white/0 hover:bg-white/5"
-                      onClick={() => {
-                        const el = document.querySelector("#contact");
-                        el?.scrollIntoView({ behavior: "smooth" });
-                      }}
-                    >
-                      Contact
-                    </Button>
+                    <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
+                      <Button
+                        size="lg"
+                        className="rounded-xl bg-white text-black hover:bg-white/90"
+                        onClick={() => {
+                          const el = document.querySelector("#projects");
+                          el?.scrollIntoView({ behavior: "smooth" });
+                        }}
+                      >
+                        Explore projects
+                      </Button>
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="rounded-xl border-white/15 bg-white/0 hover:bg-white/5"
+                        onClick={() => {
+                          const el = document.querySelector("#contact");
+                          el?.scrollIntoView({ behavior: "smooth" });
+                        }}
+                      >
+                        Contact
+                      </Button>
+                    </div>
+
+                    <div className="mt-10 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
+                      <Badge variant="outline" className="border-white/10 bg-white/5 text-muted-foreground">
+                        NYU Tandon · MS Cybersecurity
+                      </Badge>
+                      <Badge variant="outline" className="border-white/10 bg-white/5 text-muted-foreground">
+                        Threat Intel
+                      </Badge>
+                      <Badge variant="outline" className="border-white/10 bg-white/5 text-muted-foreground">
+                        Incident Response
+                      </Badge>
+                    </div>
                   </div>
 
-                  <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
-                    <Badge variant="outline" className="border-white/10 bg-white/5 text-muted-foreground">
-                      NYU Tandon · MS Cybersecurity
-                    </Badge>
-                    <Badge variant="outline" className="border-white/10 bg-white/5 text-muted-foreground">
-                      Threat Intel
-                    </Badge>
-                    <Badge variant="outline" className="border-white/10 bg-white/5 text-muted-foreground">
-                      Incident Response
-                    </Badge>
+                  <div className="hidden lg:block">
+                    <CyberOpsPanel />
                   </div>
                 </div>
               </div>
@@ -214,11 +222,11 @@ export default function IndexModern() {
         </section>
 
         {/* ABOUT */}
-        <section id="about" className="py-20">
-          <div className="mx-auto max-w-6xl px-4">
+        <section id="about" className="py-20 lg:py-24">
+          <div className="mx-auto max-w-7xl px-4">
             <div className="grid gap-10 md:grid-cols-2">
               <div>
-                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">About</h2>
+                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">About</h2>
                 <p className="mt-4 text-muted-foreground leading-relaxed">
                   I translate complex risk into focused, actionable defense. I enjoy building systems that stand up to
                   real-world constraints — time, noise, and imperfect inputs — without losing usability.
@@ -230,22 +238,22 @@ export default function IndexModern() {
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:bg-white/[0.05]">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 lg:p-6 transition-colors hover:bg-white/[0.05]">
                   <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground">FOCUS</p>
                   <p className="mt-2 text-lg font-medium">Threat intelligence</p>
                   <p className="mt-1 text-sm text-muted-foreground">Signal over noise, with reliable triage.</p>
                 </div>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:bg-white/[0.05]">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 lg:p-6 transition-colors hover:bg-white/[0.05]">
                   <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground">LOCATION</p>
                   <p className="mt-2 text-lg font-medium">New York City</p>
                   <p className="mt-1 text-sm text-muted-foreground">Available for collaboration.</p>
                 </div>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:bg-white/[0.05]">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 lg:p-6 transition-colors hover:bg-white/[0.05]">
                   <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground">APPROACH</p>
                   <p className="mt-2 text-lg font-medium">Defensible defaults</p>
                   <p className="mt-1 text-sm text-muted-foreground">Hardening with clear trade-offs.</p>
                 </div>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:bg-white/[0.05]">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 lg:p-6 transition-colors hover:bg-white/[0.05]">
                   <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground">PRIORITY</p>
                   <p className="mt-2 text-lg font-medium">Incident-ready</p>
                   <p className="mt-1 text-sm text-muted-foreground">Response plans people can execute.</p>
@@ -256,11 +264,11 @@ export default function IndexModern() {
         </section>
 
         {/* SKILLS */}
-        <section id="skills" className="py-20">
-          <div className="mx-auto max-w-6xl px-4">
+        <section id="skills" className="py-20 lg:py-24">
+          <div className="mx-auto max-w-7xl px-4">
             <div className="flex items-end justify-between gap-6">
               <div>
-                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Skills</h2>
+                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Skills</h2>
                 <p className="mt-3 max-w-2xl text-muted-foreground">
                   A toolkit centered on practical defense, investigation, and automation.
                 </p>
@@ -284,7 +292,7 @@ export default function IndexModern() {
               ].map((card) => (
                 <div
                   key={card.title}
-                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all hover:bg-white/[0.05] hover:border-white/15"
+                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 lg:p-6 transition-all hover:bg-white/[0.05] hover:border-white/15"
                 >
                   <p className="text-sm font-medium">{card.title}</p>
                   <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
@@ -302,11 +310,11 @@ export default function IndexModern() {
         </section>
 
         {/* PLAYGROUND */}
-        <section id="games" className="py-20">
-          <div className="mx-auto max-w-6xl px-4">
+        <section id="games" className="py-20 lg:py-24">
+          <div className="mx-auto max-w-7xl px-4">
             <div className="flex items-end justify-between gap-6">
               <div>
-                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Playground</h2>
+                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Playground</h2>
                 <p className="mt-3 max-w-2xl text-muted-foreground">
                   Interactive challenges that mirror real security scenarios.
                 </p>
@@ -322,7 +330,7 @@ export default function IndexModern() {
                     if (g.id === "crypto-tool") window.open(g.path, "_blank");
                     else navigate(g.path);
                   }}
-                  className="group text-left rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-all hover:bg-white/[0.05] hover:border-white/15"
+                  className="group text-left rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-7 transition-all hover:bg-white/[0.05] hover:border-white/15"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>
@@ -344,11 +352,11 @@ export default function IndexModern() {
         </section>
 
         {/* PROJECTS */}
-        <section id="projects" className="py-20">
-          <div className="mx-auto max-w-6xl px-4">
+        <section id="projects" className="py-20 lg:py-24">
+          <div className="mx-auto max-w-7xl px-4">
             <div className="flex items-end justify-between gap-6">
               <div>
-                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Projects</h2>
+                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Projects</h2>
                 <p className="mt-3 max-w-2xl text-muted-foreground">
                   A small set of security-focused builds — designed for clarity, repeatability, and impact.
                 </p>
@@ -367,7 +375,7 @@ export default function IndexModern() {
               {projects.map((p) => (
                 <div
                   key={p.title}
-                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-all hover:bg-white/[0.05] hover:border-white/15"
+                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-7 transition-all hover:bg-white/[0.05] hover:border-white/15"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>
@@ -396,11 +404,11 @@ export default function IndexModern() {
         </section>
 
         {/* CONTACT */}
-        <section id="contact" className="py-20">
-          <div className="mx-auto max-w-6xl px-4">
+        <section id="contact" className="py-20 lg:py-24">
+          <div className="mx-auto max-w-7xl px-4">
             <div className="grid gap-10 md:grid-cols-2">
               <div>
-                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Contact</h2>
+                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Contact</h2>
                 <p className="mt-3 max-w-xl text-muted-foreground">
                   If you’re hiring, collaborating, or just want to talk security, send a note. I reply quickly.
                 </p>
@@ -431,7 +439,7 @@ export default function IndexModern() {
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-7">
                 <form onSubmit={onSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <label className="text-sm text-muted-foreground">Email</label>
@@ -484,7 +492,7 @@ export default function IndexModern() {
       </main>
 
       <footer className="border-t border-white/10 py-10">
-        <div className="mx-auto max-w-6xl px-4">
+        <div className="mx-auto max-w-7xl px-4">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-muted-foreground">© 2025 Sharad Patel</p>
             <UiModeToggle variant="footer" />

@@ -160,6 +160,18 @@ export default {
 					'100%': {
 						transform: 'translateX(100%)'
 					}
+				},
+				'float-y': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-8px)' }
+				},
+				'grid-pan': {
+					'0%': { backgroundPosition: '0px 0px' },
+					'100%': { backgroundPosition: '120px 120px' }
+				},
+				'shimmer-x': {
+					'0%': { transform: 'translateX(-120%)' },
+					'100%': { transform: 'translateX(120%)' }
 				}
 			},
 			animation: {
@@ -170,7 +182,10 @@ export default {
 				'typing': 'typing 3s steps(20) infinite',
 				'fade-in-up': 'fade-in-up 0.6s ease-out',
 				'glitch': 'glitch 0.3s infinite',
-				'scan': 'scan 3s infinite'
+				'scan': 'scan 3s infinite',
+				'float-y': 'float-y 6s ease-in-out infinite',
+				'grid-pan': 'grid-pan 18s linear infinite',
+				'shimmer-x': 'shimmer-x 2.8s ease-in-out infinite'
 			},
 			backgroundImage: {
 				'cyber-grid': "linear-gradient(rgba(0,255,65,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,65,0.1) 1px, transparent 1px)",
