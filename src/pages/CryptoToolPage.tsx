@@ -1,12 +1,11 @@
 import CryptoTool from "@/components/CryptoTool";
+import PlaygroundFrame from "@/components/playground/PlaygroundFrame";
 
 const CryptoToolPage = () => {
   return (
-    <div className="min-h-screen bg-cyber-dark">
-      <main>
-        <CryptoTool />
-      </main>
-    </div>
+    <PlaygroundFrame title="Crypto Tool Playground" subtitle="Explore Caesar/ROT13/Base64 and transformations.">
+      <CryptoTool embedded />
+    </PlaygroundFrame>
   );
 };
 

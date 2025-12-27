@@ -6,14 +6,22 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Lock, Unlock, Copy, Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useUiMode } from "@/theme/ui-mode";
+import { cn } from "@/lib/utils";
 
-const CryptoTool = () => {
+type CryptoToolProps = {
+  embedded?: boolean;
+};
+
+const CryptoTool = ({ embedded = false }: CryptoToolProps) => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [method, setMethod] = useState('caesar');
   const [shift, setShift] = useState(3);
   const [showOutput, setShowOutput] = useState(true);
   const { toast } = useToast();
+  const { mode } = useUiMode();
+  const isModern = mode === "modern";
 
   // Caesar Cipher
   const caesarCipher = (text: string, shift: number, decode = false) => {
@@ -156,33 +164,40 @@ const CryptoTool = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-cyber-darker to-cyber-dark min-h-screen">
-      <div className="container mx-auto px-4">
+    <section className={cn(!embedded && "min-h-screen py-16", !embedded && !isModern && "bg-gradient-to-b from-cyber-darker to-cyber-dark")}>
+      <div className={cn(isModern ? "mx-auto max-w-4xl px-0" : "container mx-auto px-4")}>
         {/* Return to Portfolio Button */}
-        <div className="mb-8">
-          <Button
-            onClick={returnToPortfolio}
-            variant="outline"
-            className="border-cyber-blue text-cyber-blue hover:bg-cyber-blue/10"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Return to Portfolio
-          </Button>
-        </div>
+        {!embedded && (
+          <div className="mb-8">
+            <Button
+              onClick={returnToPortfolio}
+              variant="outline"
+              className={cn(
+                "rounded-xl",
+                isModern ? "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]" : "border-cyber-blue text-cyber-blue hover:bg-cyber-blue/10"
+              )}
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Return to Portfolio
+            </Button>
+          </div>
+        )}
 
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 glitch" data-text="Crypto Tool">
-            <span className="cyber-text">Crypto</span> Tool
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Interactive encryption and decryption tool for <span className="redacted">educational purposes</span>
-          </p>
-        </div>
+        {!embedded && (
+          <div className="text-center mb-12">
+            <h2 className={cn("text-4xl md:text-5xl font-semibold mb-5", isModern ? "text-foreground" : "font-bold glitch")} data-text="Crypto Tool">
+              <span className={cn(isModern ? "text-foreground" : "cyber-text")}>Crypto</span> Tool
+            </h2>
+            <p className={cn("max-w-3xl mx-auto", isModern ? "text-muted-foreground text-lg" : "text-xl text-gray-300")}>
+              Interactive encryption and decryption tool for <span className={cn(!isModern && "redacted")}>educational purposes</span>
+            </p>
+          </div>
+        )}
 
-        <div className="max-w-4xl mx-auto">
-          <Card className="bg-card/40 border-cyber-green/40 shadow-xl glow-effect">
-            <CardHeader>
-              <CardTitle className="text-cyber-green flex items-center gap-2">
+        <div className="mx-auto max-w-4xl">
+          <Card className={cn(isModern ? "rounded-2xl border border-white/10 bg-white/[0.03] shadow-xl" : "bg-card/40 border-cyber-green/40 shadow-xl glow-effect")}>
+            <CardHeader className={cn(isModern ? "border-b border-white/10 bg-white/[0.03]" : "")}>
+              <CardTitle className={cn("flex items-center gap-2", isModern ? "text-foreground" : "text-cyber-green")}>
                 <Lock className="w-6 h-6" />
                 Cryptography Playground
               </CardTitle>
@@ -193,7 +208,7 @@ const CryptoTool = () => {
                 <div className="space-y-2">
                   <Label htmlFor="method">Encryption Method</Label>
                   <Select value={method} onValueChange={setMethod}>
-                    <SelectTrigger className="bg-cyber-dark border-cyber-blue/30">
+                    <SelectTrigger className={cn(isModern ? "rounded-xl border-white/10 bg-white/[0.03]" : "bg-cyber-dark border-cyber-blue/30")}>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -215,7 +230,7 @@ const CryptoTool = () => {
                       max="25"
                       value={shift}
                       onChange={(e) => setShift(parseInt(e.target.value) || 3)}
-                      className="bg-cyber-dark border-cyber-blue/30"
+                      className={cn(isModern ? "rounded-xl border-white/10 bg-white/[0.03]" : "bg-cyber-dark border-cyber-blue/30")}
                     />
                   </div>
                 )}
@@ -229,7 +244,7 @@ const CryptoTool = () => {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Enter text to encrypt/decrypt..."
-                  className="bg-cyber-dark border-cyber-blue/30 font-mono"
+                  className={cn("font-mono", isModern ? "rounded-xl border-white/10 bg-white/[0.03]" : "bg-cyber-dark border-cyber-blue/30")}
                 />
               </div>
 
@@ -237,7 +252,7 @@ const CryptoTool = () => {
               <div className="flex flex-wrap gap-4 justify-center">
                 <Button
                   onClick={encrypt}
-                  className="bg-cyber-green hover:bg-cyber-green/80 text-black"
+                  className={cn(isModern ? "rounded-xl bg-white text-black hover:bg-white/90" : "bg-cyber-green hover:bg-cyber-green/80 text-black")}
                 >
                   <Lock className="w-4 h-4 mr-2" />
                   Encrypt
@@ -245,7 +260,7 @@ const CryptoTool = () => {
                 <Button
                   onClick={decrypt}
                   variant="outline"
-                  className="border-cyber-blue text-cyber-blue hover:bg-cyber-blue/10"
+                  className={cn(isModern ? "rounded-xl border-white/10 bg-white/[0.03] hover:bg-white/[0.06]" : "border-cyber-blue text-cyber-blue hover:bg-cyber-blue/10")}
                 >
                   <Unlock className="w-4 h-4 mr-2" />
                   Decrypt
@@ -253,7 +268,7 @@ const CryptoTool = () => {
                 <Button
                   onClick={swapInputOutput}
                   variant="outline"
-                  className="border-cyber-purple text-cyber-purple hover:bg-cyber-purple/10"
+                  className={cn(isModern ? "rounded-xl border-white/10 bg-white/[0.03] hover:bg-white/[0.06]" : "border-cyber-purple text-cyber-purple hover:bg-cyber-purple/10")}
                 >
                   ↕ Swap
                 </Button>
@@ -268,7 +283,7 @@ const CryptoTool = () => {
                       size="sm"
                       variant="ghost"
                       onClick={() => setShowOutput(!showOutput)}
-                      className="text-gray-400 hover:text-white"
+                      className={cn(isModern ? "hover:bg-white/5" : "text-gray-400 hover:text-white")}
                     >
                       {showOutput ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </Button>
@@ -277,7 +292,7 @@ const CryptoTool = () => {
                       variant="ghost"
                       onClick={copyToClipboard}
                       disabled={!output}
-                      className="text-gray-400 hover:text-white"
+                      className={cn(isModern ? "hover:bg-white/5" : "text-gray-400 hover:text-white")}
                     >
                       <Copy className="w-4 h-4" />
                     </Button>
@@ -288,33 +303,33 @@ const CryptoTool = () => {
                     id="output"
                     value={showOutput ? output : '•'.repeat(output.length)}
                     readOnly
-                    className="bg-cyber-darker border-cyber-green/30 font-mono"
+                    className={cn("font-mono", isModern ? "rounded-xl border-white/10 bg-white/[0.03]" : "bg-cyber-darker border-cyber-green/30")}
                     placeholder="Output will appear here..."
                   />
                 </div>
               </div>
 
               {/* Information */}
-              <div className="bg-cyber-darker/50 p-4 rounded-lg border border-cyber-blue/20">
-                <h4 className="text-cyber-blue font-semibold mb-2">About {method.toUpperCase()}:</h4>
+              <div className={cn("p-4 rounded-xl border", isModern ? "border-white/10 bg-white/[0.03]" : "bg-cyber-darker/50 border-cyber-blue/20")}>
+                <h4 className={cn("font-semibold mb-2", isModern ? "text-foreground" : "text-cyber-blue")}>About {method.toUpperCase()}:</h4>
                 {method === 'caesar' && (
-                  <p className="text-gray-300 text-sm">
+                  <p className={cn("text-sm", isModern ? "text-muted-foreground" : "text-gray-300")}>
                     Caesar cipher shifts each letter by a fixed number of positions in the alphabet. 
                     Formula: E_n(x) = (x + n) mod 26
                   </p>
                 )}
                 {method === 'rot13' && (
-                  <p className="text-gray-300 text-sm">
+                  <p className={cn("text-sm", isModern ? "text-muted-foreground" : "text-gray-300")}>
                     ROT13 is a Caesar cipher with a shift of 13. It's its own inverse, meaning applying it twice returns the original text.
                   </p>
                 )}
                 {method === 'base64' && (
-                  <p className="text-gray-300 text-sm">
+                  <p className={cn("text-sm", isModern ? "text-muted-foreground" : "text-gray-300")}>
                     Base64 encoding converts binary data to ASCII text. Commonly used in web applications and email systems.
                   </p>
                 )}
                 {method === 'reverse' && (
-                  <p className="text-gray-300 text-sm">
+                  <p className={cn("text-sm", isModern ? "text-muted-foreground" : "text-gray-300")}>
                     Simple text reversal. While not cryptographically secure, it demonstrates basic text manipulation.
                   </p>
                 )}

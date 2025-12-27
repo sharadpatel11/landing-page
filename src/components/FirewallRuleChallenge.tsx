@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from 'react-router-dom';
+import { useUiMode } from "@/theme/ui-mode";
+import { cn } from "@/lib/utils";
 
 interface Challenge {
   id: number;
@@ -39,8 +41,14 @@ interface DragItem {
   category: 'source' | 'destination' | 'service' | 'action';
 }
 
-const FirewallRuleChallenge = () => {
+type FirewallRuleChallengeProps = {
+  embedded?: boolean;
+};
+
+const FirewallRuleChallenge = ({ embedded = false }: FirewallRuleChallengeProps) => {
   const navigate = useNavigate();
+  const { mode } = useUiMode();
+  const isModern = mode === "modern";
 
   const challenges: Challenge[] = [
     {
@@ -303,21 +311,30 @@ const FirewallRuleChallenge = () => {
     return userRule.source && userRule.destination && userRule.service && userRule.action;
   };
 
-  const getDropZoneClass = (zone: string, hasContent: boolean) => {
-    const baseClass = "min-h-[60px] border-2 border-dashed rounded-lg p-3 text-center transition-all duration-200 flex items-center justify-center ";
+  const getDropZoneClass = (_zone: string, hasContent: boolean) => {
+    const baseClass =
+      "min-h-[72px] border-2 border-dashed rounded-xl p-3 text-center transition-all duration-200 flex items-center justify-center ";
     if (hasContent) {
-      return baseClass + "border-cyber-green/50 bg-cyber-green/10 text-cyber-green";
+      return cn(
+        baseClass,
+        isModern ? "border-emerald-400/40 bg-emerald-400/10 text-foreground" : "border-cyber-green/50 bg-cyber-green/10 text-cyber-green"
+      );
     }
-    return baseClass + "border-gray-600 bg-gray-800/50 text-gray-400 hover:border-cyber-green/30 hover:bg-cyber-green/5";
+    return cn(
+      baseClass,
+      isModern
+        ? "border-white/10 bg-white/[0.03] text-muted-foreground hover:bg-white/[0.05]"
+        : "border-gray-600 bg-gray-800/50 text-gray-400 hover:border-cyber-green/30 hover:bg-cyber-green/5"
+    );
   };
 
   if (gameState.gameComplete) {
     return (
-      <div className="min-h-screen bg-cyber-darker py-4 sm:py-8">
-        <div className="container mx-auto px-2 sm:px-4 max-w-4xl">
-          <Card className="bg-black border-cyber-green/30 shadow-lg glow-effect">
-            <CardHeader className="bg-cyber-dark border-b border-cyber-green/30 text-center p-4 sm:p-6">
-              <CardTitle className="text-cyber-green font-mono text-lg sm:text-2xl">
+      <div className={cn(!embedded && "min-h-screen", !embedded && !isModern && "bg-cyber-darker", "py-4 sm:py-8")}>
+        <div className={cn(isModern ? "mx-auto max-w-4xl px-2 sm:px-4" : "container mx-auto px-2 sm:px-4 max-w-4xl")}>
+          <Card className={cn(isModern ? "rounded-2xl border border-white/10 bg-white/[0.03] shadow-lg" : "bg-black border-cyber-green/30 shadow-lg glow-effect")}>
+            <CardHeader className={cn(isModern ? "border-b border-white/10 bg-white/[0.03]" : "bg-cyber-dark border-b border-cyber-green/30", "text-center p-4 sm:p-6")}>
+              <CardTitle className={cn("font-mono text-lg sm:text-2xl", isModern ? "text-foreground" : "text-cyber-green")}>
                 🛡️ Configuration Complete!
               </CardTitle>
             </CardHeader>
@@ -353,13 +370,21 @@ const FirewallRuleChallenge = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   onClick={resetGame}
-                  className="px-4 sm:px-6 py-2 sm:py-3 bg-cyber-green text-black font-semibold rounded-lg hover:bg-cyber-green/80 transition-colors text-sm sm:text-base"
+                  className={cn(
+                    "px-4 sm:px-6 py-2 sm:py-3 font-semibold rounded-xl transition-colors text-sm sm:text-base",
+                    isModern ? "bg-white text-black hover:bg-white/90" : "bg-cyber-green text-black hover:bg-cyber-green/80"
+                  )}
                 >
                   Play Again
                 </button>
                 <button
                   onClick={() => navigate('/')}
-                  className="px-4 sm:px-6 py-2 sm:py-3 bg-cyber-dark border border-cyber-green/30 text-cyber-green font-semibold rounded-lg hover:bg-cyber-green/10 transition-colors text-sm sm:text-base"
+                  className={cn(
+                    "px-4 sm:px-6 py-2 sm:py-3 font-semibold rounded-xl transition-colors text-sm sm:text-base",
+                    isModern
+                      ? "border border-white/10 bg-white/[0.03] text-foreground hover:bg-white/[0.06]"
+                      : "bg-cyber-dark border border-cyber-green/30 text-cyber-green hover:bg-cyber-green/10"
+                  )}
                 >
                   See More Projects
                 </button>
@@ -372,26 +397,28 @@ const FirewallRuleChallenge = () => {
   }
 
   return (
-    <div className="min-h-screen bg-cyber-darker py-4 sm:py-8">
-      <div className="container mx-auto px-2 sm:px-4 max-w-7xl">
+    <div className={cn(!embedded && "min-h-screen", !embedded && !isModern && "bg-cyber-darker", "py-4 sm:py-8")}>
+      <div className={cn(isModern ? "mx-auto max-w-7xl px-2 sm:px-4" : "container mx-auto px-2 sm:px-4 max-w-7xl")}>
         {/* Header */}
-        <div className="text-center mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-4xl font-bold cyber-text mb-4">
-            🛡️ Firewall Rule Challenge
-          </h1>
-          <div className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-6 text-sm font-mono">
-            <span className="text-cyber-green">
-              Challenge {gameState.currentChallengeIndex + 1} of {gameState.totalChallenges}
-            </span>
-            <span className="text-gray-400">Score: {gameState.score}</span>
+        {!embedded && (
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className={cn("text-2xl sm:text-4xl font-semibold mb-4", isModern ? "text-foreground" : "font-bold cyber-text")}>
+              🛡️ Firewall Rule Challenge
+            </h1>
+            <div className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-6 text-sm font-mono">
+              <span className={cn(isModern ? "text-muted-foreground" : "text-cyber-green")}>
+                Challenge {gameState.currentChallengeIndex + 1} of {gameState.totalChallenges}
+              </span>
+              <span className={cn(isModern ? "text-muted-foreground" : "text-gray-400")}>Score: {gameState.score}</span>
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Left Panel - Ticket */}
-          <Card className="bg-black border-cyber-green/30 shadow-lg order-1">
-            <CardHeader className="bg-cyber-dark border-b border-cyber-green/30 p-4">
-              <CardTitle className="text-cyber-green font-mono flex items-center text-sm sm:text-base">
+          <Card className={cn(isModern ? "rounded-2xl border border-white/10 bg-white/[0.03] shadow-lg order-1" : "bg-black border-cyber-green/30 shadow-lg order-1")}>
+            <CardHeader className={cn(isModern ? "border-b border-white/10 bg-white/[0.03]" : "bg-cyber-dark border-b border-cyber-green/30", "p-4")}>
+              <CardTitle className={cn("font-mono flex items-center text-sm sm:text-base", isModern ? "text-foreground" : "text-cyber-green")}>
                 🎫 Change Request
               </CardTitle>
             </CardHeader>
@@ -399,15 +426,24 @@ const FirewallRuleChallenge = () => {
               <div className="space-y-3 sm:space-y-4">
                 <div>
                   <div className="text-xs sm:text-sm text-gray-400 font-mono">Ticket ID:</div>
-                  <div className="text-cyber-green font-mono text-sm sm:text-lg break-all">{currentChallenge.ticket.id}</div>
+                  <div className={cn("font-mono text-sm sm:text-lg break-all", isModern ? "text-foreground" : "text-cyber-green")}>
+                    {currentChallenge.ticket.id}
+                  </div>
                 </div>
                 <div>
                   <div className="text-xs sm:text-sm text-gray-400 font-mono">Requester:</div>
-                  <div className="text-white text-sm sm:text-base break-words">{currentChallenge.ticket.requester}</div>
+                  <div className={cn("text-sm sm:text-base break-words", isModern ? "text-foreground" : "text-white")}>
+                    {currentChallenge.ticket.requester}
+                  </div>
                 </div>
                 <div>
                   <div className="text-xs sm:text-sm text-gray-400 font-mono">Description:</div>
-                  <div className="text-gray-300 leading-relaxed bg-gray-900 p-3 rounded border border-gray-700 text-xs sm:text-sm break-words">
+                  <div
+                    className={cn(
+                      "leading-relaxed p-3 rounded-xl border text-xs sm:text-sm break-words",
+                      isModern ? "border-white/10 bg-white/[0.03] text-muted-foreground" : "text-gray-300 bg-gray-900 border-gray-700"
+                    )}
+                  >
                     {currentChallenge.ticket.description}
                   </div>
                 </div>
@@ -416,9 +452,9 @@ const FirewallRuleChallenge = () => {
           </Card>
 
           {/* Middle Panel - Firewall Rule Table */}
-          <Card className="bg-black border-cyber-green/30 shadow-lg order-3 lg:order-2">
-            <CardHeader className="bg-cyber-dark border-b border-cyber-green/30 p-4">
-              <CardTitle className="text-cyber-green font-mono flex items-center text-sm sm:text-base">
+          <Card className={cn(isModern ? "rounded-2xl border border-white/10 bg-white/[0.03] shadow-lg order-3 lg:order-2" : "bg-black border-cyber-green/30 shadow-lg order-3 lg:order-2")}>
+            <CardHeader className={cn(isModern ? "border-b border-white/10 bg-white/[0.03]" : "bg-cyber-dark border-b border-cyber-green/30", "p-4")}>
+              <CardTitle className={cn("font-mono flex items-center text-sm sm:text-base", isModern ? "text-foreground" : "text-cyber-green")}>
                 ⚙️ Firewall Rule Configuration
               </CardTitle>
             </CardHeader>
@@ -643,7 +679,12 @@ const FirewallRuleChallenge = () => {
                   <button
                     onClick={applyRule}
                     disabled={!isRuleComplete() || gameState.showFeedback}
-                    className="w-full px-4 py-3 bg-cyber-green text-black font-semibold rounded-lg disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed hover:bg-cyber-green/80 transition-colors text-sm sm:text-base"
+                    className={cn(
+                      "w-full px-4 py-3 font-semibold rounded-xl disabled:cursor-not-allowed transition-colors text-sm sm:text-base",
+                      isModern
+                        ? "bg-white text-black hover:bg-white/90 disabled:bg-white/10 disabled:text-muted-foreground"
+                        : "bg-cyber-green text-black hover:bg-cyber-green/80 disabled:bg-gray-600 disabled:text-gray-400"
+                    )}
                   >
                     ✔️ Apply Rule
                   </button>
@@ -676,7 +717,10 @@ const FirewallRuleChallenge = () => {
                     )}
                     <button
                       onClick={nextChallenge}
-                      className="mt-3 px-4 py-2 bg-cyber-green text-black font-semibold rounded hover:bg-cyber-green/80 transition-colors text-sm sm:text-base"
+                      className={cn(
+                        "mt-3 px-4 py-2 font-semibold rounded-xl transition-colors text-sm sm:text-base",
+                        isModern ? "bg-white text-black hover:bg-white/90" : "bg-cyber-green text-black hover:bg-cyber-green/80"
+                      )}
                     >
                       {gameState.currentChallengeIndex < challenges.length - 1 ? 'Next Ticket' : 'Complete Challenge'}
                     </button>
@@ -687,19 +731,25 @@ const FirewallRuleChallenge = () => {
           </Card>
 
           {/* Right Panel - Toolbox & Network Map */}
-          <Card className="bg-black border-cyber-green/30 shadow-lg order-2 lg:order-3">
-            <CardHeader className="bg-cyber-dark border-b border-cyber-green/30 p-4">
-              <CardTitle className="text-cyber-green font-mono flex items-center text-sm sm:text-base">
+          <Card className={cn(isModern ? "rounded-2xl border border-white/10 bg-white/[0.03] shadow-lg order-2 lg:order-3" : "bg-black border-cyber-green/30 shadow-lg order-2 lg:order-3")}>
+            <CardHeader className={cn(isModern ? "border-b border-white/10 bg-white/[0.03]" : "bg-cyber-dark border-b border-cyber-green/30", "p-4")}>
+              <CardTitle className={cn("font-mono flex items-center text-sm sm:text-base", isModern ? "text-foreground" : "text-cyber-green")}>
                 🔧 Toolbox & Network Assets
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4 sm:p-6">
               {/* Network Map */}
               <div className="mb-6">
-                <h4 className="text-xs sm:text-sm font-semibold text-cyber-green mb-2">Network Assets:</h4>
+                <h4 className={cn("text-xs sm:text-sm font-semibold mb-2", isModern ? "text-foreground" : "text-cyber-green")}>Network Assets:</h4>
                 <div className="space-y-1">
                   {currentChallenge.assets.map((asset, index) => (
-                    <div key={index} className="text-xs font-mono text-gray-300 bg-gray-900 p-2 rounded border border-gray-700 break-all">
+                    <div
+                      key={index}
+                      className={cn(
+                        "text-xs font-mono p-2 rounded-xl border break-all",
+                        isModern ? "border-white/10 bg-white/[0.03] text-muted-foreground" : "text-gray-300 bg-gray-900 border-gray-700"
+                      )}
+                    >
                       {asset}
                     </div>
                   ))}
@@ -708,7 +758,7 @@ const FirewallRuleChallenge = () => {
 
               {/* Toolbox */}
               <div>
-                <h4 className="text-xs sm:text-sm font-semibold text-cyber-green mb-3">Drag & Drop Components:</h4>
+                <h4 className={cn("text-xs sm:text-sm font-semibold mb-3", isModern ? "text-foreground" : "text-cyber-green")}>Drag & Drop Components:</h4>
                 <div className="space-y-3 max-h-96 overflow-y-auto terminal-scrollbar">
                   {/* Sources */}
                   <div>
@@ -719,7 +769,12 @@ const FirewallRuleChallenge = () => {
                           key={item.id}
                           draggable
                           onDragStart={(e) => handleDragStart(e, item)}
-                          className="px-2 py-1 bg-blue-900/30 text-blue-300 text-xs rounded border border-blue-500/30 cursor-grab hover:bg-blue-900/50 transition-colors font-mono break-all max-w-full"
+                          className={cn(
+                            "px-2 py-1 text-xs rounded-xl border cursor-grab transition-colors font-mono break-all max-w-full",
+                            isModern
+                              ? "bg-indigo-500/10 text-indigo-200 border-indigo-500/20 hover:bg-indigo-500/15"
+                              : "bg-blue-900/30 text-blue-300 border-blue-500/30 hover:bg-blue-900/50"
+                          )}
                           style={{ wordBreak: 'break-word' }}
                         >
                           {item.label}
@@ -737,7 +792,12 @@ const FirewallRuleChallenge = () => {
                           key={item.id}
                           draggable
                           onDragStart={(e) => handleDragStart(e, item)}
-                          className="px-2 py-1 bg-purple-900/30 text-purple-300 text-xs rounded border border-purple-500/30 cursor-grab hover:bg-purple-900/50 transition-colors font-mono break-all max-w-full"
+                          className={cn(
+                            "px-2 py-1 text-xs rounded-xl border cursor-grab transition-colors font-mono break-all max-w-full",
+                            isModern
+                              ? "bg-fuchsia-500/10 text-fuchsia-200 border-fuchsia-500/20 hover:bg-fuchsia-500/15"
+                              : "bg-purple-900/30 text-purple-300 border-purple-500/30 hover:bg-purple-900/50"
+                          )}
                           style={{ wordBreak: 'break-word' }}
                         >
                           {item.label}
@@ -755,7 +815,12 @@ const FirewallRuleChallenge = () => {
                           key={item.id}
                           draggable
                           onDragStart={(e) => handleDragStart(e, item)}
-                          className="px-2 py-1 bg-yellow-900/30 text-yellow-300 text-xs rounded border border-yellow-500/30 cursor-grab hover:bg-yellow-900/50 transition-colors font-mono break-all max-w-full"
+                          className={cn(
+                            "px-2 py-1 text-xs rounded-xl border cursor-grab transition-colors font-mono break-all max-w-full",
+                            isModern
+                              ? "bg-amber-500/10 text-amber-200 border-amber-500/20 hover:bg-amber-500/15"
+                              : "bg-yellow-900/30 text-yellow-300 border-yellow-500/30 hover:bg-yellow-900/50"
+                          )}
                           style={{ wordBreak: 'break-word' }}
                         >
                           {item.label}
@@ -773,11 +838,12 @@ const FirewallRuleChallenge = () => {
                           key={item.id}
                           draggable
                           onDragStart={(e) => handleDragStart(e, item)}
-                          className={`px-2 py-1 text-xs rounded border cursor-grab transition-colors font-mono ${
-                            item.label === 'Allow' 
-                              ? 'bg-green-900/30 text-green-300 border-green-500/30 hover:bg-green-900/50'
-                              : 'bg-red-900/30 text-red-300 border-red-500/30 hover:bg-red-900/50'
-                          }`}
+                          className={cn(
+                            "px-2 py-1 text-xs rounded-xl border cursor-grab transition-colors font-mono",
+                            item.label === "Allow"
+                              ? (isModern ? "bg-emerald-500/10 text-emerald-200 border-emerald-500/20 hover:bg-emerald-500/15" : "bg-green-900/30 text-green-300 border-green-500/30 hover:bg-green-900/50")
+                              : (isModern ? "bg-red-500/10 text-red-200 border-red-500/20 hover:bg-red-500/15" : "bg-red-900/30 text-red-300 border-red-500/30 hover:bg-red-900/50")
+                          )}
                         >
                           {item.label}
                         </div>
@@ -791,14 +857,21 @@ const FirewallRuleChallenge = () => {
         </div>
 
         {/* Back Button */}
-        <div className="text-center mt-6 sm:mt-8">
-          <button
-            onClick={() => navigate('/')}
-            className="px-4 sm:px-6 py-2 sm:py-3 bg-cyber-dark border border-cyber-green/30 text-cyber-green font-semibold rounded-lg hover:bg-cyber-green/10 transition-colors text-sm sm:text-base"
-          >
-            ← Back to Portfolio
-          </button>
-        </div>
+        {!embedded && (
+          <div className="text-center mt-6 sm:mt-8">
+            <button
+              onClick={() => navigate('/')}
+              className={cn(
+                "px-4 sm:px-6 py-2 sm:py-3 font-semibold rounded-xl transition-colors text-sm sm:text-base",
+                isModern
+                  ? "border border-white/10 bg-white/[0.03] text-foreground hover:bg-white/[0.06]"
+                  : "bg-cyber-dark border border-cyber-green/30 text-cyber-green hover:bg-cyber-green/10"
+              )}
+            >
+              ← Back to Portfolio
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
