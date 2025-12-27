@@ -2,7 +2,7 @@ import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Copy, ExternalLink, MoreHorizontal } from "lucide-react";
+import { Command, Copy, ExternalLink } from "lucide-react";
 import { useUiMode } from "@/theme/ui-mode";
 
 type QuickActionsProps = {
@@ -32,8 +32,8 @@ export default function QuickActions({ className }: QuickActionsProps) {
             variant="outline"
             className="h-9 rounded-xl border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
           >
-            <MoreHorizontal className="h-4 w-4" />
-            <span className="sr-only">Quick actions</span>
+            <Command className="h-4 w-4" />
+            <span className="ml-2 text-xs text-muted-foreground">Actions</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56">
