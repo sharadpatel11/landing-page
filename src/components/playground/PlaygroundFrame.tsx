@@ -2,8 +2,6 @@ import { PropsWithChildren, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUiMode } from "@/theme/ui-mode";
 import UiModeToggle from "@/components/UiModeToggle";
-import LiveClock from "@/components/widgets/LiveClock";
-import QuickActions from "@/components/widgets/QuickActions";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
@@ -72,8 +70,6 @@ export default function PlaygroundFrame({
 
             <div className="flex items-center gap-2">
               {rightSlot ? <div className="hidden sm:block">{rightSlot}</div> : null}
-              <LiveClock className={cn("hidden md:flex", isModern ? "" : "text-cyber-green")} />
-              <QuickActions className="hidden sm:flex" />
               <UiModeToggle />
             </div>
           </div>
