@@ -272,83 +272,91 @@ const RogueFileHunt = ({ showHeader = true }: RogueFileHuntProps) => {
         break;
 
       case 'ls':
-        const contents = getCurrentDirectoryContents();
-        const items = Object.keys(contents);
-        if (items.length === 0) {
-          addToHistory('Directory is empty');
-        } else {
-          items.forEach(item => {
-            const node = contents[item];
-            const prefix = node.type === 'directory' ? 'd' : '-';
-            const color = node.type === 'directory' ? 'text-cyber-blue' : 'text-gray-300';
-            addToHistory(`${prefix}rwxr-xr-x 1 admin admin 4096 Dec 20 10:30 ${item}`);
-          });
+        {
+          const contents = getCurrentDirectoryContents();
+          const items = Object.keys(contents);
+          if (items.length === 0) {
+            addToHistory('Directory is empty');
+          } else {
+            items.forEach(item => {
+              const node = contents[item];
+              const prefix = node.type === 'directory' ? 'd' : '-';
+              const color = node.type === 'directory' ? 'text-cyber-blue' : 'text-gray-300';
+              addToHistory(`${prefix}rwxr-xr-x 1 admin admin 4096 Dec 20 10:30 ${item}`);
+            });
+          }
         }
         break;
 
       case 'cd':
-        if (args.length === 0) {
-          addToHistory('cd: missing argument');
-          break;
-        }
-        
-        let newDir = args[0];
-        if (newDir === '..') {
-          const pathParts = gameState.currentDirectory.split('/');
-          if (pathParts.length > 1) {
-            pathParts.pop();
-            newDir = pathParts.join('/') || '~';
-          } else {
-            newDir = '~';
+        {
+          if (args.length === 0) {
+            addToHistory('cd: missing argument');
+            break;
           }
-        } else if (newDir === '~') {
-          newDir = '~';
-        } else if (!newDir.startsWith('~/')) {
-          newDir = gameState.currentDirectory === '~' ? `~/${newDir}` : `${gameState.currentDirectory}/${newDir}`;
-        }
+          
+          let newDir = args[0];
+          if (newDir === '..') {
+            const pathParts = gameState.currentDirectory.split('/');
+            if (pathParts.length > 1) {
+              pathParts.pop();
+              newDir = pathParts.join('/') || '~';
+            } else {
+              newDir = '~';
+            }
+          } else if (newDir === '~') {
+            newDir = '~';
+          } else if (!newDir.startsWith('~/')) {
+            newDir = gameState.currentDirectory === '~' ? `~/${newDir}` : `${gameState.currentDirectory}/${newDir}`;
+          }
 
-        if (fileSystem[newDir]) {
-          setGameState(prev => ({ ...prev, currentDirectory: newDir }));
-        } else {
-          addToHistory(`cd: ${args[0]}: No such file or directory`);
+          if (fileSystem[newDir]) {
+            setGameState(prev => ({ ...prev, currentDirectory: newDir }));
+          } else {
+            addToHistory(`cd: ${args[0]}: No such file or directory`);
+          }
         }
         break;
 
       case 'cat':
-        if (args.length === 0) {
-          addToHistory('cat: missing argument');
-          break;
-        }
-        
-        const contents2 = getCurrentDirectoryContents();
-        const file = contents2[args[0]];
-        if (file && file.type === 'file') {
-          addToHistory(file.content || '');
-        } else {
-          addToHistory(`cat: ${args[0]}: No such file or directory`);
+        {
+          if (args.length === 0) {
+            addToHistory('cat: missing argument');
+            break;
+          }
+          
+          const contents2 = getCurrentDirectoryContents();
+          const file = contents2[args[0]];
+          if (file && file.type === 'file') {
+            addToHistory(file.content || '');
+          } else {
+            addToHistory(`cat: ${args[0]}: No such file or directory`);
+          }
         }
         break;
 
       case 'rm':
-        if (args.length === 0) {
-          addToHistory('rm: missing argument');
-          break;
-        }
-        
-        const contents3 = getCurrentDirectoryContents();
-        const fileToRemove = contents3[args[0]];
-        if (fileToRemove && fileToRemove.type === 'file') {
-          if (fileToRemove.isMalicious) {
-            setGameState(prev => ({
-              ...prev,
-              gameWon: true,
-              terminalHistory: [...prev.terminalHistory, '', `SYSTEM: Malicious file ${args[0]} removed. System secure. Well done!`, '🎉 Congratulations! You successfully identified and removed the threat!']
-            }));
-          } else {
-            addToHistory(`File ${args[0]} removed`);
+        {
+          if (args.length === 0) {
+            addToHistory('rm: missing argument');
+            break;
           }
-        } else {
-          addToHistory(`rm: ${args[0]}: No such file or directory`);
+          
+          const contents3 = getCurrentDirectoryContents();
+          const fileToRemove = contents3[args[0]];
+          if (fileToRemove && fileToRemove.type === 'file') {
+            if (fileToRemove.isMalicious) {
+              setGameState(prev => ({
+                ...prev,
+                gameWon: true,
+                terminalHistory: [...prev.terminalHistory, '', `SYSTEM: Malicious file ${args[0]} removed. System secure. Well done!`, '🎉 Congratulations! You successfully identified and removed the threat!']
+              }));
+            } else {
+              addToHistory(`File ${args[0]} removed`);
+            }
+          } else {
+            addToHistory(`rm: ${args[0]}: No such file or directory`);
+          }
         }
         break;
 

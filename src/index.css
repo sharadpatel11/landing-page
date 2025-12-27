@@ -59,10 +59,26 @@
 
   body {
     @apply text-foreground;
+    overflow-x: hidden;
+  }
+
+  html.theme-classic body {
     background-color: #0a0a0a;
     background-image: linear-gradient(rgba(0,255,65,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,65,0.1) 1px, transparent 1px);
     background-size: 20px 20px;
-    overflow-x: hidden;
+  }
+
+  html.theme-modern body {
+    background-color: hsl(var(--background));
+    background-image:
+      radial-gradient(800px 400px at 20% 10%, rgba(255, 255, 255, 0.06), transparent 60%),
+      radial-gradient(700px 350px at 80% 20%, rgba(99, 102, 241, 0.12), transparent 60%),
+      radial-gradient(700px 350px at 50% 90%, rgba(16, 185, 129, 0.10), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  html.theme-modern {
+    color-scheme: dark;
   }
 
   .cyber-text {

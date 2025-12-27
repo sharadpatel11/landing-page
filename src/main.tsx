@@ -1,5 +1,10 @@
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
+import { UiModeProvider } from "./theme/ui-mode";
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(
+  <UiModeProvider>
+    <App />
+  </UiModeProvider>
+);
