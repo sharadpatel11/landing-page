@@ -58,8 +58,8 @@ const Contact = () => {
     {
       icon: Mail,
       label: "Direct Email",
-      value: "sharadpatel115222@gmail.com",
-      href: "mailto:sharadpatel115222@gmail.com",
+      value: "sharadpatel.cs@gmail.com",
+      href: "mailto:sharadpatel.cs@gmail.com",
       color: "text-cyber-green"
     },
     {

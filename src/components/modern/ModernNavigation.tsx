@@ -1,6 +1,9 @@
+import UiModeToggle from "@/components/UiModeToggle";
+
 const nav = [
   { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
+  { label: "Education", href: "#education" },
+  { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
   { label: "Playground", href: "#games" },
   { label: "Projects", href: "#projects" },
@@ -48,13 +51,14 @@ export default function ModernNavigation() {
 
             <div className="flex items-center gap-2">
               <a
-                href="Sharad_Patel_Resume.pdf"
+                href="/Sharad_Patel_Resume.pdf"
                 target="_blank"
                 rel="noreferrer"
                 className="hidden sm:inline-flex items-center rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-foreground/90 hover:bg-white/10 transition-colors"
               >
                 Resume
               </a>
+              <UiModeToggle />
             </div>
           </div>
         </div>
