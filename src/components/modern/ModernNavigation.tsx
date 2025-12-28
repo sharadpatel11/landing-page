@@ -1,5 +1,3 @@
-import UiModeToggle from "@/components/UiModeToggle";
-
 const nav = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
@@ -42,7 +40,6 @@ export default function ModernNavigation() {
             </div>
 
             <div className="flex items-center gap-2">
-              <UiModeToggle />
               <a
                 href="Sharad_Patel_Resume.pdf"
                 target="_blank"
