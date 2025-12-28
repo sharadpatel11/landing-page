@@ -163,7 +163,7 @@ export default function IndexModern() {
 
               <div className="relative px-6 py-14 sm:px-10 sm:py-18 lg:px-12 lg:py-20">
                 <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
-                  <div className="text-center lg:text-left">
+                  <div className="text-center lg:text-left" data-reveal="left">
                     <p className="text-xs font-medium tracking-[0.28em] text-muted-foreground">
                     CYBERSECURITY · DEFENSE · SYSTEMS
                     </p>
@@ -212,7 +212,7 @@ export default function IndexModern() {
                     </div>
                   </div>
 
-                  <div className="hidden lg:block">
+                  <div className="hidden lg:block" data-reveal="right">
                     <CyberOpsPanel />
                   </div>
                 </div>
@@ -224,7 +224,7 @@ export default function IndexModern() {
         {/* ABOUT */}
         <section id="about" className="py-20 lg:py-24">
           <div className="mx-auto max-w-7xl px-4">
-            <div className="grid gap-10 md:grid-cols-2">
+            <div className="grid gap-10 md:grid-cols-2" data-reveal>
               <div>
                 <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">About</h2>
                 <p className="mt-4 text-muted-foreground leading-relaxed">
@@ -266,7 +266,7 @@ export default function IndexModern() {
         {/* SKILLS */}
         <section id="skills" className="py-20 lg:py-24">
           <div className="mx-auto max-w-7xl px-4">
-            <div className="flex items-end justify-between gap-6">
+            <div className="flex items-end justify-between gap-6" data-reveal>
               <div>
                 <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Skills</h2>
                 <p className="mt-3 max-w-2xl text-muted-foreground">
@@ -292,6 +292,7 @@ export default function IndexModern() {
               ].map((card) => (
                 <div
                   key={card.title}
+                  data-reveal="scale"
                   className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 lg:p-6 transition-all hover:bg-white/[0.05] hover:border-white/15"
                 >
                   <p className="text-sm font-medium">{card.title}</p>
@@ -312,7 +313,7 @@ export default function IndexModern() {
         {/* PLAYGROUND */}
         <section id="games" className="py-20 lg:py-24">
           <div className="mx-auto max-w-7xl px-4">
-            <div className="flex items-end justify-between gap-6">
+            <div className="flex items-end justify-between gap-6" data-reveal>
               <div>
                 <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Playground</h2>
                 <p className="mt-3 max-w-2xl text-muted-foreground">
@@ -326,6 +327,7 @@ export default function IndexModern() {
                 <button
                   key={g.id}
                   type="button"
+                  data-reveal="scale"
                   onClick={() => {
                     if (g.id === "crypto-tool") window.open(g.path, "_blank");
                     else navigate(g.path);
@@ -354,7 +356,7 @@ export default function IndexModern() {
         {/* PROJECTS */}
         <section id="projects" className="py-20 lg:py-24">
           <div className="mx-auto max-w-7xl px-4">
-            <div className="flex items-end justify-between gap-6">
+            <div className="flex items-end justify-between gap-6" data-reveal>
               <div>
                 <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Projects</h2>
                 <p className="mt-3 max-w-2xl text-muted-foreground">
@@ -375,6 +377,7 @@ export default function IndexModern() {
               {projects.map((p) => (
                 <div
                   key={p.title}
+                  data-reveal="scale"
                   className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-7 transition-all hover:bg-white/[0.05] hover:border-white/15"
                 >
                   <div className="flex items-start justify-between gap-4">
@@ -406,7 +409,7 @@ export default function IndexModern() {
         {/* CONTACT */}
         <section id="contact" className="py-20 lg:py-24">
           <div className="mx-auto max-w-7xl px-4">
-            <div className="grid gap-10 md:grid-cols-2">
+            <div className="grid gap-10 md:grid-cols-2" data-reveal>
               <div>
                 <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Contact</h2>
                 <p className="mt-3 max-w-xl text-muted-foreground">
@@ -439,7 +442,7 @@ export default function IndexModern() {
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-7">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-7" data-reveal="scale">
                 <form onSubmit={onSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <label className="text-sm text-muted-foreground">Email</label>
@@ -493,7 +496,7 @@ export default function IndexModern() {
 
       <footer className="border-t border-white/10 py-10">
         <div className="mx-auto max-w-7xl px-4">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between" data-reveal>
             <p className="text-sm text-muted-foreground">© 2025 Sharad Patel</p>
             <UiModeToggle variant="footer" />
           </div>

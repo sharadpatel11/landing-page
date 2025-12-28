@@ -958,3 +958,142 @@
     radial-gradient(circle at 50% 50%, rgba(0, 102, 255, 0.05) 0%, transparent 50%);
   background-size: 20px 20px, 20px 20px, 100px 100px;
 }
+
+/* Modern scrollbar (subtle + techy) */
+html.theme-modern ::-webkit-scrollbar {
+  width: 10px;
+}
+
+html.theme-modern ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+html.theme-modern ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.35), rgba(99, 102, 241, 0.35));
+  border-radius: 999px;
+  border: 2px solid rgba(0, 0, 0, 0.25);
+}
+
+html.theme-modern {
+  scrollbar-color: rgba(16, 185, 129, 0.35) rgba(255, 255, 255, 0.03);
+  scrollbar-width: thin;
+}
+
+/* Reveal-on-scroll (used via data-reveal + ScrollRevealObserver) */
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  filter: blur(8px);
+  transition: opacity 700ms ease, transform 700ms ease, filter 700ms ease;
+  will-change: opacity, transform, filter;
+}
+
+[data-reveal="left"] {
+  transform: translate3d(-14px, 0, 0);
+}
+
+[data-reveal="right"] {
+  transform: translate3d(14px, 0, 0);
+}
+
+[data-reveal="scale"] {
+  transform: translate3d(0, 10px, 0) scale(0.98);
+}
+
+[data-reveal][data-revealed="true"] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* Scanline overlay (used by InitialBootLoader + Ops visuals) */
+.ops-scanline {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 38%,
+    rgba(16, 185, 129, 0.06) 50%,
+    rgba(255, 255, 255, 0.04) 62%,
+    transparent 100%
+  );
+  transform: translateY(-120%);
+  animation: opsScanline 1.6s linear infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes opsScanline {
+  0% {
+    transform: translateY(-120%);
+  }
+  100% {
+    transform: translateY(120%);
+  }
+}
+
+/* Ops hologram icon motion */
+.ops-sigil-rotate {
+  transform-origin: 50% 50%;
+  animation: opsRotate 10s linear infinite;
+}
+
+.ops-sigil-dash {
+  stroke-dasharray: 3 10;
+  animation: opsDash 2.8s linear infinite;
+}
+
+.ops-sigil-flicker {
+  animation: opsFlicker 5.5s ease-in-out infinite;
+}
+
+@keyframes opsRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes opsDash {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+@keyframes opsFlicker {
+  0%,
+  100% {
+    opacity: 0.95;
+  }
+  42% {
+    opacity: 0.85;
+  }
+  44% {
+    opacity: 0.45;
+  }
+  46% {
+    opacity: 0.9;
+  }
+  72% {
+    opacity: 0.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+
+  .ops-scanline,
+  .ops-sigil-rotate,
+  .ops-sigil-dash,
+  .ops-sigil-flicker {
+    animation: none !important;
+  }
+}
