@@ -13,7 +13,7 @@ export default function IndexClassic() {
       <Navigation />
 
       <main>
-        <section id="home">
+        <section id="home" className="scroll-mt-24 pt-6 pb-10">
           <Hero />
         </section>
 
