@@ -165,7 +165,7 @@ export default function IndexModern() {
         <ModernHero
           copy={{
             eyebrow: "CYBERSECURITY · IAM · CONTAINER SECURITY · INCIDENT RESPONSE",
-            headline: "Sharad Patel // Securing the Digital Frontier",
+            headline: "Sharad Patel: Systems & Security.",
             subheadline:
               "M.S. Cybersecurity student at NYU Tandon. IT & Security professional focused on IAM, container security, and incident response",
             highlights: ["NYU Tandon · M.S. Cybersecurity", "Queens College · B.S. Computer Science"],
@@ -256,18 +256,23 @@ export default function IndexModern() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, amount: 0.2 }}
-              className="grid gap-10 lg:grid-cols-2"
+              className="grid gap-10 md:grid-cols-2"
             >
               <motion.div variants={fadeUp}>
                 <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Experience</h2>
                 <p className="mt-3 max-w-xl text-muted-foreground">
                   A clean, operator-first timeline — built around uptime, access, and incident readiness.
                 </p>
+              </motion.div>
 
+              <motion.div variants={fadeUp}>
                 <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-7">
                   <div className="relative pl-6">
-                    <div className="absolute left-2 top-1 bottom-1 w-px bg-white/10" aria-hidden="true" />
-                    <div className="absolute left-[3px] top-2 h-4 w-4 rounded-full border border-white/15 bg-emerald-400/25" aria-hidden="true" />
+                    <div className="absolute bottom-1 left-2 top-1 w-px bg-white/10" aria-hidden="true" />
+                    <div
+                      className="absolute left-[3px] top-2 h-4 w-4 rounded-full border border-white/15 bg-emerald-400/25"
+                      aria-hidden="true"
+                    />
 
                     <p className="text-sm font-medium tracking-tight">Oxford International Education Group</p>
                     <p className="mt-1 text-sm text-muted-foreground">IT & Security Operations</p>
@@ -302,51 +307,6 @@ export default function IndexModern() {
                   </div>
                 </div>
               </motion.div>
-
-              <motion.div variants={fadeUp}>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 lg:p-7">
-                  <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground">PROJECTS (BENTO)</p>
-                  <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                    <div className="rounded-2xl border border-white/10 bg-black/20 p-5 transition-colors hover:bg-white/[0.03]">
-                      <p className="text-base font-medium tracking-tight">Helpdesk Ticketing System</p>
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        A workflow-first ticketing setup to improve triage, accountability, and response time.
-                      </p>
-                      <div className="mt-4 flex flex-wrap gap-2 font-mono text-xs">
-                        <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-muted-foreground">
-                          ITSM
-                        </span>
-                        <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-muted-foreground">
-                          Ops
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="rounded-2xl border border-white/10 bg-black/20 p-5 transition-colors hover:bg-white/[0.03]">
-                      <p className="text-base font-medium tracking-tight">Cybersecurity Homelab</p>
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        A safe environment for detection practice, container hardening, and incident-response drills.
-                      </p>
-                      <div className="mt-4 flex flex-wrap gap-2 font-mono text-xs">
-                        <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-muted-foreground">
-                          Docker
-                        </span>
-                        <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-muted-foreground">
-                          IR
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="sm:col-span-2 rounded-2xl border border-white/10 bg-black/20 p-5">
-                      <p className="text-sm font-medium tracking-tight">Operator mindset</p>
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        Minimal interfaces, clear signals, and repeatable processes — the same approach used across the
-                        site.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
             </motion.div>
           </div>
         </section>
@@ -357,7 +317,7 @@ export default function IndexModern() {
             <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
               <motion.div variants={fadeUp} className="flex items-end justify-between gap-6">
                 <div>
-                  <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Command Center</h2>
+                  <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Skills</h2>
                   <p className="mt-3 max-w-2xl text-muted-foreground">
                     Four clean capability groups — presented like a systems dashboard.
                   </p>
