@@ -1,12 +1,11 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ModernNavigation from "@/components/modern/ModernNavigation";
-import CyberHeroVisual from "@/components/modern/CyberHeroVisual";
+import ModernHero from "@/components/modern/ModernHero";
 import UiModeToggle from "@/components/UiModeToggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 
 type Game = {
@@ -151,75 +150,7 @@ export default function IndexModern() {
 
       <main className="pt-20">
         {/* HERO */}
-        <section id="home" className="relative">
-          <div className="mx-auto max-w-7xl px-4">
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
-              <div className="pointer-events-none absolute inset-0">
-                <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl" />
-                <div className="absolute -bottom-28 right-0 h-72 w-72 rounded-full bg-emerald-500/20 blur-3xl" />
-                <div className="absolute inset-0 bg-gradient-to-b from-white/[0.04] to-transparent" />
-                <div className="absolute inset-0 bg-cyber-grid bg-grid opacity-[0.06] animate-grid-pan" />
-              </div>
-
-              <div className="relative px-6 py-14 sm:px-10 sm:py-18 lg:px-12 lg:py-20">
-                <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
-                  <div className="text-center lg:text-left" data-reveal="left">
-                    <p className="text-xs font-medium tracking-[0.28em] text-muted-foreground">
-                    CYBERSECURITY · DEFENSE · SYSTEMS
-                    </p>
-                    <h1 className="mt-5 text-4xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-                      Security work that’s calm, clear, and built to last.
-                    </h1>
-                    <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg lg:text-xl">
-                      I’m Sharad Patel — focused on threat intelligence, secure infrastructure, and incident-ready
-                      programs. A portfolio that prioritizes clarity over noise.
-                    </p>
-
-                    <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
-                      <Button
-                        size="lg"
-                        className="rounded-xl bg-white text-black hover:bg-white/90"
-                        onClick={() => {
-                          const el = document.querySelector("#projects");
-                          el?.scrollIntoView({ behavior: "smooth" });
-                        }}
-                      >
-                        Explore projects
-                      </Button>
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        className="rounded-xl border-white/15 bg-white/0 hover:bg-white/5"
-                        onClick={() => {
-                          const el = document.querySelector("#contact");
-                          el?.scrollIntoView({ behavior: "smooth" });
-                        }}
-                      >
-                        Contact
-                      </Button>
-                    </div>
-
-                    <div className="mt-10 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
-                      <Badge variant="outline" className="border-white/10 bg-white/5 text-muted-foreground">
-                        NYU Tandon · MS Cybersecurity
-                      </Badge>
-                      <Badge variant="outline" className="border-white/10 bg-white/5 text-muted-foreground">
-                        Threat Intel
-                      </Badge>
-                      <Badge variant="outline" className="border-white/10 bg-white/5 text-muted-foreground">
-                        Incident Response
-                      </Badge>
-                    </div>
-                  </div>
-
-                  <div className="hidden lg:block" data-reveal="right">
-                    <CyberHeroVisual />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ModernHero />
 
         {/* ABOUT */}
         <section id="about" className="py-20 lg:py-24">
