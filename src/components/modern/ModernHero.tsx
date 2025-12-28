@@ -83,7 +83,13 @@ export default function ModernHero({ copy, className }: ModernHeroProps) {
   } as const;
 
   return (
-    <section id="home" className={cn("relative", className)}>
+    <section
+      id="home"
+      className={cn(
+        "relative scroll-mt-28 mt-4 mb-12 sm:mt-6 sm:mb-14",
+        className
+      )}
+    >
       <div className="mx-auto max-w-7xl px-4">
         <div
           ref={cardRef}
