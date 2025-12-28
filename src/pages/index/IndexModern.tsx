@@ -167,7 +167,7 @@ export default function IndexModern() {
             eyebrow: "CYBERSECURITY · IAM · CONTAINER SECURITY · INCIDENT RESPONSE",
             headline: "Sharad Patel: Systems & Security.",
             subheadline:
-              "M.S. Cybersecurity student at NYU Tandon. IT & Security professional focused on IAM, container security, and incident response",
+              "M.S. Cybersecurity student at NYU Tandon. IT & security operator focused on identity, container hardening, and incident response.",
             highlights: ["NYU Tandon · M.S. Cybersecurity", "Queens College · B.S. Computer Science"],
             primaryCtaLabel: "Explore projects",
             secondaryCtaLabel: "Contact",
@@ -206,7 +206,7 @@ export default function IndexModern() {
                   Education & Certifications
                 </h2>
                 <p className="mt-3 max-w-xl text-muted-foreground">
-                  Academic rigor paired with practical, operational security work.
+                  Graduate and undergraduate training, plus certifications currently in progress.
                 </p>
               </motion.div>
 
@@ -261,7 +261,7 @@ export default function IndexModern() {
               <motion.div variants={fadeUp}>
                 <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Experience</h2>
                 <p className="mt-3 max-w-xl text-muted-foreground">
-                  A clean, operator-first timeline — built around uptime, access, and incident readiness.
+                  Operations-focused work improving uptime, access controls, and incident readiness.
                 </p>
               </motion.div>
 
@@ -319,7 +319,7 @@ export default function IndexModern() {
                 <div>
                   <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Skills</h2>
                   <p className="mt-3 max-w-2xl text-muted-foreground">
-                    Four clean capability groups — presented like a systems dashboard.
+                    A concise snapshot across security ops, infrastructure, IT operations, and automation.
                   </p>
                 </div>
               </motion.div>
@@ -381,7 +381,7 @@ export default function IndexModern() {
                 <div>
                   <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Playground</h2>
                   <p className="mt-3 max-w-2xl text-muted-foreground">
-                    Interactive challenges that mirror real security scenarios.
+                    Hands-on mini challenges across phishing, IR triage, crypto basics, policy, and secure code review.
                   </p>
                 </div>
               </motion.div>
@@ -429,7 +429,7 @@ export default function IndexModern() {
                 <div>
                   <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Projects</h2>
                   <p className="mt-3 max-w-2xl text-muted-foreground">
-                    A small set of security-focused builds — designed for clarity, repeatability, and impact.
+                    A roadmap of security builds, scoped for repeatable workflows and measurable outcomes.
                   </p>
                 </div>
                 <a
@@ -489,7 +489,7 @@ export default function IndexModern() {
               <motion.div variants={fadeUp}>
                 <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">Contact</h2>
                 <p className="mt-3 max-w-xl text-muted-foreground">
-                  Hiring, collaborating, or swapping notes? Reach me quickly via email or LinkedIn.
+                  Send a quick note via the form, or reach me on email, LinkedIn, or GitHub.
                 </p>
 
                 <div className="mt-8 space-y-2 text-sm">
