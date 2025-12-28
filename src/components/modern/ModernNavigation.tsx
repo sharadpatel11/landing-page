@@ -1,5 +1,4 @@
 import UiModeToggle from "@/components/UiModeToggle";
-import QuickActions from "@/components/widgets/QuickActions";
 
 const nav = [
   { label: "Home", href: "#home" },
@@ -43,7 +42,6 @@ export default function ModernNavigation() {
             </div>
 
             <div className="flex items-center gap-2">
-              <QuickActions className="hidden sm:flex" />
               <UiModeToggle />
               <a
                 href="Sharad_Patel_Resume.pdf"

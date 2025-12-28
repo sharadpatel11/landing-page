@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ModernNavigation from "@/components/modern/ModernNavigation";
-import CyberOpsPanel from "@/components/modern/CyberOpsPanel";
+import CyberHeroVisual from "@/components/modern/CyberHeroVisual";
 import UiModeToggle from "@/components/UiModeToggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -213,7 +213,7 @@ export default function IndexModern() {
                   </div>
 
                   <div className="hidden lg:block" data-reveal="right">
-                    <CyberOpsPanel />
+                    <CyberHeroVisual />
                   </div>
                 </div>
               </div>
