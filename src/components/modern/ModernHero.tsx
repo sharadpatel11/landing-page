@@ -32,9 +32,22 @@ type ModernHeroProps = {
   className?: string;
 };
 
-function scrollToTarget(target: string) {
-  const el = document.querySelector(target);
-  el?.scrollIntoView({ behavior: "smooth" });
+function scrollToTarget(target?: string) {
+  if (target) {
+    const el = document.querySelector(target);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+  }
+
+  // Fallback: scroll to the next section after the hero.
+  const home = document.getElementById("home");
+  let next = home?.nextElementSibling ?? null;
+  while (next && !(next instanceof HTMLElement && next.tagName.toLowerCase() === "section")) {
+    next = next.nextElementSibling;
+  }
+  (next as HTMLElement | null)?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 export default function ModernHero({ copy, className }: ModernHeroProps) {
@@ -203,8 +216,8 @@ export default function ModernHero({ copy, className }: ModernHeroProps) {
             {/* Scroll indicator */}
             <motion.button
               type="button"
-              aria-label="Scroll to about section"
-              onClick={() => scrollToTarget("#about")}
+              aria-label="Scroll to next section"
+              onClick={() => scrollToTarget("#education")}
               className={cn(
                 "absolute bottom-5 left-1/2 -translate-x-1/2",
                 "inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-3 py-1.5",
