@@ -16,7 +16,14 @@ export default function ModernNavigation() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
       <div className="mx-auto max-w-7xl px-4">
-        <div className="mt-3 rounded-2xl border border-white/10 bg-background/70 backdrop-blur-xl shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset]">
+        <div
+          className={[
+            "mt-3 rounded-2xl border border-white/10",
+            "bg-white/[0.04] backdrop-blur-2xl saturate-150",
+            "shadow-[0_1px_0_0_rgba(255,255,255,0.10)_inset,0_18px_40px_-28px_rgba(0,0,0,0.65)]",
+            "supports-[backdrop-filter]:bg-white/[0.035]",
+          ].join(" ")}
+        >
           <div className="flex h-14 items-center justify-between px-3 lg:h-16 lg:px-4">
             <button
               type="button"
