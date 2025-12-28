@@ -1,7 +1,6 @@
 import { PropsWithChildren, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUiMode } from "@/theme/ui-mode";
-import UiModeToggle from "@/components/UiModeToggle";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
@@ -70,7 +69,6 @@ export default function PlaygroundFrame({
 
             <div className="flex items-center gap-2">
               {rightSlot ? <div className="hidden sm:block">{rightSlot}</div> : null}
-              <UiModeToggle />
             </div>
           </div>
           {rightSlot ? <div className="pb-3 sm:hidden">{rightSlot}</div> : null}

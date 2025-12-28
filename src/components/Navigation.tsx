@@ -2,7 +2,6 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import UiModeToggle from "@/components/UiModeToggle";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +55,6 @@ const Navigation = () => {
                 </div>
               </div>
             ))}
-            <UiModeToggle className="text-gray-300 hover:text-cyber-green hover:bg-cyber-green/10" />
             <Button 
               size="sm"
               className="bg-cyber-green hover:bg-cyber-green/80 text-black font-mono font-semibold glow-effect text-xs px-3 py-1"
@@ -113,10 +111,6 @@ const Navigation = () => {
                 </button>
               ))}
 
-              <div className="pt-2">
-                <UiModeToggle className="w-fit text-gray-300 hover:text-cyber-green hover:bg-cyber-green/10" />
-              </div>
-              
               <Button 
                 size="sm"
                 className="bg-cyber-green hover:bg-cyber-green/80 text-black font-mono font-semibold glow-effect w-fit mt-4"
