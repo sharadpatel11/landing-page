@@ -1,86 +1,37 @@
-import { Activity, Fingerprint, Lock, Radar, ShieldCheck, Server } from "lucide-react";
+import type { ReactNode } from "react";
+import { Activity, AlertTriangle, CheckCircle2, ChevronRight, Clock3, Shield, TerminalSquare } from "lucide-react";
 
-function StatPill({
-  label,
-  value,
-  icon,
-}: {
-  label: string;
-  value: string;
-  icon: React.ReactNode;
-}) {
-  return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-4 lg:p-5">
-      <div className="pointer-events-none absolute inset-0 opacity-70">
-        <div className="absolute -left-1/2 top-0 h-full w-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer-x" />
-      </div>
-      <div className="relative flex items-start justify-between gap-4">
-        <div>
-          <p className="text-xs font-medium tracking-[0.18em] text-muted-foreground">{label}</p>
-          <p className="mt-2 text-lg font-semibold tracking-tight lg:text-xl">{value}</p>
-        </div>
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-foreground/90">
-          {icon}
-        </div>
-      </div>
-    </div>
-  );
+type Severity = "info" | "warn" | "ok";
+
+function SeverityDot({ severity }: { severity: Severity }) {
+  const color =
+    severity === "ok"
+      ? "bg-emerald-400/80"
+      : severity === "warn"
+        ? "bg-amber-400/80"
+        : "bg-indigo-400/80";
+
+  return <span className={`h-2 w-2 rounded-full ${color}`} aria-hidden="true" />;
 }
 
-function RadarWidget() {
+function SectionTitle({
+  icon,
+  title,
+  meta,
+}: {
+  icon: ReactNode;
+  title: string;
+  meta?: string;
+}) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-4 lg:p-5">
-      <div className="flex items-center justify-between">
-        <p className="text-xs font-medium tracking-[0.18em] text-muted-foreground">SITUATIONAL AWARENESS</p>
-        <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted-foreground">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/80" />
-          Online
+    <div className="flex items-start justify-between gap-4">
+      <div className="flex items-center gap-2">
+        <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-foreground/90">
+          {icon}
         </span>
-      </div>
-
-      <div className="mt-4 grid grid-cols-2 gap-3">
-        <div className="relative aspect-square rounded-2xl border border-white/10 bg-black/20 p-3">
-          <div className="absolute inset-0 bg-cyber-grid bg-grid opacity-[0.18] animate-grid-pan" />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/[0.06] to-transparent" />
-
-          <div className="absolute left-1/2 top-1/2 h-[140%] w-[2px] -translate-x-1/2 -translate-y-1/2 rotate-12 bg-gradient-to-b from-transparent via-emerald-400/60 to-transparent animate-spin [animation-duration:4.5s]" />
-          <div className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-400/80 shadow-[0_0_20px_rgba(16,185,129,0.6)]" />
-
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Radar className="h-7 w-7 text-emerald-200/80" />
-          </div>
-
-          <div className="absolute bottom-3 left-3 right-3">
-            <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <span>Scan</span>
-              <span className="text-foreground/90">Active</span>
-            </div>
-            <div className="mt-2 h-1.5 rounded-full bg-white/5">
-              <div className="h-1.5 w-[78%] rounded-full bg-gradient-to-r from-emerald-400/80 to-indigo-400/80" />
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-3">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-            <div className="flex items-center gap-2 text-sm font-medium">
-              <ShieldCheck className="h-4 w-4 text-emerald-300/90" />
-              Hardening
-            </div>
-            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-              Baselines applied, drift monitored, and remediation queued.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-            <div className="flex items-center gap-2 text-sm font-medium">
-              <Lock className="h-4 w-4 text-indigo-300/90" />
-              Secure by default
-            </div>
-            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-              Least privilege, audit trails, and fast rollback paths.
-            </p>
-          </div>
+        <div>
+          <p className="text-xs font-medium tracking-[0.18em] text-muted-foreground">{title}</p>
+          {meta ? <p className="mt-1 text-xs text-muted-foreground">{meta}</p> : null}
         </div>
       </div>
     </div>
@@ -88,6 +39,13 @@ function RadarWidget() {
 }
 
 export default function CyberOpsPanel() {
+  const events: Array<{ time: string; severity: Severity; text: string }> = [
+    { time: "00:12", severity: "info", text: "Auth logs normalized · 3 sources" },
+    { time: "00:09", severity: "warn", text: "Suspicious sign-in pattern · rate limited" },
+    { time: "00:06", severity: "ok", text: "EDR policy drift · remediated" },
+    { time: "00:03", severity: "info", text: "DNS telemetry ingest · healthy" },
+  ];
+
   return (
     <div className="relative">
       <div className="pointer-events-none absolute -inset-8 opacity-60">
@@ -96,29 +54,105 @@ export default function CyberOpsPanel() {
       </div>
 
       <div className="relative grid gap-4 lg:gap-5">
-        <RadarWidget />
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 lg:p-5">
+          <div className="flex items-center justify-between gap-4">
+            <p className="text-xs font-medium tracking-[0.18em] text-muted-foreground">OPS BRIEF</p>
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted-foreground">
+              <span className="status-indicator h-1.5 w-1.5 rounded-full bg-emerald-400/80" />
+              Ready
+            </span>
+          </div>
 
-        <div className="grid gap-4 sm:grid-cols-3 lg:gap-5">
-          <div className="sm:col-span-1 animate-float-y motion-reduce:animate-none">
-            <StatPill
-              label="RISK SCORE"
-              value="Low · 0.14"
-              icon={<Fingerprint className="h-5 w-5" />}
-            />
+          <div className="mt-4 rounded-2xl border border-white/10 bg-black/20 p-4">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2 text-sm font-medium">
+                <TerminalSquare className="h-4 w-4 text-emerald-200/80" />
+                Current focus
+              </div>
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <Clock3 className="h-3.5 w-3.5" />
+                Updated just now
+              </div>
+            </div>
+
+            <div className="mt-3 space-y-2 text-xs text-muted-foreground">
+              <p className="font-mono">
+                <span className="text-foreground/80">$</span> triage --queue=signals --mode=quiet
+              </p>
+              <p className="font-mono">
+                <span className="text-foreground/80">→</span> keep alerts actionable · document decisions
+              </p>
+            </div>
           </div>
-          <div className="sm:col-span-1 sm:translate-y-2 animate-float-y motion-reduce:animate-none [animation-delay:900ms]">
-            <StatPill
-              label="DETECTIONS"
-              value="12 triaged"
-              icon={<Activity className="h-5 w-5" />}
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:gap-5">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 lg:p-5">
+            <SectionTitle
+              icon={<Activity className="h-4 w-4" />}
+              title="EVENT STREAM"
+              meta="Last 15 minutes (sample)"
             />
+
+            <div className="mt-4 space-y-2">
+              {events.map((e) => (
+                <div
+                  key={`${e.time}-${e.text}`}
+                  className="flex items-start justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-3 py-2"
+                >
+                  <div className="flex items-start gap-2">
+                    <div className="mt-1">
+                      <SeverityDot severity={e.severity} />
+                    </div>
+                    <p className="text-xs leading-relaxed text-muted-foreground">{e.text}</p>
+                  </div>
+                  <span className="shrink-0 font-mono text-[11px] text-muted-foreground">{e.time}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="sm:col-span-1 animate-float-y motion-reduce:animate-none [animation-delay:450ms]">
-            <StatPill
-              label="INFRA"
-              value="Hardened"
-              icon={<Server className="h-5 w-5" />}
-            />
+
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 lg:p-5">
+            <SectionTitle icon={<Shield className="h-4 w-4" />} title="NEXT ACTIONS" meta="Operator checklist" />
+
+            <div className="mt-4 space-y-2">
+              {[
+                { icon: <CheckCircle2 className="h-4 w-4 text-emerald-300/90" />, text: "Harden baseline & monitor drift" },
+                { icon: <AlertTriangle className="h-4 w-4 text-amber-300/90" />, text: "Review risky auth patterns (SaaS)" },
+                { icon: <ChevronRight className="h-4 w-4 text-indigo-300/90" />, text: "Ship a short incident note template" },
+              ].map((item) => (
+                <div
+                  key={item.text}
+                  className="flex items-start gap-2 rounded-xl border border-white/10 bg-white/[0.02] px-3 py-2"
+                >
+                  <div className="mt-0.5">{item.icon}</div>
+                  <p className="text-xs leading-relaxed text-muted-foreground">{item.text}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.02] p-3">
+              <p className="text-xs font-medium tracking-[0.14em] text-muted-foreground">SIGNAL COVERAGE</p>
+              <div className="mt-3 space-y-2">
+                {[
+                  { label: "Auth", value: 88 },
+                  { label: "EDR", value: 74 },
+                  { label: "DNS", value: 92 },
+                  { label: "Netflow", value: 61 },
+                ].map((row) => (
+                  <div key={row.label} className="grid grid-cols-[52px,1fr,32px] items-center gap-2">
+                    <span className="text-[11px] text-muted-foreground">{row.label}</span>
+                    <div className="h-1.5 rounded-full bg-white/5">
+                      <div
+                        className="h-1.5 rounded-full bg-gradient-to-r from-emerald-400/70 to-indigo-400/70"
+                        style={{ width: `${row.value}%` }}
+                      />
+                    </div>
+                    <span className="text-right font-mono text-[11px] text-muted-foreground">{row.value}%</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
